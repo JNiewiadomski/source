@@ -13,4 +13,13 @@ set number
 set smartindent
 set tabstop=4
 set shiftwidth=4
-set expandtab
+" set expandtab
+
+" Highlight all search matches.
+set hlsearch
+
+" Press F4 to toggle highlighting on/off, and show current value.
+:noremap <F4> :set hlsearch! hlsearch?<CR>
+
+" Press return to temporarily get out of the highlighted search.
+:nnoremap <CR> :nohlsearch<CR><CR>
