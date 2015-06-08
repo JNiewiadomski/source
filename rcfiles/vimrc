@@ -10,7 +10,7 @@ hi SpellBad cterm=underline
 " Enable line numbers.
 set number
 
-set smartindent
+" set smartindent
 set tabstop=4
 set shiftwidth=4
 " set expandtab
@@ -23,3 +23,12 @@ set hlsearch
 
 " Press return to temporarily get out of the highlighted search.
 :nnoremap <CR> :nohlsearch<CR><CR>
+
+" Put swap, backup and undo files in a special location instead of the working directory of the
+" file being edited
+set backup
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+set writebackup
+
