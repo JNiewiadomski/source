@@ -1,3 +1,15 @@
+" Use indentation scripts located in the indent folder of your VIM installation.
+if has("autocmd")
+  " Enable file type detection.
+  " Use the default filetype settings, so that mail gets 'tw' set to 72,
+  " 'cindent' is on in C files, etc.
+  " Also load indent files, to automatically do language-dependent indenting.
+"  filetype plugin indent on
+endif
+
+" Turn on color syntax highlighting.
+syntax on
+
 " Show whitespace.
 set list
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
@@ -10,7 +22,7 @@ hi SpellBad cterm=underline
 " Enable line numbers.
 set number
 
-" set smartindent
+" set autoindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -32,4 +44,13 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 set writebackup
+
+" Look in directory containing current file (.),
+" then current directory (empty text between two commas),
+" then each directory under current directory ('**').
+:set path=.,,**
+
+" Use Tab and Shift+Tab to go to next and previous tabs.
+:nnoremap <Tab> :tabn<CR>
+:nnoremap <S-Tab> :tabp<CR>
 
