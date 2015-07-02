@@ -54,3 +54,24 @@ set writebackup
 :nnoremap <Tab> :tabn<CR>
 :nnoremap <S-Tab> :tabp<CR>
 
+" Use <Ctrl-Up> to move up one line.
+:nnoremap [A <C-E>
+:inoremap [A <Esc><C-E>i
+
+" Use <Ctrl-Down> to move down one line.
+:nnoremap [B <C-Y>
+:inoremap [B <Esc><C-Y>i
+
+" Use <Ctrl-Right> to jump forward one word.
+:nnoremap [C w
+:inoremap [C <C-O>w
+
+" Use <Ctrl-Left> to jump back one word.
+:nnoremap [D b
+:inoremap [D <C-O>b
+
+:nnoremap <C-Home> gg
+:inoremap <C-Home> <Esc>ggi
+
+:nnoremap <C-End> G
+:inoremap <C-End> <Esc>G<End>i
