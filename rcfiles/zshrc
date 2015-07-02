@@ -83,3 +83,7 @@ source $ZSH/oh-my-zsh.sh
 #
 export REPO_ROOT=$HOME/src
 PATH=$PATH:$REPO_ROOT/build-internal/support-bin
+
+# Disable XON/XOFF flow control.
+# http://unix.stackexchange.com/questions/72086/ctrl-s-hang-terminal-emulator
+stty -ixon
