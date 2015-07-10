@@ -7,8 +7,15 @@ if has("autocmd")
 "  filetype plugin indent on
 endif
 
+colorscheme evening
+
 " Turn on color syntax highlighting.
 syntax on
+
+" Special case when in diff mode.
+if &diff
+    syntax off
+endif
 
 " Show whitespace.
 set list
