@@ -87,3 +87,10 @@ PATH=$PATH:$REPO_ROOT/build-internal/support-bin
 # Disable XON/XOFF flow control.
 # http://unix.stackexchange.com/questions/72086/ctrl-s-hang-terminal-emulator
 stty -ixon
+
+# Convenience function to invoke Vagrant commands. Some examples:
+# # vm status
+# # vm up base
+# # vm ssh base
+# #
+function vm() { (cd $REPO_ROOT/vm && vagrant $@) }
