@@ -34,6 +34,11 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+" Put a red mark when you go over 100 columns.
+" The matchadd is a reg ex - the v is virtual.
+highlight ColorColumn ctermbg=red
+call matchadd('ColorColumn', '\%101v', 100)
+
 " Highlight all search matches.
 set hlsearch
 hi MatchParen cterm=underline ctermbg=Black ctermfg=Red
