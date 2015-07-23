@@ -31,7 +31,7 @@ printf "--------------------------------------------\n\n"
 handle SIGPIPE nostop noprint pass
 
 # macros for printing Qt nicely
-# source ~/unix/kde-qt.gdb
+# source ~/unix/gdb/kde-qt.gdb
 
 # macros for stl nicely
-source ~/unix/stl-views.gdb
+source ~/unix/gdb/stl-views.gdb
