@@ -2,19 +2,23 @@
 
 ###################################################################################################
 #
-# Setup rc files in rcfiles directory
-#   Takes all files from rcfiles directory, and creates a soft link to them from the home
-#   directory, with a . prefixed to the file name.
+# Creates a soft link to all files in the home/ directory to the ~ directory.
 #
 ###################################################################################################
 
-RCFILES="`dirname ~/${0}`/rcfiles";
+HOME_FILES="`dirname ~/${0}`/home";
 
-for SRC in `find ${RCFILES} -type f \( ! -name "*.swp" \)`
+for SRC in `find ${HOME_FILES} -type f \( ! -name "*.swp" \)`
 do
-    DST=~/.`basename ${SRC}`;
+    DST=~/`basename ${SRC}`;
 
-    # If the destination file exists remove it.
+    # Remove existing symbolic links.
+    if [ -h ${DST} ];
+    then
+        unlink ${DST};
+    fi
+
+    # Remove existing destination files.
     if [ -f ${DST} ];
     then
         rm ${DST};
