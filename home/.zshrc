@@ -78,6 +78,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
 # Set up environment variables for working with scripts
 # that point at build-internal/support-bin
 #
@@ -94,3 +95,13 @@ stty -ixon
 # # vm ssh base
 # #
 function vm() { (cd $REPO_ROOT/vm && vagrant $@) }
+
+# Uncomment the following line if you want your terminal to support 256 color schemes.
+# export TERM="xterm-256color"
+
+# If you do a 'rm *', Zsh will give you a sanity check!
+setopt RM_STAR_WAIT
+
+# Zsh has a spelling corrector.
+setopt CORRECT
+
