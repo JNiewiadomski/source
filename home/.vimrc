@@ -68,11 +68,11 @@ set writebackup
 
 " Support for <Ctrl-Up>.
 :nnoremap [A <C-Y>
-:inoremap [A <Esc><C-Y>i
+:inoremap [A <Esc><C-Y>a
 
 " Support for <Ctrl-Down>.
 :nnoremap [B <C-E>
-:inoremap [B <Esc><C-E>i
+:inoremap [B <Esc><C-E>a
 
 " Use <Ctrl-Right> to jump forward one word.
 :nnoremap [C w
