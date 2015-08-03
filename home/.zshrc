@@ -105,3 +105,10 @@ setopt RM_STAR_WAIT
 # Zsh has a spelling corrector.
 setopt CORRECT
 
+# Allow terminal to support 256 color schemes.
+# export TERM="xterm-256color
+
+# Recognize <Ctrl-Arrow> keys to jump across words.
+bindkey "^[[1;5D" forward-word
+bindkey "^[[1;5C" backward-word"
+

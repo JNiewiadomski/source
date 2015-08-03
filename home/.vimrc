@@ -7,6 +7,10 @@ if has("autocmd")
 "  filetype plugin indent on
 endif
 
+" Available colorschemes:
+"   blue        darkblue    default     delek       desert      elflord     evening
+"   koehler     morning     murphy      pablo       peachpuff   ron         shine
+"   slate       torte       zellner
 colorscheme evening
 
 " Turn on color syntax highlighting.
