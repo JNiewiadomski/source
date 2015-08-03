@@ -86,8 +86,22 @@ set writebackup
 :nnoremap [D b
 :inoremap [D <C-O>b
 
+" Tmux prevents the <S-Arrow> and <C-Arrow> keys from being sent to VIM.
+
+" Select text.
+nmap <S-Up> v<Up>
+nmap <S-Down> v<Down>
+nmap <S-Left> v<Left>
+nmap <S-Right> v<Right>
+vmap <S-Up> <Up>
+vmap <S-Down> <Down>
+vmap <S-Left> <Left>
+vmap <S-Right> <Right>
+
+" Jump to start of file.
 :nnoremap <C-Home> gg
 :inoremap <C-Home> <Esc>ggi
 
+" Jump to end of file.
 :nnoremap <C-End> G
 :inoremap <C-End> <Esc>G<End>i
