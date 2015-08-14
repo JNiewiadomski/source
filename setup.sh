@@ -43,7 +43,6 @@ mkdir -p ~/.vim/undo
 # Set up Oh My Zsh with Babun theme.
 #
 ###################################################################################################
-echo
 echo Setting up Oh My Zsh with Babun theme.
 OH_MY_ZSH_URL="https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh"
 BABUN_THEME_URL="https://raw.githubusercontent.com/babun/babun/master/babun-core/plugins/oh-my-zsh/src/babun.zsh-theme"
