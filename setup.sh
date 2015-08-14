@@ -53,7 +53,7 @@ if ! [[ -d $HOME/.oh-my-zsh ]]; then
         echo Oh My Zsh is now your default command shell.
     else
         echo Making Oh My Zsh the default command shell.
-        sudo chsh -s $(which zsh) vagrant
+        sudo chsh -s $(which zsh)
     fi
 
     if ! curl -L $BABUN_THEME_URL > $HOME/.oh-my-zsh/custom/babun.zsh-theme; then
