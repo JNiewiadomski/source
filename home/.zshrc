@@ -89,6 +89,9 @@ PATH=$PATH:$REPO_ROOT/build-internal/support-bin
 # http://unix.stackexchange.com/questions/72086/ctrl-s-hang-terminal-emulator
 stty -ixon
 
+# Add Vagrant to PATH.
+PATH=${PATH}:/c/HashiCorp/Vagrant/bin
+
 # Convenience function to invoke Vagrant commands. Some examples:
 # # vm status
 # # vm up base
