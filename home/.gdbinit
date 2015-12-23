@@ -13,25 +13,30 @@ define fs
     focus src
 end
 
-define sb
-    save breakpoints breakpoints.txt
-end
-
 define lb
     source ./breakpoints.txt
 end
 
-printf "\n------------------------------------------\n"
+define sb
+    save breakpoints breakpoints.txt
+end
+
+printf "\n------------------------------------------------------\n"
 printf "fc - focus on command window (focus cmd)\n"
 printf "fs - focus on src window (focus src)\n"
+printf "lb - load breakpoints (source ./breakpoints.txt)\n"
+printf "sb - save breakpoints (save breakpoints breakpoints.txt)\n"
 printf "layout - split window\n"
-printf "--------------------------------------------\n\n"
+printf "--------------------------------------------------------\n\n"
 
 # this will make debugging the XL process more pleasant
 handle SIGPIPE nostop noprint pass
 
+# make GDB pass the signal straight to the inferior (being debugged) process
+handle SIGINT nostop print pass
+
 # macros for printing Qt nicely
 # source ~/unix/gdb/kde-qt.gdb
 
-# macros for stl nicely
+# macros for printing stl nicely
 source ~/unix/gdb/stl-views.gdb
