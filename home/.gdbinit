@@ -21,13 +21,15 @@ define sb
     save breakpoints breakpoints.txt
 end
 
-printf "\n------------------------------------------------------\n"
-printf "fc - focus on command window (focus cmd)\n"
-printf "fs - focus on src window (focus src)\n"
-printf "lb - load breakpoints (source ./breakpoints.txt)\n"
-printf "sb - save breakpoints (save breakpoints breakpoints.txt)\n"
+printf "\n"
+printf "------------------------------------------------------------\n"
+printf "    fc - focus on command window (focus cmd)\n"
+printf "    fs - focus on src window (focus src)\n"
 printf "layout - split window\n"
-printf "--------------------------------------------------------\n\n"
+printf "    lb - load breakpoints (source ./breakpoints.txt)\n"
+printf "    sb - save breakpoints (save breakpoints breakpoints.txt)\n"
+printf "------------------------------------------------------------\n"
+printf "\n"
 
 # this will make debugging the XL process more pleasant
 handle SIGPIPE nostop noprint pass
