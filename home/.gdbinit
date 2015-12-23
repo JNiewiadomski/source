@@ -32,6 +32,7 @@ printf "------------------------------------------------------------\n"
 printf "\n"
 
 # this will make debugging the XL process more pleasant
+# thrown from libfcgi when http requests are interrupted (like when a client resets)
 handle SIGPIPE nostop noprint pass
 
 # make GDB pass the signal straight to the inferior (being debugged) process
