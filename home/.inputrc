@@ -1,4 +1,0 @@
-# Bash autocomplete on symlink to directory complete to whole directory, including slash
-# http://superuser.com/questions/271626/bash-autocomplete-on-symlink-to-directory-complete-to-whole-directory-including
-$include /etc/inputrc
-set mark-symlinked-directories on
