@@ -18,17 +18,23 @@ define lb
 end
 
 define sb
-    save breakpoints breakpoints.txt
+    save breakpoints ./breakpoints.txt
+end
+
+define snl
+    tbreak +1
+    jump +1
 end
 
 printf "\n"
-printf "------------------------------------------------------------\n"
+printf "--------------------------------------------------------------\n"
 printf "    fc - focus on command window (focus cmd)\n"
 printf "    fs - focus on src window (focus src)\n"
 printf "layout - split window\n"
 printf "    lb - load breakpoints (source ./breakpoints.txt)\n"
-printf "    sb - save breakpoints (save breakpoints breakpoints.txt)\n"
-printf "------------------------------------------------------------\n"
+printf "    sb - save breakpoints (save breakpoints ./breakpoints.txt)\n"
+printf "   snl - skip next line of execution\n"
+printf "--------------------------------------------------------------\n"
 printf "\n"
 
 # this will make debugging the XL process more pleasant
