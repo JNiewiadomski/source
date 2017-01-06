@@ -1,0 +1,76 @@
+#!/bin/bash
+
+readonly SCRIPT_NAME="GitX"
+readonly SCRIPT_ROOT_NAME=$SCRIPT_NAME.root
+SCRIPT_ROOT=
+
+find_root()
+{
+	SCRIPT_ROOT=$PWD
+
+	if [[ "$REPO_ROOT" =~ "$SCRIPT_ROOT" ]]; then
+		# If current directory is a parent of REPO_ROOT just use REPO_ROOT.
+		SCRIPT_ROOT=$REPO_ROOT
+	else
+		# Gradually move up parent chain looking for a match or SCRIPT_ROOT_NAME file.
+		while true
+		do
+			if [ -f $SCRIPT_ROOT/$SCRIPT_ROOT_NAME ] || [ "$SCRIPT_ROOT" == "$REPO_ROOT" ];
+			then
+				break
+			fi
+
+			PARENT=`dirname $SCRIPT_ROOT`
+
+			if [ "$SCRIPT_ROOT" == "$PARENT" ];
+			then
+				if [ -z "$REPO_ROOT" ];
+				then
+					echo "Environment variable REPO_ROOT is not defined."
+				else
+					echo "Directory $PWD is not a child of $REPO_ROOT."
+				fi
+
+				echo "File $SCRIPT_ROOT_NAME not found."
+				echo "Create a $SCRIPT_ROOT_NAME file in the root parent directory of your Git repositories."
+				exit
+			fi
+
+			SCRIPT_ROOT=$PARENT
+		done
+	fi
+}
+
+main()
+{
+	find_root
+
+	if [ "$*" = "" ]; then
+		echo "Syntax: $SCRIPT_NAME command"
+		exit 1
+	fi
+
+	for i in `ls $SCRIPT_ROOT`; do
+		if [ -d "$SCRIPT_ROOT/$i" ];
+		then
+			cd "$SCRIPT_ROOT/$i"
+
+			if [ -d ".git" ];
+			then
+				echo
+				pwd
+				
+				if [ "$1" = "extern" ];
+				then
+					${*:2}
+				else
+					git $*
+				fi
+			fi
+		fi
+	done
+}
+
+main $*
+
+exit
