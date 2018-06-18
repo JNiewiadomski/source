@@ -8,10 +8,22 @@
 
 #include <util/String.h>
 
-// Usage sample:
+// Usage samples:
 //
 //  #include "/home/vagrant/unix/src/Stopwatch_Logger.h"
 //
+//  // Directly instantiate and use Stopwatch_Logger.
+//  {
+//      Stopwatch_Logger swl;
+//
+//      do_1();
+//      swl.lap("do_1");
+//
+//      do_2();
+//      sql.lap("do_2");
+//  }
+//
+//  // Conditionally use Stopwatch_Logger.
 //  {
 //      std::unique_ptr<Stopwatch_Logger> swl;
 //
@@ -20,7 +32,11 @@
 //          swl = std::make_unique<stopwatch_logger>("execute_query");
 //      }
 //
-//      if (swl) swl->lap("delete");
+//      do_1();
+//      if (swl) swl->lap("do_1");
+//
+//      do_2();
+//      if (swl) swl->lap("do_2");
 //  }
 
 class Stopwatch_Logger
