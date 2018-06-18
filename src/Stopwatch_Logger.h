@@ -92,7 +92,7 @@ private:
         return std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
     }
 
-    pid_t const m_tid { syscall(SYS_gettid) };
+    long const m_tid { syscall(SYS_gettid) };
     Time_Point const m_start_time { now() };
     Time_Point m_lap_time { m_start_time };
     std::string m_message;
