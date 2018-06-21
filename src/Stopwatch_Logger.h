@@ -14,7 +14,7 @@
 //
 //  // Directly instantiate and use Stopwatch_Logger.
 //  {
-//      Stopwatch_Logger swl;
+//      Stopwatch_Logger swl("direct");
 //
 //      do_1();
 //      swl.lap("do_1");
@@ -29,7 +29,7 @@
 //
 //      if (condition)
 //      {
-//          swl = std::make_unique<stopwatch_logger>("execute_query");
+//          swl = std::make_unique<stopwatch_logger>("conditional");
 //      }
 //
 //      do_1();
