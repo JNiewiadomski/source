@@ -45,14 +45,49 @@ namespace Display
 
     enum class Direction { Up, Down, Left, Right };
 
-    struct Point
+    typedef short RowColumnType;
+
+    class Point
     {
-        short m_row;
-        short m_column;
+    public:
+        Point(RowColumnType const row, RowColumnType const column)
+            :
+            m_row(row), m_column(column)
+        {
+        }
+
+        RowColumnType get_row() const { return m_row; }
+        RowColumnType get_column() const { return m_column; }
+
+    private:
+        Point();
+
+        RowColumnType m_row;
+        RowColumnType m_column;
     };
 
-    struct Rectangle
+    class Rectangle
     {
+    public:
+        Rectangle(Point const & upper_left, Point const & lower_right)
+            :
+            m_upper_left(upper_left), m_lower_right(lower_right)
+        {
+        }
+
+        RowColumnType get_width() const
+        {
+            return m_lower_right.get_column() - m_upper_left.get_column() + 1;
+        }
+
+        RowColumnType get_height() const
+        {
+            return m_lower_right.get_row() - m_upper_left.get_row() + 1;
+        }
+
+    private:
+        Rectangle();
+
         Point m_upper_left;
         Point m_lower_right;
     };

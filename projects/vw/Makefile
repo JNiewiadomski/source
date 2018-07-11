@@ -13,20 +13,24 @@ endif
 PROJECT_DIR := .
 OUTPUT_DIR := $(PROJECT_DIR)/output/$(BUILD_TAG)
 
-#CXX_FLAGS = -std=c++14
+CXX_FLAGS = -std=c++14 -Wall -Wextra
 DEPEND_FLAGS = -MT $@ -MMD -MP -MF $*.Td
 
 COMPILE.cxx = $(CXX) $(DEPEND_FLAGS) $(CXX_FLAGS) -c
-POSTCOMPILE = mv -f $*.Td $*.d && touch $@
+#POSTCOMPILE = mv -f $*.Td $*.d && touch $@
+POSTCOMPILE1 = mv -f $*.Td $*.d
+POSTCOMPILE2 = touch $@
 
 vw: $(OUTPUT_DIR)/Main.o
 	@echo LINK $@
-	$(CXX) -o $@ $^
+	$(CXX) $(CXX_FLAGS) -o $@ $^
 
 $(OUTPUT_DIR)/Main.o: $(SOURCES) | $(OUTPUT_DIR)
 	@echo COMPILE $@
 	$(COMPILE.cxx) -o $@ $^
-	$(POSTCOMPILE)
+	#$(POSTCOMPILE)
+	$(POSTCOMPILE1)
+	$(POSTCOMPILE2)
 
 $(OUTPUT_DIR)/%.d: ;
 .PRECIOUS: $(OUTPUT_DIR)/%.d
