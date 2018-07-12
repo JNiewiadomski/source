@@ -55,7 +55,7 @@ DEPEND_FLAGS = -MT $@ -MMD -MP -MF $*.Td
 # Commands
 
 COMPILE.cxx = $(CXX) $(DEPEND_FLAGS) $(CXX_FLAGS) -c
-POSTCOMPILE = mv -f $*.Td $*.d && touch $@
+POSTCOMPILE = mv --force $*.Td $*.d && touch $@
 
 vw: $(OUTPUT_DIR)/Main.o
 	@echo LINK $@
@@ -63,7 +63,7 @@ vw: $(OUTPUT_DIR)/Main.o
 
 $(OUTPUT_DIR)/Main.o: $(SOURCES) | $(OUTPUT_DIR)
 	@echo COMPILE $@
-	$(COMPILE.cxx) -o $@ $^
+	$(COMPILE.cxx) -o $@ $<
 	$(POSTCOMPILE)
 
 $(OUTPUT_DIR)/%.d: ;
@@ -75,7 +75,7 @@ endif
 
 $(OUTPUT_DIR):
 	@echo CREATE $@
-	mkdir -p $@
+	mkdir --parents $@
 
 .PHONY: clean
 clean:
