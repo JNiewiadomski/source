@@ -1,3 +1,5 @@
+#pragma once
+
 namespace Display
 {
     enum class Drawing_Symbols
