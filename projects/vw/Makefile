@@ -4,6 +4,9 @@
 # GNU make
 # https://www.gnu.org/software/make/manual/make.html
 #
+# Practical Makefiles, by example
+# http://nuclear.mutantstargoat.com/articles/make/
+#
 # Auto-Dependency Generation
 # http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 #
@@ -45,6 +48,8 @@ OUTPUT_DIR := $(PROJECT_DIR)/output/$(BUILD_TAG)
 
 SOURCES := $(wildcard *.cxx)
 OBJECTS := $(addprefix $(OUTPUT_DIR)/,$(SOURCES:.cxx=.o))
+DEPENDS := $(OBJECTS:.o=.d)
+OUTPUTS := $(sort $(dir $(OBJECTS)))
 
 ###################################################################################################
 # Flags
@@ -64,6 +69,9 @@ vw: $(OBJECTS)
 
 $(OUTPUT_DIR)/%.o: %.cxx | $(OUTPUT_DIR)
 	@echo COMPILE $@
+	@echo OBJECTS=$(OBJECTS)
+	@echo DEPENDS=$(DEPENDS)
+	@echo OUTPUTS=$(OUTPUTS)
 	$(COMPILE.cxx) -o $@ $<
 	$(POSTCOMPILE)
 
