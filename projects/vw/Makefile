@@ -11,19 +11,14 @@
 # http://make.mad-scientist.net/managing-recipe-echoing/
 
 ###################################################################################################
-# Defines
-
-SOURCES = Main.cxx
-
-###################################################################################################
 # Makefile parameters
 
 BUILD_TAG ?= debug
 
 ifeq "$(BUILD_TAG)" "debug"
-    USING_OPTIMIZATION = 0
+    USING_OPTIMIZATION := 0
 else ifeq "$(BUILD_TAG)" "release"
-    USING_OPTIMIZATION = 1
+    USING_OPTIMIZATION := 1
 else
     $(error Unknown BUILD_TAG: $(BUILD_TAG))
 endif
@@ -36,7 +31,7 @@ MAKE_VERBOSE ?= 0
 ifneq "$(MAKE_VERBOSE)" "0"
 VERBOSE := 1
 else
-VERBOSE =
+VERBOSE :=
 endif
 
 ###################################################################################################
@@ -46,22 +41,28 @@ PROJECT_DIR := .
 OUTPUT_DIR := $(PROJECT_DIR)/output/$(BUILD_TAG)
 
 ###################################################################################################
+# Defines
+
+SOURCES := $(wildcard *.cxx)
+OBJECTS := $(addprefix $(OUTPUT_DIR)/,$(SOURCES:.cxx=.o))
+
+###################################################################################################
 # Flags
 
 CXX_FLAGS = -std=c++14 -Wall -Wextra
-DEPEND_FLAGS = -MT $@ -MMD -MP -MF $*.Td
+DEPEND_FLAGS = -MT $@ -MMD -MP -MF $(OUTPUT_DIR)/$*.Td
 
 ###################################################################################################
 # Commands
 
 COMPILE.cxx = $(CXX) $(DEPEND_FLAGS) $(CXX_FLAGS) -c
-POSTCOMPILE = mv --force $*.Td $*.d && touch $@
+POSTCOMPILE = mv --force $(OUTPUT_DIR)/$*.Td $(OUTPUT_DIR)/$*.d && touch $@
 
-vw: $(OUTPUT_DIR)/Main.o
+vw: $(OBJECTS)
 	@echo LINK $@
 	$(CXX) $(CXX_FLAGS) -o $@ $^
 
-$(OUTPUT_DIR)/Main.o: $(SOURCES) | $(OUTPUT_DIR)
+$(OUTPUT_DIR)/%.o: %.cxx | $(OUTPUT_DIR)
 	@echo COMPILE $@
 	$(COMPILE.cxx) -o $@ $<
 	$(POSTCOMPILE)
