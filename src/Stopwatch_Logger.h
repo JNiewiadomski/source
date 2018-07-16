@@ -29,7 +29,7 @@
 //
 //      if (condition)
 //      {
-//          swl = std::make_unique<stopwatch_logger>("conditional");
+//          swl = std::make_unique<Stopwatch_Logger>("conditional");
 //      }
 //
 //      do_1();
