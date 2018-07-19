@@ -19,6 +19,8 @@
 //      do_1();
 //      swl.lap("do_1");
 //
+//      swl.log("Log a message right now.");
+//
 //      do_2();
 //      sql.lap("do_2");
 //  }
@@ -35,6 +37,8 @@
 //      do_1();
 //      if (swl) swl->lap("do_1");
 //
+//      if (swl) swl->log("Log a message right now.");
+//
 //      do_2();
 //      if (swl) swl->lap("do_2");
 //  }
@@ -45,13 +49,8 @@ private:
     typedef std::chrono::steady_clock::time_point Time_Point;
 
 public:
-    Stopwatch_Logger(std::string const title) : m_message(title)
+    Stopwatch_Logger(std::string const title) : m_log_prefix(build_log_pefix(title))
     {
-        m_message
-            .append("[")
-            .append(std::to_string(m_tid))
-            .append("]")
-            ;
     }
 
     ~Stopwatch_Logger()
@@ -63,25 +62,55 @@ public:
             lap("stop", stop_time);
         }
 
+        if (!m_message.empty())
+        {
+            m_message.append(", ");
+        }
+
         m_message
-            .append(": Total=")
+            .append("Total=")
             .append(duration_as_string(m_start_time, stop_time))
             .append(" ms")
             ;
 
-        std::cout << m_message << std::endl;
+        std::cout << m_log_prefix << m_message << std::endl << std::flush;
     }
 
-    void lap(std::string const name)
+    Stopwatch_Logger & lap(std::string const name)
     {
         lap(name, now());
+        return *this;
+    }
+
+    Stopwatch_Logger & log(std::string const log_message)
+    {
+        std::cout << m_log_prefix << log_message << std::endl << std::flush;
+        return *this;
     }
 
 private:
+    std::string build_log_pefix(std::string const title) const
+    {
+        std::string prefix;
+
+        prefix
+            .append(title)
+            .append("[")
+            .append(std::to_string(static_cast<unsigned long>(m_tid)))
+            .append("]: ")
+            ;
+
+        return prefix;
+    }
+
     void lap(std::string const name, Time_Point const new_lap_time)
     {
+        if (!m_message.empty())
+        {
+            m_message.append(", ");
+        }
+
         m_message
-            .append(": ")
             .append(name)
             .append("=")
             .append(duration_as_string(m_lap_time, new_lap_time))
@@ -108,6 +137,7 @@ private:
         return std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
     }
 
+    std::string const m_log_prefix;
     long const m_tid { syscall(SYS_gettid) };
     Time_Point const m_start_time { now() };
     Time_Point m_lap_time { m_start_time };
