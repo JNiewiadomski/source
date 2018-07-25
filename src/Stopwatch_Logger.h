@@ -1,12 +1,13 @@
 #pragma once
 
+#include <unistd.h>
 #include <sys/syscall.h>
+#include <sys/types.h>
 
 #include <chrono>
 #include <iostream>
+#include <iomanip>
 #include <memory>
-
-#include <util/String.h>
 
 // Usage samples:
 //
@@ -49,7 +50,10 @@ private:
     typedef std::chrono::steady_clock::time_point Time_Point;
 
 public:
-    Stopwatch_Logger(std::string const title) : m_log_prefix(build_log_pefix(title))
+    Stopwatch_Logger(std::string const title, int64_t const threshold = 0)
+        :
+        m_log_prefix(build_log_pefix(title)),
+        m_threshold(threshold)
     {
     }
 
@@ -73,7 +77,10 @@ public:
             .append(" ms")
             ;
 
-        std::cout << m_log_prefix << m_message << std::endl << std::flush;
+        if (duration(m_start_time, stop_time) > m_threshold)
+        {
+            std::cout << m_log_prefix << m_message << std::endl << std::flush;
+        }
     }
 
     Stopwatch_Logger & lap(std::string const name)
@@ -91,16 +98,11 @@ public:
 private:
     std::string build_log_pefix(std::string const title) const
     {
-        std::string prefix;
+        std::ostringstream prefix;
 
-        prefix
-            .append(title)
-            .append("[")
-            .append(std::to_string(static_cast<unsigned long>(m_tid)))
-            .append("]: ")
-            ;
+        prefix << title << "[" << syscall(SYS_gettid) << "]:";
 
-        return prefix;
+        return prefix.str();
     }
 
     void lap(std::string const name, Time_Point const new_lap_time)
@@ -126,10 +128,10 @@ private:
     {
         double const ms { static_cast<double>(duration(t1, t2)) / 1'000.0 };
 
-        Util::string32 ms_string;
-        ms_string.printf("%.3f", ms);
+        std::ostringstream o;
+        o << std::fixed << std::setprecision(3) << ms;
 
-        return ms_string.c_str();
+        return o.str().c_str();
     }
 
     int64_t duration(Time_Point const & t1, Time_Point const & t2) const
@@ -138,9 +140,9 @@ private:
     }
 
     std::string const m_log_prefix;
-    long const m_tid { syscall(SYS_gettid) };
     Time_Point const m_start_time { now() };
     Time_Point m_lap_time { m_start_time };
     std::string m_message;
+    int64_t const m_threshold;
 };
 
