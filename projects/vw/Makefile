@@ -40,55 +40,50 @@ endif
 ###################################################################################################
 # Directory structure
 
-PROJECT_DIR := .
-OUTPUT_DIR := $(PROJECT_DIR)/output/$(BUILD_TAG)
+OBJECTS_DIR := o/$(BUILD_TAG)
 
 ###################################################################################################
 # Defines
 
 SOURCES := $(wildcard *.cxx)
-OBJECTS := $(addprefix $(OUTPUT_DIR)/,$(SOURCES:.cxx=.o))
+OBJECTS := $(addprefix $(OBJECTS_DIR)/,$(SOURCES:.cxx=.o))
 DEPENDS := $(OBJECTS:.o=.d)
-OUTPUTS := $(sort $(dir $(OBJECTS)))
 
 ###################################################################################################
 # Flags
 
-CXX_FLAGS = -std=c++14 -Wall -Wextra
-DEPEND_FLAGS = -MT $@ -MMD -MP -MF $(OUTPUT_DIR)/$*.Td
+CXX_FLAGS := -std=c++14 -Wall -Wextra
+DEPEND_FLAGS = -MT $@ -MMD -MP -MF $(OBJECTS_DIR)/$*.Td
 
 ###################################################################################################
-# Commands
+# Rules
 
-COMPILE.cxx = $(CXX) $(DEPEND_FLAGS) $(CXX_FLAGS) -c
-POSTCOMPILE = mv --force $(OUTPUT_DIR)/$*.Td $(OUTPUT_DIR)/$*.d && touch $@
-
-vw: $(OBJECTS)
+edit : $(OBJECTS)
 	@echo LINK $@
 	$(CXX) $(CXX_FLAGS) -o $@ $^
 
-$(OUTPUT_DIR)/%.o: %.cxx | $(OUTPUT_DIR)
+$(OBJECTS_DIR)/%.o : %.cxx
 	@echo COMPILE $@
-	@echo OBJECTS=$(OBJECTS)
-	@echo DEPENDS=$(DEPENDS)
-	@echo OUTPUTS=$(OUTPUTS)
-	$(COMPILE.cxx) -o $@ $<
-	$(POSTCOMPILE)
+	$(CXX) $(CXX_FLAGS) $(DEPEND_FLAGS) -o $@ $< -c
+	mv --force $(OBJECTS_DIR)/$*.Td $(OBJECTS_DIR)/$*.d && touch $@
 
-$(OUTPUT_DIR)/%.d: ;
-.PRECIOUS: $(OUTPUT_DIR)/%.d
+$(OBJECTS) : | $(OBJECTS_DIR)
 
-ifneq ($(MAKECMDGOALS),clean)
-include $(wildcard $(patsubst %,$(OUTPUT_DIR)/%.d,$(basename $(SOURCES))))
-endif
-
-$(OUTPUT_DIR):
+$(OBJECTS_DIR):
 	@echo CREATE $@
 	mkdir --parents $@
 
-.PHONY: clean
-clean:
-	@echo DELETING $(OUTPUT_DIR)
-	rm --force --recursive $(OUTPUT_DIR)/
+$(OBJECTS_DIR)/%.d: ;
+.PRECIOUS: $(OBJECTS_DIR)/%.d
+
+ifneq ($(MAKECMDGOALS),clean)
+include $(wildcard $(patsubst %,$(OBJECTS_DIR)/%.d,$(basename $(SOURCES))))
+endif
+
+.PHONY : clean
+clean :
+	@echo DELETING edit $(OBJECTS_DIR)
+	rm --force --recursive edit $(OBJECTS_DIR)
 
 $(VERBOSE).SILENT:
+
