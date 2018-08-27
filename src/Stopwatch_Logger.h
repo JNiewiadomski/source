@@ -79,7 +79,7 @@ public:
 
         if (duration(m_start_time, stop_time) > m_threshold)
         {
-            std::cout << m_log_prefix << m_message << std::endl << std::flush;
+            std::cout << m_log_prefix << m_message << std::endl;
         }
     }
 
@@ -91,7 +91,7 @@ public:
 
     Stopwatch_Logger & log(std::string const log_message)
     {
-        std::cout << m_log_prefix << log_message << std::endl << std::flush;
+        std::cout << m_log_prefix << log_message << std::endl;
         return *this;
     }
 
