@@ -1,8 +1,15 @@
 class Signals
 {
 public:
+    /**
+     * @throws std::system_error on sigaction call failure
+     */
     Signals();
-    ~Signals();
+
+    /**
+     * @return True if a keyboard interrupt (^C) was received.
+     */
+    bool received_interrupt_from_keyboard() const;
 
     /**
      * Returns true if the console window size (number of rows or columns) was changed since the
