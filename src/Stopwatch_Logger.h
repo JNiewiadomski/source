@@ -1,13 +1,10 @@
 #pragma once
 
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <sys/types.h>
-
 #include <chrono>
 #include <iostream>
 #include <iomanip>
 #include <memory>
+#include <thread>
 
 // Usage samples:
 //
@@ -100,7 +97,7 @@ private:
     {
         std::ostringstream prefix;
 
-        prefix << title << "[" << syscall(SYS_gettid) << "]:";
+        prefix << title << "[" << std::this_thread::get_id() << "]:";
 
         return prefix.str();
     }
