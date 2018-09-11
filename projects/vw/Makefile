@@ -19,9 +19,9 @@
 BUILD_TAG ?= debug
 
 ifeq "$(BUILD_TAG)" "debug"
-    USING_OPTIMIZATION := 0
+	USING_OPTIMIZATION := 0
 else ifeq "$(BUILD_TAG)" "release"
-    USING_OPTIMIZATION := 1
+	USING_OPTIMIZATION := 1
 else
     $(error Unknown BUILD_TAG: $(BUILD_TAG))
 endif
@@ -52,7 +52,7 @@ DEPENDS := $(OBJECTS:.o=.d)
 ###################################################################################################
 # Flags
 
-CXX_FLAGS := -std=c++14 -Wall -Wextra
+CXX_FLAGS := -std=c++14 -Wall -Wextra -g
 DEPEND_FLAGS = -MT $@ -MMD -MP -MF $(OBJECTS_DIR)/$*.Td
 
 ###################################################################################################

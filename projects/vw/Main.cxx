@@ -15,9 +15,12 @@ static Signals s_signals;
 static std::string box(size_t const rows, size_t const columns)
 {
     std::string line;
-    for (size_t i=0; i<columns-2; ++i)
+    if (2 < columns)
     {
-        line.append(u8"\u2550");
+        for (size_t i=0; i<columns-2; ++i)
+        {
+            line.append(u8"\u2550");
+        }
     }
 
     std::string box;
@@ -26,9 +29,12 @@ static std::string box(size_t const rows, size_t const columns)
     {
         std::string middle;
         middle.append(u8"\u2551").append(std::string(columns-2, ' ')).append(u8"\u2551");
-        for (size_t i=0; i<rows-2; ++i)
+        if (2 < rows)
         {
-            box.append(middle);
+            for (size_t i=0; i<rows-2; ++i)
+            {
+                box.append(middle);
+            }
         }
     }
     box.append(u8"\u255A").append(line); //.append(u8"\u255D");
@@ -67,7 +73,8 @@ int main()
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
 
-    std::cout << "Done" << std::endl;
+    std::cout << "\n" << "Done." << std::endl;
 
     return 0;
 }
+
