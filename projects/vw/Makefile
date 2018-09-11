@@ -43,6 +43,11 @@ endif
 OBJECTS_DIR := o/$(BUILD_TAG)
 
 ###################################################################################################
+# Include
+
+-include mk/*.mk
+
+###################################################################################################
 # Defines
 
 SOURCES := $(wildcard *.cxx)
@@ -52,8 +57,14 @@ DEPENDS := $(OBJECTS:.o=.d)
 ###################################################################################################
 # Flags
 
-CXX_FLAGS := -std=c++14 -Wall -Wextra -g
+CXX_FLAGS := $(CXX_GLOBAL_FLAGS) $(CXX_WARNING_FLAGS)
 DEPEND_FLAGS = -MT $@ -MMD -MP -MF $(OBJECTS_DIR)/$*.Td
+
+ifeq "$(USING_OPTIMIZATION)" "1"
+	CXX_FLAGS += $(CXX_OPTIMIZATION_FLAGS)
+else
+	CXX_FLAGS += $(CXX_DEBUG_FLAGS) $(CXX_PROFILE_FLAGS)
+endif
 
 ###################################################################################################
 # Rules
