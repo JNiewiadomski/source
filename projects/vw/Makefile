@@ -10,20 +10,20 @@
 # Auto-Dependency Generation
 # http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
 #
-# Managing Recipe Echoing
-# http://make.mad-scientist.net/managing-recipe-echoing/
-
 ###################################################################################################
 # Makefile parameters
+#
+# Managing Recipe Echoing
+# http://make.mad-scientist.net/managing-recipe-echoing/
 
 BUILD_TAG ?= debug
 
 ifeq "$(BUILD_TAG)" "debug"
-	USING_OPTIMIZATION := 0
+USING_OPTIMIZATION := 0
 else ifeq "$(BUILD_TAG)" "release"
-	USING_OPTIMIZATION := 1
+USING_OPTIMIZATION := 1
 else
-    $(error Unknown BUILD_TAG: $(BUILD_TAG))
+$(error Unknown BUILD_TAG: $(BUILD_TAG))
 endif
 
 # Most of the time we want our build to not echo the compilation commands, but sometimes we do.
@@ -36,6 +36,35 @@ VERBOSE := 1
 else
 VERBOSE :=
 endif
+
+$(VERBOSE).SILENT:
+
+###################################################################################################
+# print-VARIABLE and printvars
+
+# Rule to print out makefile variables.
+#
+# Usage:
+#   make print-VARIABLE
+#
+# Printing the Value of a Makefile Variable
+# https://www.cmcrossroads.com/article/printing-value-makefile-variable
+#
+print-% : ; @echo $* = $($*)
+
+# Usage:
+#   make printvars
+#
+.PHONY: printvars
+printvars:
+	@$(foreach V,\
+		$(sort $(.VARIABLES)),\
+		$(if\
+			$(filter-out environment% default automatic,\
+				$(origin $V)),\
+			$(warning $V=$($V) ($(value $V)))\
+		)\
+	)
 
 ###################################################################################################
 # Directory structure
@@ -95,6 +124,4 @@ endif
 clean :
 	@echo DELETING edit $(OBJECTS_DIR)
 	rm --force --recursive edit $(OBJECTS_DIR)
-
-$(VERBOSE).SILENT:
 
