@@ -45,12 +45,13 @@ ZSH_THEME="babun"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git ssh-agent)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/c/Windows/System32/WindowsPowerShell/v1.0"
 # export MANPATH="/usr/local/man:$MANPATH"
+export DISPLAY=:0.0
 
 source $ZSH/oh-my-zsh.sh
 
