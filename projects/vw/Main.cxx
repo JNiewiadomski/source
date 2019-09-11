@@ -1,7 +1,8 @@
 #include <sys/ioctl.h>
 
-#include <string.h>
 #include <unistd.h>
+
+#include <cstring>
 
 #include <chrono>
 #include <iostream>
