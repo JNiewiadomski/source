@@ -98,7 +98,12 @@ endif
 ###################################################################################################
 # Rules
 
-edit : $(OBJECTS)
+.DEFAULT_GOAL := all
+
+all : $(OBJECTS_DIR)/edit
+	@echo BINARY $^
+
+$(OBJECTS_DIR)/edit : $(OBJECTS)
 	@echo LINK $@
 	$(CXX) $(CXX_FLAGS) -o $@ $^
 
@@ -109,12 +114,12 @@ $(OBJECTS_DIR)/%.o : %.cxx
 
 $(OBJECTS) : | $(OBJECTS_DIR)
 
-$(OBJECTS_DIR):
+$(OBJECTS_DIR) :
 	@echo CREATE $@
 	mkdir --parents $@
 
 $(OBJECTS_DIR)/%.d: ;
-.PRECIOUS: $(OBJECTS_DIR)/%.d
+.PRECIOUS : $(OBJECTS_DIR)/%.d
 
 ifneq ($(MAKECMDGOALS),clean)
 include $(wildcard $(patsubst %,$(OBJECTS_DIR)/%.d,$(basename $(SOURCES))))
@@ -122,6 +127,6 @@ endif
 
 .PHONY : clean
 clean :
-	@echo DELETING edit $(OBJECTS_DIR)
-	rm --force --recursive edit $(OBJECTS_DIR)
+	@echo DELETING $(OBJECTS_DIR)
+	rm --force --recursive $(OBJECTS_DIR)
 
