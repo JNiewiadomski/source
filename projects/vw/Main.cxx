@@ -8,13 +8,8 @@
 #include <string>
 #include <thread>
 
+#include "Posix.h"
 #include "Signals.h"
-
-static std::string strerror_r(int const errnum)
-{
-    char error_buffer[BUFSIZ] {};
-    return strerror_r(errnum, error_buffer, sizeof(error_buffer));
-}
 
 static Signals s_signals;
 
@@ -56,7 +51,7 @@ static void print_window_size()
 
         if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) == -1)
         {
-            std::cout << "Call to ioctl failed: " << strerror_r(errno) << std::endl;
+            std::cout << "Call to ioctl failed: " << Posix::strerror_r(errno) << std::endl;
         }
 
         //std::cout << "\x1B[2K\x1B[0G";
