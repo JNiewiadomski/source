@@ -9,9 +9,7 @@
 #include <thread>
 
 #include "Posix.h"
-#include "Signals.h"
-
-static Signals s_signals;
+#include "Signal_Handler.h"
 
 static std::string box(size_t const rows, size_t const columns)
 {
@@ -45,7 +43,7 @@ static std::string box(size_t const rows, size_t const columns)
 
 static void print_window_size()
 {
-    if (s_signals.window_size_was_changed())
+    if (Signal_Handler::window_size_was_changed())
     {
         winsize w {};
 
@@ -65,9 +63,18 @@ static void print_window_size()
     }
 }
 
+#include <signal.h>
+
 int main()
 {
-    while (!s_signals.received_interrupt_from_keyboard())
+sigset_t signal_set {};
+sigfillset(&signal_set);
+pthread_sigmask(SIG_BLOCK, &signal_set, nullptr);
+
+
+    std::thread signal_thread { Signal_Handler::create() };
+
+    while (!Signal_Handler::received_interrupt_from_keyboard())
     {
         print_window_size();
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
