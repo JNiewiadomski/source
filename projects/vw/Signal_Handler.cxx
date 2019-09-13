@@ -1,73 +1,89 @@
 #include <signal.h>
 
+#include <atomic>
 #include <vector>
 
 #include "Logger.h"
 #include "Signal_Handler.h"
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Private
-
-static sigset_t set_sigset(std::vector<int> const & signal_numbers)
+namespace Signal_Handler
 {
-    sigset_t signal_set {};
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // Private
 
-    if (sigemptyset(&signal_set) != 0)
+    static std::atomic<bool> volatile s_received_interrupt_from_keyboard { false };
+    static std::atomic<bool> volatile s_window_size_was_changed { true };
+
+    //---------------------------------------------------------------------------------------------
+    static sigset_t set_sigset(std::vector<int> const & signal_numbers)
     {
-        Logger::log_and_abort("Signal_Handler", "sigemptyset", errno, __FILE__, __LINE__);
+        sigset_t signal_set {};
+
+        if (sigemptyset(&signal_set) != 0)
+        {
+            Logger::log_and_abort("Signal_Handler", "sigemptyset", errno, __FILE__, __LINE__);
+        }
+
+        for (auto const & signal_number : signal_numbers)
+        {
+            if (sigaddset(&signal_set, signal_number) != 0)
+            {
+                Logger::log_and_abort("Signal_Handler", "sigaddset", errno, __FILE__, __LINE__);
+            }
+        }
+
+        return signal_set;
     }
 
-    for (auto const & signal_number : signal_numbers)
+    //---------------------------------------------------------------------------------------------
+    static void handler()
     {
-        if (sigaddset(&signal_set, signal_number) != 0)
+        // Set of signals that will be handled.
+        sigset_t const signal_set { set_sigset({SIGINT,SIGWINCH}) };
+
+        while (true)
         {
-            Logger::log_and_abort("Signal_Handler", "sigaddset", errno, __FILE__, __LINE__);
+            int sig {};
+
+            if (sigwait(&signal_set, &sig) != 0)
+            {
+                Logger::log_and_abort("Signal_Handler", "sigwait", errno, __FILE__, __LINE__);
+            }
+
+            switch (sig)
+            {
+            case SIGINT:
+                s_received_interrupt_from_keyboard = { true };
+                break;
+
+            case SIGWINCH:
+                s_window_size_was_changed = { true };
+                break;
+            }
         }
     }
 
-    return signal_set;
-}
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    // Signal_Handler
 
-static void handler()
-{
-    sigset_t const signal_set { set_sigset({SIGQUIT,SIGINT}) };
-    int sig;
-
-    while (true)
+    //---------------------------------------------------------------------------------------------
+    std::thread create()
     {
-        /* wait for any and all signals */
-        sigwait( &signal_set, &sig );
-
-        /* when we get this far, we've
-        * caught a signal */
-
-        switch (sig)
-        {
-        /* whatever you need to do on
-        * SIGQUIT */
-        case SIGQUIT:
-            break;
-
-        /* whatever you need to do on
-        * SIGINT */
-        case SIGINT:
-            break;
-
-        /* whatever you need to do for
-        * other signals */
-        default:
-            break;
-        }
+        return std::thread { handler };
     }
-}
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// Signal_Handler
+    bool received_interrupt_from_keyboard()
+    {
+        return s_received_interrupt_from_keyboard;
+    }
 
-std::thread Signal_Handler::create()
-{
-    std::thread thread { handler };
+    bool window_size_was_changed()
+    {
+        bool const rv { s_window_size_was_changed };
 
-    return thread;
+        s_window_size_was_changed = { false };
+
+        return rv;
+    }
 }
 
