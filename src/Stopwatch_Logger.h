@@ -6,6 +6,8 @@
 #include <memory>
 #include <thread>
 
+using namespace std::literals::chrono_literals;
+
 // The Stopwatch_Logger class provides a straightforward way to time the duration of blocks of
 // code. The start time is automatically set when the object is first instantiated. Lap times can
 // be logged as desired throughout the code block, as can text annotations. The total time is
@@ -78,9 +80,9 @@ private:
 
     static Time_Point now() { return std::chrono::steady_clock::now(); }
 
-    static std::string duration_us_as_string(Time_Point const & t1, Time_Point const & t2)
+    static std::string duration_as_string(Time_Point const & t1, Time_Point const & t2)
     {
-        double const ms { static_cast<double>(duration_us(t1, t2)) / 1'000.0 };
+        double const ms { static_cast<double>(duration(t1, t2).count()) / 1'000.0 };
 
         std::ostringstream o;
         o << std::fixed << std::setprecision(3) << ms;
@@ -88,9 +90,9 @@ private:
         return o.str().c_str();
     }
 
-    static int64_t duration_us(Time_Point const & t1, Time_Point const & t2)
+    static std::chrono::microseconds duration(Time_Point const & t1, Time_Point const & t2)
     {
-        return std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1).count();
+        return std::chrono::duration_cast<std::chrono::microseconds>(t2 - t1);
     }
 
 public:
@@ -103,12 +105,12 @@ public:
      */
     Stopwatch_Logger(
         std::string const title,
-        int64_t const threshold_us = 0,
+        std::chrono::microseconds const threshold = 0us,
         std::ostream & out = std::cout
         )
         :
         m_log_prefix { build_log_pefix(title) },
-        m_threshold_us { threshold_us },
+        m_threshold { threshold },
         m_out { out }
     {
     }
@@ -122,9 +124,9 @@ public:
     {
         Time_Point const stop_time { now() };
 
-        if (m_threshold_us <= duration_us(m_start_time, stop_time))
+        if (m_threshold <= duration(m_start_time, stop_time))
         {
-            if (0 < duration_us(m_start_time, m_lap_time))
+            if (0us < duration(m_start_time, m_lap_time))
             {
                 lap("stop", stop_time);
             }
@@ -136,7 +138,7 @@ public:
 
             m_message
                 .append("Total=")
-                .append(duration_us_as_string(m_start_time, stop_time))
+                .append(duration_as_string(m_start_time, stop_time))
                 .append(" ms")
                 ;
 
@@ -177,7 +179,7 @@ private:
         m_message
             .append(name)
             .append("=")
-            .append(duration_us_as_string(m_lap_time, new_lap_time))
+            .append(duration_as_string(m_lap_time, new_lap_time))
             .append(" ms")
             ;
 
@@ -187,8 +189,8 @@ private:
     std::string const m_log_prefix;
     Time_Point const m_start_time { now() };
     Time_Point m_lap_time { m_start_time };
-    std::string m_message;
-    int64_t const m_threshold_us;
+    std::string m_message {};
+    std::chrono::microseconds const m_threshold;
     std::ostream & m_out;
 };
 
