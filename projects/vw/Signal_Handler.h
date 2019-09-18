@@ -1,25 +1,38 @@
+#include <signal.h>
+
+#include <atomic>
 #include <thread>
+#include <vector>
 
-namespace Signal_Handler
+class Signal_Handler
 {
+public:
     /**
-     * Create and start the Signal_Handler thread.
+     * Constructor.
      *
-     * @return Thread that is handling the signal processing.
+     * @param[in] signal_numbers Signals that will be handled by Signal_Handler.
      */
-    std::thread create();
+    Signal_Handler(std::vector<int> const & signal_numbers);
 
     /**
-     * @return True if a keyboard interrupt (^C) was received.
+     * Destructor
      */
-    bool received_interrupt_from_keyboard();
+    virtual ~Signal_Handler();
 
     /**
-     * Returns true if the console window size (number of rows or columns) was changed since the
-     * last time this method was called.
+     * Callback invoked each time a handled signal is received.
      *
-     * @return True if size was changed since last time called.
+     * @param[in] signal_number Number of signal received.
      */
-    bool window_size_was_changed();
-}
+    virtual void on_signal(int const signal_number) = 0;
+
+private:
+    void handler();
+
+    std::thread m_thread {};
+    sigset_t m_original_sigset {};
+    std::atomic<bool> m_stop_hander { false };
+
+    sigset_t const m_sigset;
+};
 

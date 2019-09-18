@@ -99,7 +99,7 @@ CXX_WARNING_FLAGS += -Wpacked
 # Warn if padding is included in a structure, either to align an element of the structure or to
 # align the whole structure.
 #
-CXX_WARNING_FLAGS += -Wpadded
+# CXX_WARNING_FLAGS += -Wpadded
 
 # Warn if anything is declared more than once in the same scope, even in cases where multiple
 # declaration is valid and changes nothing.

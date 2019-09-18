@@ -11,6 +11,69 @@
 #include "Posix.h"
 #include "Signal_Handler.h"
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// My_Signal_Handler
+
+class My_Signal_Handler : public Signal_Handler
+{
+public:
+    My_Signal_Handler()
+        :
+        Signal_Handler({SIGINT,SIGWINCH})
+    {
+    }
+
+    ~My_Signal_Handler() override
+    {
+    }
+
+    void on_signal(int const signal_number) override
+    {
+        switch (signal_number)
+        {
+        case SIGINT:
+            m_received_interrupt_from_keyboard = { true };
+            break;
+
+        case SIGWINCH:
+            m_window_size_was_changed = { true };
+            break;
+        }
+    }
+
+    /**
+     * @return True if a keyboard interrupt (^C) was received.
+     */
+    bool received_interrupt_from_keyboard()
+    {
+        return m_received_interrupt_from_keyboard;
+    }
+
+    /**
+     * Returns true if the console window size (number of rows or columns) was changed since the
+     * last time this method was called.
+     *
+     * @return True if size was changed since last time called.
+     */
+    bool window_size_was_changed()
+    {
+        bool const rv { m_window_size_was_changed };
+
+        m_window_size_was_changed = { false };
+
+        return rv;
+    }
+
+private:
+    bool m_received_interrupt_from_keyboard { false };
+    bool m_window_size_was_changed { true };
+};
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// Private
+
+static My_Signal_Handler g_signal_handler;
+
 static std::string box(size_t const rows, size_t const columns)
 {
     std::string line;
@@ -43,7 +106,7 @@ static std::string box(size_t const rows, size_t const columns)
 
 static void print_window_size()
 {
-    if (Signal_Handler::window_size_was_changed())
+    if (g_signal_handler.window_size_was_changed())
     {
         winsize w {};
 
@@ -63,18 +126,12 @@ static void print_window_size()
     }
 }
 
-#include <signal.h>
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// main
 
 int main()
 {
-sigset_t signal_set {};
-sigfillset(&signal_set);
-pthread_sigmask(SIG_BLOCK, &signal_set, nullptr);
-
-
-    std::thread signal_thread { Signal_Handler::create() };
-
-    while (!Signal_Handler::received_interrupt_from_keyboard())
+    while (!g_signal_handler.received_interrupt_from_keyboard())
     {
         print_window_size();
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
