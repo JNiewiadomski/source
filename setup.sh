@@ -22,7 +22,7 @@ do
     # Remove existing destination files.
     if [ -f ${DST} ];
     then
-        rm ${DST};
+        rm -f ${DST};
     fi
 
     # Create symbolic link to file.
