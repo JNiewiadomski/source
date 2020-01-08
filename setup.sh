@@ -6,27 +6,28 @@
 #
 ###################################################################################################
 
-HOME_FILES="`dirname ~/${0}`/home";
-echo Creating soft links to all files in the ${HOME_FILES} directory to the ~ directory.
+HOME_FILES="$(dirname "${0}")/home";
+echo "Creating soft links to files in ${HOME_FILES}"
 
-for SRC in `find ${HOME_FILES} -type f \( ! -name "*.swp" \)`
+for SRC in "${HOME_FILES}"/{.[!.],}*
 do
-    DST=~/`basename ${SRC}`;
+    DST=~/$(basename "${SRC}");
 
     # Remove existing symbolic links.
-    if [ -h ${DST} ];
+    if [ -h "${DST}" ];
     then
-        unlink ${DST};
+        unlink "${DST}";
     fi
 
     # Remove existing destination files.
-    if [ -f ${DST} ];
+    if [ -f "${DST}" ];
     then
-        rm -f ${DST};
+        rm -f "${DST}";
     fi
 
     # Create symbolic link to file.
-    ln -s ${SRC} ${DST};
+    echo "${DST} -> ${SRC}"
+    ln -s "${SRC}" "${DST}";
 done
 
 ###################################################################################################

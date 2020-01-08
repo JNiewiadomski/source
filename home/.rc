@@ -111,7 +111,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-source /vagrant/etc/shellrc
+#source /vagrant/etc/shellrc
 
 ###################################################################################################
 # Customize/colorize the command prompt.
@@ -142,7 +142,7 @@ bash_esc() {
     echo "\[$(esc "${1}")\]"
 }
 
-PS1="$(bash_esc "${BLUE}"){ \W } $(bash_esc "${GREEN}")$(git rev-parse --abbrev-ref HEAD 2> /dev/null || echo '\u@\h') $(bash_esc "${RED}")\$»$(bash_esc "${NO_COLOR}") "
+PS1="$(bash_esc "${BLUE}"){ \W } $(bash_esc "${GREEN}")\$(git rev-parse --abbrev-ref HEAD 2> /dev/null || echo '\u@\h') $(bash_esc "${RED}")\$»$(bash_esc "${NO_COLOR}") "
 
 PROMPT_COMMAND="RETURN_CODE=\${?} ; if [ \${RETURN_CODE} -ne 0 ] ; then echo -en \"$(esc "${RED}")[\${RETURN_CODE}]$(esc "${NO_COLOR}")\" ; else echo -n \"\" ; fi"
 
