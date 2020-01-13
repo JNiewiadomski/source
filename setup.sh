@@ -38,14 +38,16 @@ create_vim_directories() {
 }
 
 set_login_shell() {
-    if sudo where chsh 2> /dev/null ; then
-        echo "Setting bash as login shell."
-        sudo chsh -s /bin/bash ${USER}
-    else
-        echo
-        echo "Unable to set bash as login shell for ${USER}: chsh not found."
-        echo "Manually edit /etc/passwd."
-        return 1
+    if [ "${SHELL}" != "/bin/bash" ] ; then
+        if sudo where chsh 2> /dev/null ; then
+            echo "Setting bash as login shell."
+            sudo chsh -s /bin/bash ${USER}
+        else
+            echo
+            echo "Unable to set bash as login shell for ${USER}: chsh not found."
+            echo "Manually edit /etc/passwd."
+            return 1
+        fi
     fi
 }
 
