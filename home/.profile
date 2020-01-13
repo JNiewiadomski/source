@@ -176,3 +176,12 @@ elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
 fi
 
 unset env
+
+###################################################################################################
+# Run optional startup scripts.
+
+if [ -d ~/.profile.d ] ; then
+    for SCRIPT in ~/.profile.d/* ; do
+        source ${SCRIPT}
+    done
+fi
