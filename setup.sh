@@ -30,6 +30,11 @@ create_soft_links() {
     done
 }
 
+install_tools() {
+    local -r TOOLS="most tig tmux"
+    sudo apt-get install -y "${TOOLS}"
+}
+
 create_vim_directories() {
     # Create directories used by VIM as specified in .vimrc file.
     mkdir -p ~/.vim/backup
@@ -41,7 +46,7 @@ set_login_shell() {
     if [ "${SHELL}" != "/bin/bash" ] ; then
         if sudo where chsh 2> /dev/null ; then
             echo "Setting bash as login shell."
-            sudo chsh -s /bin/bash ${USER}
+            sudo chsh -s /bin/bash "${USER}"
         else
             echo
             echo "Unable to set bash as login shell for ${USER}: chsh not found."
@@ -52,5 +57,6 @@ set_login_shell() {
 }
 
 create_soft_links
+install_tools
 create_vim_directories
 set_login_shell
