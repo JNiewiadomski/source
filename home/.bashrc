@@ -73,36 +73,23 @@ customize_prompt() {
     #
     # How to Customize (and Colorize) Your Bash Prompt
     # https://www.howtogeek.com/307701/how-to-customize-and-colorize-your-bash-prompt/
+    #
+    # Terminal prompt not wrapping correctly
+    # https://unix.stackexchange.com/questions/105958/terminal-prompt-not-wrapping-correctly/447520#447520
 
-    local -r BLACK="[30m"
-    local -r RED="[31m"
-    local -r GREEN="[32m"
-    local -r BROWN="[33m"
-    local -r BLUE="[34m"
-    local -r PURPLE="[35m"
-    local -r CYAN="[36m"
-    local -r LIGHT_GRAY="[37m"
-    local -r DARK_GRAY="[1;30m"
-    local -r LIGHT_RED="[1;31m"
-    local -r LIGHT_GREEN="[1;32m"
-    local -r YELLOW="[1;33m"
-    local -r LIGHT_BLUE="[1;34m"
-    local -r LIGHT_PURPLE="[1;35m"
-    local -r LIGHT_CYAN="[1;36m"
-    local -r WHITE="[1;37m"
-    local -r NO_COLOR="[0m"
+    local -r BLACK="\001$(tput setaf 0)\002"
+    local -r RED="\001$(tput setaf 1)\002"
+    local -r GREEN="\001$(tput setaf 2)\002"
+    local -r YELLOW="\001$(tput setaf 3)\002"
+    local -r BLUE="\001$(tput setaf 4)\002"
+    local -r MAGENTA="\001$(tput setaf 5)\002"
+    local -r CYAN="\001$(tput setaf 6)\002"
+    local -r WHITE="\001$(tput setaf 7)\002"
+    local -r DEFAULT_COLOR="\001$(tput setaf 9)\001"
 
-    esc() {
-        echo "\e${1}"
-    }
+    PS1="${BLUE}{${DEFAULT_COLOR} \W ${BLUE}} ${GREEN}\$(git rev-parse --abbrev-ref HEAD 2> /dev/null || echo '\u@\h') ${RED}\$${DEFAULT_COLOR} "
 
-    bash_esc() {
-        echo "\[$(esc "${1}")\]"
-    }
-
-    PS1="$(bash_esc "${BLUE}"){$(bash_esc "${NO_COLOR}") \W $(bash_esc "${BLUE}")} $(bash_esc "${GREEN}")\$(git rev-parse --abbrev-ref HEAD 2> /dev/null || echo '\u@\h') $(bash_esc "${RED}")\$»$(bash_esc "${NO_COLOR}") "
-
-    PROMPT_COMMAND="RETURN_CODE=\${?} ; if [ \${RETURN_CODE} -ne 0 ] ; then echo -en \"$(esc "${RED}")[\${RETURN_CODE}]$(esc "${NO_COLOR}")\" ; else echo -n \"\" ; fi"
+    PROMPT_COMMAND="RETURN_CODE=\${?} ; if [ \${RETURN_CODE} -ne 0 ] ; then echo -en \"${RED}[\${RETURN_CODE}]${DEFAULT_COLOR}\" ; else echo -n \"\" ; fi"
 
     unset -f esc bash_esc
 }
