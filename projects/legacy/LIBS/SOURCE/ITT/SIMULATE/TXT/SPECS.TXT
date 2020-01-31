@@ -1,0 +1,310 @@
+ITT O/I Panel  -  December 27, 1989  -  v1.0.3
+----------------------------------------------
+
+1.0  The Physical Layer
+-----------------------
+
+The Physical Layer provides a physical link between the P.L.C. and the
+O/I Panel.
+
+The Physical Layer uses an electrically isolated RS-422 / RS-485 interface.
+The data format is set at either 1200 or 9600 Baud, 8 data bits, 1 stop bit,
+no parity.
+
+
+1.1  Connections from PC or PS/2 to master P.L.C.
+-------------------------------------------------
+
+The PC or PS/2 has a D-shell 25 pin male RS-232C serial communications
+connector.  The unbalanced full-duplex RS-232C signals must be converted to
+balanced half-duplex RS-485 signals (RS-485 is an enhanced version of the
+RS-422 balanced line standard.  It allows multiple drivers and receivers on
+a two wire system).
+
+This conversion may be accomplished by using the B&B RS-232C to RS-485
+Converter.  The RS-232C port uses a female DB-25S type connector and the
+RS-485 port uses a male DB-25P type connector.  RTS must be off (low or
+marking) to receive and on (high or spacing) to transmit.  The pin
+assignments are as follows:
+
+Female DB-25S Connector (RS-232C)             Male DB-25P Connector (RS-485)
+---------------------------------             ------------------------------
+1 - Protective Ground                          1     - Protective Ground
+2 - Transmit Data (TD)                         2 (A) - Send Data + (SD+)
+3 - Receive Data (RD)                          5 (A) - Receive Data + (RD+)
+4 - Request To Send (RTS)                      7     - Signal Ground (SG)
+7 - Signal Ground                             14 (B) - Send Data - (SD-)
+                                              17 (B) - Receive Data - (RD-)
+
+NOTE: The B&B RS-232C to RS-485 Converter uses RTS to change the flow of data.
+      Specifically, RTS must be off (low or marking) to receive and on (high
+      or spacing) to transmit.
+
+The P.L.C. has a 10 pin male Phoenix connector with RS-485 signals.  The pin
+assignments are as follows:
+
+0 - Transmit Data - (TxD-)
+1 - Transmit Data + (TxD+)
+2 - Receive Data - (RxD-)
+3 - Receive Data + (RxD+)
+4 - Ground (Gnd)
+5 - Ground (Gnd)
+6 - Transmit Data - (TxD-)
+7 - Transmit Data + (TxD+)
+8 - Receive Data - (RxD-)
+9 - Receive Data + (RxD+)
+
+The two systems may be wired together for serial communications as follows:
+
+DB-25 Female                                 10 pin female Phoenix
+------------                                 ---------------------
+  (SD+) -  2     ---+---------------+---     8 - Receive Data - (RxD-)
+                    |               |
+  (RD+) -  5     ---+               +---     6 - Transmit Data - (TxD-)
+
+  (SG)  -  7     -----------------------     5 - Ground (Gnd)
+
+  (SD-) - 14     ---+               +---     7 - Transmit Data + (TxD+)
+                    |               |
+  (RD-) - 17     ---+---------------+---     9 - Receive Data + (RxD+)
+
+
+2.0  The Data Link Layer
+------------------------
+
+The Data Link Layer provides for an error free transmission.  All error
+detection and correction is handled at this level.
+
+The Data Link Data Packet has the following format:
+
+Byte  1      : STX (0x02) - Indication for start of Data Link Data Packet.
+               If an STX character occurs in the Network Data Packet, a
+               NUL (0x00) character will be byte stuffed immediately
+               afterward.  This NUL character is not included in the
+               length nor used to compute the checksum.
+Byte  2      : Packet Length d of all characters in Data Link Data Packet,
+               including STX and Check Sum.
+Byte  3      : Node number of the station (ranges from 0x11 to 0x1F).
+Byte  4      : Index.  Bit 7 (most significant bit) is the error indicator.
+               If bit 7 is set (1), it indicates that the Index byte is
+               used as an error or status message:
+                       1100 0000 (0xC0) - reset done
+                       1100 0001 (0xC1) - index error
+                       1100 1000 (0xC8) - instruction done
+               If bit 7 is clear (0), bits 0 through 5 contain the index
+               number.  Bit 6 is always 1.  
+Bytes 5..d-1 : Network Data Packet from the Network Layer
+Byte  d      : Check Sum.  If the Check Sum is 0x02 (STX), all bits in the
+               Check Sum are inverted.  The Check Sum is computed as
+               follows (data points to data packet, len holds data packet
+               length):
+                             mov chk,#$00     ; initialize check sum
+                       loop: asl chk          ; shift old check sum left
+                             adc chk,[data]   ; add character to check sum, using possible carry from shift
+                             adc chk,#$00     ; add in carry
+                             inc data         ; point to next character
+                             dec len          ; we did one character
+                             bne loop         ; any more characters?
+                             cmp chk,#$02     ; is check sum STX?
+                             bne quit         ; if not, we're done
+                             mov chk,#$FD     ; negate check sum
+                       quit: rts              ; that's all, folks
+
+
+2.0.1  Internal Index
+---------------------
+
+The O/I Panel keeps an Internal Index, which is initialized to 0x41 (bit 6
+of the index is always set).  The previous index number is kept in the
+Previous Internal Index, which is used to detect Instruction Done errors
+{section 2.1.4} where a response was sent by the O/I Panel but never received
+by the P.L.C.  The Previous Internal Index is initialized to 0x00.
+
+
+2.1  Receiving Data
+-------------------
+
+On receipt of the Data Link Data Packet, a few data integrity checks must be
+performed.
+
+
+2.1.1  Node Number
+------------------
+
+If the Node does not match the O/I Panel's node number, then the data packet
+is ignored.
+
+
+2.1.2  Check Sum
+----------------
+
+If the Check Sum does not match the check sum that we computed on the data
+received {section 2.0}, then the data packet is ignored.
+
+
+2.1.2.1  STX Characters within the Data Link Data Packet
+--------------------------------------------------------
+
+Note that the Check Sum algorithm in {section 2.0} assumes that all NUL
+characters following a STX character have been stripped out upon receipt
+(this relies upon the notion that the NUL stuffing/extracting should be
+handled right when the characters are written/read from the UART).  If the
+character following an STX character is not a NUL, it will be assumed to be
+the Packet Length.  The preceding STX will be used as a resynchronization
+character denoting the new beginning of a new Data Link Data packet.  Any
+other data accumulated prior to the STX will be ignored.
+
+
+2.1.3  Reset Command
+--------------------
+
+If the first byte of the Network Data Packet is the ESC (0x1B) character and
+the second byte is a RESET (0x52, 'R') request, the O/I Panel must
+reset the Previous Internal Index is set to 0x00, and the Internal Index is
+set to 0x41.  A status is reported back to the P.L.C. by sending a packet
+with the Index value of 0xC0 (reset done).
+
+Byte 1 : STX (0x02)
+Byte 2 : Packet Length of 7
+Byte 3 : Node number of the station (ranges from 0x11 to 0x1F)
+Byte 4 : Internal Index.  Bit 6 is always 1.  Bit 7 is always 0.
+Byte 5 : ESC (0x1B)
+Byte 6 : RESET (0x52, 'R')
+Byte 7 : Check Sum {section 2.0}
+
+
+2.1.4  Instruction Done
+-----------------------
+
+If the Index matches the Previous Internal Index value {section 2.0.1}, an
+error is reported back to the P.L.C. by sending a packet with the Index value
+of 0xC8 (instruction done).
+
+
+2.1.5  Index Error
+------------------
+
+If the Index does not match the Internal Index of the O/I Panel, an error
+is reported back to the P.L.C. by sending a packet with the Index value
+of 0xC1 (index error).
+
+
+2.1.6  Valid Data Link Data Packet
+----------------------------------
+
+Once a valid Data Link Data Packet is received, the Previous Internal Index
+is assigned the value of the Internal Index, and the Internal Index is
+incremented (with wrap around).  Remember that bit 6 is always set and bit 7
+is used to denote an error or status.  Therefore, the Internal Index value
+ranges from 0x40 to 0x7F.
+
+An example sequence would be:
+  0x41, 0x42, 0x43, ..., 0x7D, 0x7E, 0x7F, 0x40, 0x41, 0x42, ...
+
+
+2.2  Transmiting Data
+---------------------
+
+There are two types of transmissions, and both are a direct result of a poll
+from the P.L.C.  The O/I Panel is not allowed to begin a transmission
+on its own.
+
+
+2.2.1  Acknowledgement With No Data Requested by P.L.C. (Write)
+---------------------------------------------------------------
+
+The ACK is always initiated by the Network Layer {section 3.1}.
+
+A single ACK (0x06) character is transmitted to the P.L.C. to indicate a
+successful receipt by O/I Panel.  Note that only one character is
+transmitted; it is not encapsulated within a Data Link Data Packet.  This is
+done for two reasons: low overhead and fast acknowledgement.  If the ACK
+character is somehow lost, the P.L.C. will eventually re-transmit the same
+data packet.  Since it is only one character in length, the probability of
+an error in transmission is very small.
+
+
+2.2.2  Data Requested by P.L.C. (Read)
+--------------------------------------
+
+All error, status, or data requests are transmitted to the P.L.C. by
+encapsulating the Network Data Packet within the Data Link Data Packet.
+
+
+2.2.2.1  Error Or Status Reply
+------------------------------
+
+All Error and Status replies are initiated by the Data Link Layer
+{sections 2.1.3, 2.1.4, 2.1.5}.
+
+For an error or a status, the Length will be 6.  The Node will be BROADCAST
+(0x10).  The index will have the error bit (bit 7) set, bit 6 set, and bits
+0 through 5 indicating the error or status.  The first byte of the Network
+Data Packet will be the MASTER (0x80) character.  The Check Sum will be
+computed as described in {section 2.0}.
+
+Byte  1 : STX (0x02)
+Byte  2 : Packet Length of 6
+Byte  3 : Node number is BROADCAST (0x10)
+Byte  4 : Index.  Bit 7 (most significant bit) is the error indicator.
+                  1100 0000 (0xC0) - reset done
+                  1100 0001 (0xC1) - index error
+                  1100 1000 (0xC8) - instruction done
+Byte  5 : Network Data Packet is MASTER (0x80)
+Byte  6 : Check Sum {section 2.0}
+
+
+2.2.2.2  Reply (Read)
+---------------------
+
+All Read Replies are initiated by the Network Layer {section 3.2}.
+
+The Length will be the total Data Link Packet length, including the STX and
+Check Sum.  The Node will be BROADCAST (0x10).  Index will be set to the
+Internal Index number.  The first byte of the Network Data Packet will be
+the MASTER (0x80) character.  The bytes following will be the data received
+from the Network layer.  The Check Sum will be computed as described in
+{section 2.0}.
+
+Byte  1      : STX (0x02)
+Byte  2      : Packet Length d of all characters in Data Link Data Packet,
+               including STX and Check Sum.
+Byte  3      : BROADCAST (0x10)
+Byte  4      : Internal Index.  Bit 6 is always 1.  Bit 7 is always 0.
+Byte  5      : MASTER (0x80)
+Bytes 6..d-1 : Network Data Packet from the Network Layer
+Byte  d      : Check Sum {section 2.0}.
+
+
+3.0  The Network Layer
+----------------------
+
+The Network Layer provides an error free connection between the P.L.C. and
+the O/I Panel.
+
+The received Network Data Packet has the following format:
+
+Byte  1        : Command: 0x00 is WRITE, 0x01 is READ
+Byte  2        : Length n bytes to WRITE or READ
+Byte  3        : High Byte of Starting Address
+Byte  4        : Low Byte of Starting Address
+Bytes 5..5+n-1 : Data
+
+
+3.1  Write Request
+------------------
+
+A request to WRITE copies the Data received into the O/I Panel's memory,
+starting at the Address specified.  An ACK is transmitted to notify the
+P.L.C. that the WRITE has been performed {section 2.2.1}.
+
+
+3.2  Read Request
+-----------------
+
+A request to READ transmits the O/I Panel's memory, starting at the
+Address specified to the P.L.C.  The Network Packet consists solely of the
+data that was requested to be READ {section 2.2.2.2}.
+
+Byte  1..n : Data read from O/I Panel's memory.
+

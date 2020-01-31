@@ -1,0 +1,96 @@
+
+			      VDP Tech Note #0
+			      ================
+
+-----------------------------------------------------------------------------
+  Topic  : Providing Tech Support
+ Author  : Jack Niewiadomski
+Created  : October 19, 1990
+Modified : August 26, 1993
+-----------------------------------------------------------------------------
+
+The VDP tech notes attempt to provide help in giving good technical support
+for the Vorne Display-Pro Utility software.
+
+When a customer calls due to a problem with the VDP software, attempt to
+understand exactly what is wrong before trying to find a solution.  Many
+times the caller will not provide enough information about the problem at
+hand.  Therefore, a question/answer session should be initiated to determine
+the specific nature of the problem.
+
+
+		     Steps to Take to Resolve a Problem
+		     ----------------------------------
+
+Talk to the customer and try to get a feel for what may be the problem.
+Perhaps the user simply does not understand what steps are needed to program
+the 2000C display.  In this case, "walk through" with the customer step by
+step the proper actions needed to accomplish the task the customer wishes to
+perform.
+
+If the customer indeed has a problem, get an exact description of the events
+that triggered the problem.  This includes any messages or special ID alerts
+that may have been displayed when the error occured.  In most cases the
+error message will zero in on the problem.
+
+Example Problem:
+	The customer is unable to save the small message file that was just
+	created.  The program displayed an error message and then just quit.
+	The contents of the message file were lost.
+Example Solution:
+	Immediately suspect that the user has not adequately described all of
+	the events that have transpired if it is stated that the program
+	"just quit" on its own.  The software was designed to display a
+	message whenever an error occurs with prompts from the user to press
+	one of several keys.
+
+	In this case, when the user was asked to read exactly what the error
+	message displayed, the answer was obvious:
+		      "Write-protected Diskette"
+	Have the user take out the diskette from the drive, take off the
+	write-protection tab, reinsert the diskette into the drive and press
+	the 'R' key to retry the operation (a list of the available options
+	is displayed on the screen).
+
+
+If there is no error message or the error message does not suggest a reason
+for the users problem, attempt to determine the specific environment that
+the user is using.  The environment includes:
+
+	The version number of the VDP software.
+
+	The name and version number of the operating system that the user is
+	using (for example: PC-DOS v3.30 or MS-DOS v4.01, ...).
+
+	The type of microcomputer that the user is using, including:
+		- name of the manufacturer
+		- PC model number
+		- type of monitor and graphics card (MDA, CGA, EGA, VGA, ...)
+		- list of all drives and their sizes (20 MB hard drive,
+		  720 MB 3« floppy drive, 360 KB 5¬ floppy drive, ...)
+		- number of serial ports
+
+	Any out-of-the-ordinary hardware attached to the system (networks,
+	accelerators, ...)
+
+	The type of 2000C display that the user is attempting to program.  It
+	can be either a 250 message or 64 message display (yes, 64 message
+	units are still out there).
+
+	If a critical error message was displayed, note the full error
+	message text and the six character code in the upper right hand
+	corner of the window.
+
+All of this information should provide a clue as to what is wrong.  By
+process of elimination narrow down the scope of the problem.
+
+The following is a list of released tech notes.
+
+Num  Date      Topic
+-----------------------------------------------------------------------------
+0    10/19/90  Providing Tech Support
+1    10/19/90  Supporting Previous Versions of the Software
+2    10/19/90  Laptops and Compatibles with Monochrome Displays
+3    10/19/90  Timing Problems when Programming the 2000C Display
+4    09/27/91  Naming Directories and Running VDP
+5    08/26/93  Laptops and Compatibles with Color Displays

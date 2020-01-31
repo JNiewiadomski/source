@@ -1,0 +1,22 @@
+# makefile for the PDMA32 library
+
+NAME  = pdma32
+
+# --- assembler options ---
+# ---  e : emulated floating-point instructions
+# ---  i : include file path
+# ---  t : suppresses messages if successful assembly
+# ---  w : set warning level
+# --- zi : full sybmolic debug info
+
+# --- inference rules ---
+.asm.obj:
+	@tasm $(TASM) $*
+	@tlib $(TLIB) $(NAME) -+$*.obj
+	@erase *.bak
+
+# --- objects ---
+01 = pdma32.obj
+
+$(NAME).lib: $(01)
+

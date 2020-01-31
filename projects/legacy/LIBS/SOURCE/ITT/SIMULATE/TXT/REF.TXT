@@ -1,0 +1,214 @@
+                       Technologic Pump Controller
+                            Operator Interface
+                    Technical Reference Manual  v1.0.1
+                             January 22, 1990
+
+
+1.0  -  Hardware
+----------------
+
+The Technologic Pump Controller Operator Interface (O/I Panel) has the
+following physical characteristics:
+  -  17.13 x 5.5 x ??.??
+  -  2 by 20 character vaccuum florescent alphanumeric display
+  -  2 by 8 switch matrix with bi-colored LED's
+  -  3 by 4 switch matrix
+  -  1 DB-9 RS-485 serial port
+  -  1 power cord
+
+
+2.0  -  Operation
+-----------------
+
+The O/I Panel processes all I/O (Input/Output) between a machine operator and
+a P.L.C.  The O/I Panel is always polled by the P.L.C. and never initiates
+communication on its own.  The O/I Panel is capable of maintaining an error
+free serial link with the P.L.C, filtering out invalid key strokes from the
+machine operator, displaying volatile data, error conditions, alarms, and
+causing the LED's to show one of two colors either continually on or
+flashing.
+
+
+2.1  -  Power Up
+----------------
+
+On power up, the O/I Panel displays a corporate signiature and does a self
+test.  Internally, all of the registers in the Master Communications Table
+(MCT), from R1300 to 1779, are cleared (set to 0) in the O/I Panel.
+
+
+2.1.1  -  Corporate Signiature  [C.2]
+-------------------------------------
+
+On power up, the O/I Panel displays the following corporate signiature:
+
+" ITT Bell & Gossett "
+"  Powersav System   "
+
+"    Technologic     "
+"  Pump Controller   "
+
+"   Copyright 1989   "
+"All Rights Reserved "
+
+
+2.1.2  -  Self Test  [C.2][C.8]
+-------------------------------
+
+Following the corporate signiature, a hardware self test is conducted to
+determine the quality of the unit.  All of the segments of the 2 line display
+are turned on, both colors of the LED's are turned on and flashed, and the
+entire character set of the O/I Panel is scrolled on the display.
+
+
+2.2  -  Main Operation
+----------------------
+
+Once the corporate signiature has been displayed and the self test run, the
+O/I Panel continually monitors the status of communication with the P.L.C,
+detects alarm conditions, updates the display and the LED's, and processes
+key presses.
+
+In general, a message that is greater than 20 characters is scrolled across
+the display on the same line.
+
+
+2.2.1  -  Off-Line  [A.2-1][E.2-1]
+----------------------------------
+
+If the O/I Panel is not polled within a 5 second time frame, the O/I Panel is
+considered to be Off-Line and the following error message is displayed:
+
+"Communication Failed"
+"O/I interface not communicating with P.L.C.; call factory for help"
+
+This message persists for as long as there is no communication from the
+P.L.C.
+
+
+2.2.2  -  In-Error
+------------------
+
+If the O/I Panel is being polled by the P.L.C. but the commands are
+continually not recognized for 5 seconds, the O/I Panel is considered to be
+In-Error and the following error message is displayed:
+
+"Communication Error "
+"O/I interface receiving invalid commands from P.L.C.; call factory for help"
+
+This message persists for as long as invalid commands are being received.
+
+
+2.2.3  -  On-Line
+-----------------
+
+If the O/I Panel is being polled and is receiving valid commands, the O/I
+Panel is considered to be On-Line.
+
+
+2.2.3.1  -  Alarms
+------------------
+
+If any of the bits in the alarm registers is set (to 1), an alarm condition
+is in effect.
+
+R1732  -  Remote-Local-Off Switch in 'OFF' [D.6]
+R1744  -  Pump Failure  [D.9]
+R1746  -  Remote Start and Power Failure  [D.10]
+R1748  -  Zone Failure  [D.7]
+R1750  -  Transmitter Miscalibration  [D.8]
+R1752  -  Flow and KW Failure  [D.11]
+
+If an alarm condition is detected and the O/I Panel is not in the middle of
+an operation (ie. HAND, PROCESS VARIABLE, SET POINT, ALTERNATION, TEST or
+SET UP) the following message is flashed on line 2:
+
+"* * *  ALARM  * * * "
+
+If the HELP key is pressed when an alarm condition exists, the following
+short help message is displayed:
+
+"   Alarm YY of XX   "  -  YY indicates current, XX indicates total
+"short help message  "  -  help text pertaining to current alarm
+
+Pressing the HELP key again will display the short help message on line 1
+and a longer help message is scrolled on line 2.
+
+"short help message  "  [E.2-1]
+"long help message   "
+
+The following state table describes the operation of the help system:
+
+YY = 0, which means that the first alarm found is the current alarm displayed
+XX = total number of alarms found
+state = short help
+
+Hey Pressed   Action Taken  [E.1]
+-----------------------------------------------------------------------
+CLEAR         if state == long help, state = short help, else exit help
+DOWN          YY = next alarm with wrap around
+HELP          if state == short help, state = long help
+UP            YY = previous alarm with wrap around
+
+
+2.2.3.2  -  No User Data  [D.6]
+-------------------------------
+
+If no alarm condition exists, bit 10 of the Keypad Flag Write Register (R1732)
+must be tested to determine whether or not the machine operator has set up
+the system correctly.  The P.L.C. will determine this condition for us.
+Since the P.L.C. has memory backed up by battery, it retains the register
+values when power is cycled.  Whenever this bit is 0, the following message
+is displayed:
+
+" Please Do 'Setup'  "
+"    No User Data    "
+
+
+2.2.3.3  -  Alternation Engaged  [B.5][D.6]
+-------------------------------------------
+
+Whenever bit 0 of the Keypad Flag Write Register (R1732) is 1, the following
+message is displayed on line 2:
+
+"Alt Engaged-Stand By"
+
+
+2.2.3.4  -  Bypass  [C.3-1.3][D.6]
+----------------------------------
+
+Whenever bit 2 of the Keypad Flag Write Register (R1732) is 1, the following
+message is displayed on line 2:
+
+"System in BYPASS    "
+
+
+2.2.3.5  -  Manual  [C.3-1.3][D.6]
+----------------------------------
+
+Whenever bit 3 of the Keypad Flag Write Register (R1732) is 1, the following
+message is displayed on line 2:
+
+"Manual Speed = XXX %"  -  XXX is the speed value in R1690
+
+
+2.2.3.6  -  Start Up - Stand By  [D.6]
+--------------------------------------
+
+Whenever bit 11 of the Keypad Flag Write Register (R1732) is 1, the following
+message is displayed on line 2:
+
+"Start Up - Stand By "
+
+
+2.2.3.7  -  Default Messsages  [C.2]
+------------------------------------
+
+Default messages are displayed whenever the O/I Panel is On-Line {2.2.3}
+and User Data {2.2.3.2} has been entered.
+
+If an alarm condition is detected {2.2.3.1}, alternation is engaged
+{2.2.3.3}, system is in bypass {2.2.3.4} system is in manual {2.2.3.5}, or
+system is in start up {2.2.3.6}, only line one is used.  Otherwise, both
+lines are utilized for the default messages.
+

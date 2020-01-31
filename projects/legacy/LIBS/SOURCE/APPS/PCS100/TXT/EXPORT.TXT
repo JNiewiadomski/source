@@ -1,0 +1,20 @@
+The ability to provide a standardized ASCII format file of archival data that
+dBase III, Excel and other second source programs understand.
+
+Most second source programs that import data have the ability to read in
+ASCII text files of the format:
+
+	<field_1> <field_delimeter>
+	<field_2> <field_delimeter>
+	...
+	<field_n> <record_delimeter>
+		
+where <field_delimeter> and <record_delimeter> are ASCII characters which are
+used to separate individual records and fields within those records.
+
+The PCS100 software will provide the ability to save archival data of open
+and closed jobs using this format.  The <field_delimeter> and
+<record_delimeter> characters are user definable.  The Job menu will contain
+two more commands which provide the ability to export open and closed jobs
+and shifts.
+

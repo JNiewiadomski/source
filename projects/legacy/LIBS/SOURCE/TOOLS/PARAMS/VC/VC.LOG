@@ -1,0 +1,14 @@
+1993 Mar 22 10:01:32 <C> params.cpp 1.0 JACKN 1073 40 Original program.
+1993 Mar 22 10:01:32 <C> params.exe 1.0 JACKN 12520 0
+1993 Mar 22 10:01:34 <RC> 1_0_0 JACKN
+1993 Mar 22 10:01:34 <RA> params.exe 1.0 1_0_0 JACKN
+1993 Mar 22 10:01:34 <RA> params.cpp 1.0 1_0_0 JACKN
+1993 Mar 22 10:01:36 <OL> params.exe 1.0 JACKN 12520 0
+1993 Mar 22 10:01:36 <OL> params.cpp 1.0 JACKN 1073 40
+1993 Mar 22 10:02:57 <I> params.cpp 1.1 JACKN 1303 51 23 12 Check for NULL pointer returned from strtok; 9301.11
+1993 Mar 22 10:02:57 <I> params.exe 1.1 JACKN 18008 51 -11 12
+1993 Mar 22 10:02:58 <RC> 1_0_1 JACKN
+1993 Mar 22 10:02:58 <RA> params.exe 1.1 1_0_1 JACKN
+1993 Mar 22 10:02:58 <RA> params.cpp 1.1 1_0_1 JACKN
+1993 Mar 22 10:03:00 <OL> params.exe 1.1 JACKN 18008 0
+1993 Mar 22 10:03:00 <OL> params.cpp 1.1 JACKN 1303 51

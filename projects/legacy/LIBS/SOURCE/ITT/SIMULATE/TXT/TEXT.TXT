@@ -1,0 +1,312 @@
+"Value Out Of Range  "
+"%u<=value<=%u"
+"   Alarm %2d of %2d   "
+
+" ITT Bell & Gossett "
+"  Powersav System   "
+"    Technologic     "
+"  Pump Controller   "
+"   Copyright 1989   "
+"All Rights Reserved "
+
+" Please Do 'Setup'  "
+"    No User Data    "
+
+"* * *  ALARM  * * * "
+"System in BYPASS    "
+"Manual Speed = %3u %%"
+"Alt Engaged-Stand By"
+" Setpoint = %3u     "
+"Process Var.  =  %3u"
+" Active Zone  =   %2u"
+"Speed Percent =  %3u"
+"GPM =%5u"
+"KW =  %3u"
+"Sequence=           "
+
+"Communication Failed"
+"O/I interface not communicating with P.L.C.; call factory for help               "
+
+"Communication Error "
+"O/I interface receiving invalid commands from P.L.C.; call factory for help               "
+
+"Zone%2d:SP=%3u PV=%3u"
+"HELP: Press a Key..."
+"Please Enable A Pump"
+
+"Help on 'Start/Stop'"
+"Used to enable and disable outputs of the controller; Green=Start, Red=Stop               "
+
+" Auto Speed Control "
+"Accept With 'ENTER' "
+
+"Help on 'Auto'      "
+"Used to engage the automatic control of the system; Green=Auto Control On               "
+
+"Help on 'Reset'     "
+"Used to reset alarm after its correction; Red=Reset Required               "
+
+"System in 'HAND'    "
+"Press: 'BYPASS', 'MANUAL', or 'AUTO'               "
+
+"Manual Speed Control"
+"Accept With 'ENTER' "
+
+"Help on 'Hand'      "
+"Allows user to force bypass and manually set speed; Green=Hand Control On               "
+
+"Pump not available. "
+
+"Help on 'Pump 1'    "
+"Used to start/stop a pump; Flashing Green=Enable, Green=Run, Red=Bypass, Flashing Red=Failure               "
+
+"Function not used.  "
+
+"Help on Function Key"
+"Key not used.       "
+
+"Help on 'Pump 2'    "
+"Used to start/stop a pump; Flashing Green=Enable, Green=Run, Red=Bypass, Flashing Red=Failure               "
+
+"Help on 'Pump 3'    "
+"Used to start/stop a pump; Flashing Green=Enable, Green=Run, Red=Bypass, Flashing Red=Failure               "
+
+"Help on 'Pump 4'    "
+"Used to start/stop a pump; Flashing Green=Enable, Green=Run, Red=Bypass, Flashing Red=Failure               "
+
+"Help on 'Pump 5'    "
+"Used to start/stop a pump; Flashing Green=Enable, Green=Run, Red=Bypass, Flashing Red=Failure               "
+
+"Help on 'Pump 6'    "
+"Used to start/stop a pump; Flashing Green=Enable, Green=Run, Red=Bypass, Flashing Red=Failure               "
+
+"Help on 'Proc Var'  "
+"Used to view process variables; use up and down arrow keys to scroll               "
+
+"Function Not Allowed"
+
+"    Alternate ?     "
+"   'ENTER' if OK    "
+
+"Help on 'Alt'       "
+"Used to alternate pump sequence               "
+
+"Help on 'Bypass'    "
+"Used in 'Hand' to enable constant speed operation               "
+
+"  Hand - Bypass ?   "
+"   'ENTER' if OK    "
+
+"Help on 'Set Point' "
+"Used to enter set points; use up and down arrow keys to select zones and enter data               "
+
+"Help on 'Test'      "
+"Used to test LED's, display and transmitters               "
+
+"Help on 'Manual'    "
+"Used in 'Hand' to manually set speed; use up and down arrow keys               "
+
+"  Hand - Manual ?   "
+"   'ENTER' if OK    "
+
+"Manual Speed = %3u %%"
+
+"Help on 'Up Arrow'  "
+"Used for selection and manual speed set               "
+
+"Help on 'Set Up'    "
+"Used to define system parameters - security               "
+
+"Help on 'Down Arrow'"
+"Used for selection and manual speed set               "
+
+"System in 'HAND'    "
+"Press: 'BYPASS', 'MANUAL', or 'AUTO'               "
+
+"Help on 'Clear'     "
+"Clears latest entry (operation and data)               "
+
+"Help on 'Help'      "
+"User assistance; press: Help + Key/Item               "
+
+"Zone %2d Failure     "
+"Check wiring, piping, polarity, continuity               "
+
+"Xmitter %2d Calibrate"
+"Transmitter to be re-calibrated               "
+
+"Overload %d Failure  "
+"Check Amp draw, use manual reset if OK               "
+
+"Pump %d Failure      "
+"Check DP switch, impeller, coupler, motor               "
+
+"AFD %d Failure       "
+"Check H-O-A switch, wiring & AFD's LED               "
+
+"Pump %d Off          "
+"Need pump in system; if OK-enable pump               "
+
+"Overload %d Failure  "
+"Check Amp draw, use manual reset if OK               "
+
+"Pump %d Failure      "
+"Check DP switch, impeller, coupler, motor               "
+
+"AFD %d Failure       "
+"Check H-O-A switch, wiring & AFD's LED               "
+
+"Pump %d Off          "
+"Need pump in system; if OK-enable pump               "
+
+"PWR Supply %d Failure"
+"Check wiring, fuses, supply calibration               "
+
+"Remote %d in 'STOP'  "
+"Wait for 'START' or put in 'LOCAL' & start               "
+
+"GPM Xmitter %d Failed"
+"Check wiring, piping, polarity, continuity               "
+
+"KW Xmitter %d Failure"
+"Check wiring: polarity, continuity               "
+
+"Data Lost-Need Input"
+"Replace battery now! Do 'SETUP' procedure               "
+
+"Rem-Loc-Off in 'OFF'"
+"Verify that it's OK to turn system 'ON'               "
+
+"Help on 'Enter'     "
+"Used to accept data and operation input               "
+
+"System in BYPASS    "
+"Manual Speed = %3u %%"
+
+"      Stand By      "
+"Alt Engaged-Stand By"
+" Alt Not Completed  "
+"   Alt Completed    "
+" No Acknowledgement "
+
+"Manual Speed = %3u %%"
+"Zone%2u:    SP = %3u "
+
+"Enter Access Code   "
+"      _____         "
+
+"      Stand By      "
+" No Acknowledgement "
+" Confirming Code... "
+"New User Code       "
+"   'ENTER' if OK    "
+"New User Code       "
+" 'ENTER' to Verify  "
+"Verification Failed "
+
+"Node Number         "
+"Comm address of operator panel               "
+
+"Baud Rate           "
+"Use arrow keys to make a selection               "
+
+"EOC Max Flow        "
+"Maximum allowed flow of a pump at full speed               "
+
+"EOC D-Stg %Val      "
+"% of flow at speed when D-Stage is OK               "
+
+"1st D-Stg Val       "
+"Stable % value to be reached to D-Stage               "
+
+"1st D-Stg Pr.Tm     "
+"After this time pump will D-Stage if at 1st D-Stage value               "
+
+"2nd D-Stg Val       "
+"Stable % value to be reached to D-Stage               "
+
+"2nd D-Stg Pr.Tm     "
+"After this time pump will D-Stage if at 2nd D-Stage value               "
+
+"3rd D-Stg Val       "
+"Stable % value to be reached to D-Stage               "
+
+"3rd D-Stg Pr.Tm     "
+"After this time pump will D-Stage if at 3rd D-Stage value               "
+
+"4th D-Stg Val       "
+"Stable % value to be reached to D-Stage               "
+
+"4th D-Stg Pr.Tm     "
+"After this time pump will D-Stage if at 4th D-Stage value               "
+
+"5th D-Stg Val       "
+"Stable % value to be reached to D-Stage               "
+
+"5th D-Stg Pr.Tm     "
+"After this time pump will D-Stage if at 5th D-Stage value               "
+
+"PID Loop Number     "
+"Enter value between 1 and 8               "
+
+"Default Accept      "
+"Enter 'Yes' to download standard values as data for set up menu; use „/… keys to select 'Yes' or 'No'               "
+
+"      Stand By      "
+"Setting defaults... "
+" No Acknowledgement "
+
+"Number of Pumps     "
+"Number of pumps to run together (1-6)               "
+
+"1st Stg Stab Tm     "
+"(Second*10) for staged pumps to stabilize               "
+
+"2nd Stg Stab Tm     "
+"(Second*10) for staged pumps to stabilize               "
+
+"3rd Stg Stab Tm     "
+"(Second*10) for staged pumps to stabilize               "
+
+"4th Stg Stab Tm     "
+"(Second*10) for staged pumps to stabilize               "
+
+"5th Stg Stab Tm     "
+"(Second*10) for staged pumps to stabilize               "
+
+"Auto Alt. Prd.      "
+"0=Manual only, for auto see table in IOM               "
+
+"Proportional        "
+"Corrective action as F(Error)               "
+
+"Integral            "
+"Corrective action as F(Error sum in time)               "
+
+"Derivative          "
+"Corrective action as F(Rate change of error)               "
+
+"PV Units            "
+"PSI‚, PSI, ƒF, ‚ƒF, ƒC, ‚ƒC               "
+
+"PV Xmitter Span     "
+"Set by 'UNITS'; must be equal to actual Xmitter calibration               "
+
+"GPM Xmitter Span    "
+"Enter value equal to GPM transmitter calibration               "
+
+"kW Xmitter Span     "
+"Enter value equal to KW transmitter calibration               "
+
+"Number of Zones     "
+"Need number equal to total PV transmitters               "
+
+"Bypass Enable       "
+"Yes=Bypass allowed, No=Bypass not allowed; use „/… keys to select 'Yes' or 'No'               "
+
+"Lamp Test",
+"Test of LED's and all display segments               "
+
+"Display Test"
+"Test for display readability               "
+

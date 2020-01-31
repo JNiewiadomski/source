@@ -1,0 +1,10 @@
+[header]
+CHAR_SET	SEGMENT	CODE
+
+	RSEG	CHAR_SET
+[public]
+	PUBLIC	%
+[extern]
+	EXTRN	CODE (%)
+[footer]
+	END

@@ -1,0 +1,2189 @@
+// ***********************************************************************
+// *                                                                     *
+// *                      PCS100 Network Supervisor                      *
+// *                                                                     *
+// *       Copyright (c) 1987-1991  Vorne Industries Incorporated.       *
+// *                         All rights reserved.                        *
+// *                                                                     *
+// ***********************************************************************
+
+// -----------------------------------------------------------------------
+//    U.S.A version
+// -----------------------------------------------------------------------
+
+.MEMO	"PCS100 US Resource File";
+.FILE	"PCS100.001";
+
+#include "inc\pcs100.rh"		// symbolic definitions
+#include "src\pcs100.r"			// language independent system resources
+
+read "seashell.001";			// seashell resources
+
+
+resource error (PCS100_ERROR, purgeable) {
+	"Unable to save configuration data.",
+	"Communications disabled"
+	};
+
+resource error (OperatorERROR, purgeable) {
+	"Unable to load operator installation list.",
+	"Unable to save operator installation list."
+	};
+
+resource error (MachineERROR, purgeable) {
+	"Unable to load machine installation list.",
+	"Unable to save machine installation list."
+	};
+
+resource error (QueryERROR, purgeable) {
+	"Unable to load run-time query data.",
+	"Unable to save run-time query data.",
+	"Unable to schedule counter %d.",
+	"Unable to delete counter %d from scheduling.",
+	"Unable to re-schedule counter %d."
+	};
+
+resource error (JobERROR, purgeable) {
+	"Unable to load job installation list.",
+	"Unable to save job installation list.",
+	"Maximum number of jobs created."
+	};
+
+resource error (ArchiveERROR, purgeable) {
+	"No archival records found.",
+	"Ctree error #%d with file #%d"
+	};
+
+resource error (PrefsERROR, purgeable) {
+	"No such file or directory.",
+	"Not enough memory.",
+	"Argument list too long.",
+	"Exec format error."
+	};
+
+resource form (OperatorFORM_List, purgeable) {
+	"Operator Installation List printed on %s at %s.\n\n",
+	"Operator Number  Operator Name                   Installed\n",
+	"----------------------------------------------------------\n"
+	};
+
+resource form (MachineFORM_List, purgeable) {
+ 	"Machine Installation List printed on %s at %s.\n\n",
+ 	" Number  Machine Name                    Installed\n",
+ 	"---------------------------------------------------\n"
+ 	};
+
+resource form (MachineFORM_All, purgeable) {
+	"All Machine Status Report printed on %s at %s.\n\n\n",
+	"Machine       Job  Machine        Total  Current\n",
+	"Number     Number  Status        Pieces    Rate     Run Time   Idle Time\n",
+	"------------------------------------------------------------------------\n"
+	};
+
+resource form (MachineFORM_Single, purgeable) {
+	"Single Machine Status Report printed on %s at %s.\n\n\n",
+	"   Machine Name: %-*s       Installed: %s\n",
+	"  Operator Name: %-*s\n\n\n",
+	"----------------------------- Job Identification --------------------------\n",
+	" Machine Number:       %0*d                        Machine Status: %s\n",
+	"     Job Number: %s                       Operator Number: %s\n",
+	"    Job Started: %s  %s                Shift Number:    %s\n\n\n\n",
+	"--------------------------------- Job Setup -------------------------------\n",
+	"     Preset Job: %s                           Output Delay: %s Sec\n",
+	"   Preset Batch:     %s                        Output Duration: %s Sec\n",
+	"         Factor:       %s                            Output Type: %s\n\n\n\n",
+	"---------------------------- Running Information --------------------------\n",
+	"  Run Time: %s    Total Batches: %s    Total Pieces: %s\n",
+	" Idle Time: %s  Countdown Batch:     %s    Setup Pieces: %s\n",
+	"Setup Time: %s     Preset Batch:     %s    Current Rate:   %s\n",
+	"Total Time: %s                               Average Rate:   %s\n\n\n\n",
+	"--------------------------------- Statistics ------------------------------\n",
+	"      Pieces Left: %s                       Time Left (Projected)\n",
+	"  # of Times Idle:       %s                      Current Rate: %s\n",
+	"Percent Completed:        %s %%                  Average Rate: %s\n"
+	};
+
+resource form (ShiftFORM_AllMachine, purgeable) {
+	"Shift for All Machine Status Report printed on %s at %s.\n\n\n",
+	"Machine       Job  Machine        Total  Average\n",
+	"Number     Number  Status        Pieces    Rate     Run Time   Idle Time\n",
+	"------------------------------------------------------------------------\n"
+	};
+
+resource form (ShiftFORM_SingleMachine, purgeable) {
+	"Shift for Single Machine Status Report printed on %s at %s.\n\n\n",
+	"   Machine Name: %-*s       Installed: %s\n",
+	"  Operator Name: %-*s\n\n\n",
+	"-------------------------- Job Shift Identification -----------------------\n",
+	" Machine Number:       %0*d                        Machine Status: %s\n",
+	"     Job Number: %s                       Operator Number: %s\n",
+	"  Shift Started: %s  %s                Shift Number:    %s\n\n\n\n",
+	"------------------------- Running Shift Information -----------------------\n",
+	"  Run Time: %s                                 Total Pieces: %s\n",
+	" Idle Time: %s                                Total Batches: %s\n",
+	"Setup Time: %s                                 Setup Pieces: %s\n",
+	"Total Time: %s                                 Average Rate:   %s\n"
+	};
+
+resource form (JobFORM_All, purgeable) {
+	"All Job Status Report printed on %s at %s.\n\n",
+	"     Job      %%       Job     Total   Current  Time Left (Projected)\n",
+	"  Number   Comp    Preset    Pieces      Rate   Cur Rate    Avg Rate\n",
+	"--------------------------------------------------------------------\n"
+	};
+
+resource form (JobFORM_Single, purgeable) {
+	"Single Job Status Report printed on %s at %s.\n\n",
+	"Job # %*ld is %5s %% completed.                 Current Rate:   %8ld\n",
+	"  Preset Job:   %*ld                             Average Rate:   %8.0f\n",
+	"Total Pieces: %10ld                     Time Left - Cur Rate: %10s\n",
+	" Pieces Left:   %8s                     Time Left - Avg Rate: %10s\n\n",
+	"   Machine         Current  Average    Total    Pieces   Time Left (Projected)\n",
+	"Number  Status        Rate     Rate   Pieces      Left    Cur Rate    Avg Rate\n",
+	"------------------------------------------------------------------------------\n"
+	};
+
+resource form (ShiftFORM_AllJob, purgeable) {
+	"Shift All Job Status Report printed on %s at %s.\n\n",
+	"     Job      %%       Job     Total   Current  Time Left (Projected)\n",
+	"  Number   Comp    Preset    Pieces      Rate   Cur Rate    Avg Rate\n",
+	"--------------------------------------------------------------------\n"
+	};
+
+resource form (ShiftFORM_SingleJob, purgeable) {
+	"Shift Single Job Status Report printed on %s at %s.\n\n",
+	"Job # %*ld is %5s %% completed.                 Current Rate:   %8ld\n",
+	"  Preset Job:   %*ld                             Average Rate:   %8.0f\n",
+	"Total Pieces: %10ld                     Time Left - Cur Rate: %10s\n",
+	" Pieces Left:   %8s                     Time Left - Avg Rate: %10s\n\n",
+	"   Machine         Current  Average    Total    Pieces   Time Left (Projected)\n",
+	"Number  Status        Rate     Rate   Pieces      Left    Cur Rate    Avg Rate\n",
+	"------------------------------------------------------------------------------\n"
+	};
+
+resource form (JobFORM_List, purgeable) {
+	"Job Installation List printed on %s at %s.\n\n",
+	"Job Number   Job Name                       Job Total  Date      Status\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_Machine, purgeable) {
+	"Report by machine address printed on %s at %s.\n\n",
+	"Mch      Job  Oper  Shift    Total   Average      Run     Idle    Setup\n",
+	"Num   Number   Num  Num     Pieces      Rate     Time     Time     Time\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_Job, purgeable) {
+	"Report by job number printed on %s at %s.\n\n",
+	"Mch      Job  Oper  Shift    Total   Average      Run     Idle    Setup\n",
+	"Num   Number   Num  Num     Pieces      Rate     Time     Time     Time\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_Operator, purgeable) {
+	"Report by operator number printed on %s at %s.\n\n",
+	"Mch      Job  Oper  Shift    Total   Average      Run     Idle    Setup\n",
+	"Num   Number   Num  Num     Pieces      Rate     Time     Time     Time\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_ShiftMachine, purgeable) {
+	"Shift report by machine address printed on %s at %s.\n\n",
+	"Mch      Job  Oper  Shift    Total   Average      Run     Idle    Setup\n",
+	"Num   Number   Num  Num     Pieces      Rate     Time     Time     Time\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_ShiftJob, purgeable) {
+	"Shift report by job number printed on %s at %s.\n\n",
+	"Mch      Job  Oper  Shift    Total   Average      Run     Idle    Setup\n",
+	"Num   Number   Num  Num     Pieces      Rate     Time     Time     Time\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_ShiftOperator, purgeable) {
+	"Shift report by operator number printed on %s at %s.\n\n",
+	"Mch      Job  Oper  Shift    Total   Average      Run     Idle    Setup\n",
+	"Num   Number   Num  Num     Pieces      Rate     Time     Time     Time\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource help (LanguageHELP) {
+	"The PCS100 software can be custom tailored to display text in several",
+	"different languages, including English, German, French and Spanish."
+	};
+
+resource help (PrefsHELP) {
+	"The {Preferences} Menu provides options to customize the operation",
+	"of the PCS100 software.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  Serial Port (1)  ³ ÄÄÄÄ Displays a list of available serial adapters",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³      through which the program communicates to",
+	"³  Setup Printer... ³ ÄÄ¿  the PCS100 Production Monitors.",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ   ³",
+	"                         ÀÄ Allows either the Parallel port or the",
+	"                            Serial port to be used to print out data.",
+	"                            The host computer must have two serial",
+	"                            ports to take advantage of this option."
+	};
+
+resource help (PrefsHELP_Timing) {
+	"ÕÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"³ Screen Saver Delay:  30 minutes ÄÄÄÄÄÄÄÄÄ Time before screen saver is",
+	"³    Auto Save Delay:  17 minutes ÄÄÄÄÄÄ¿   activated.",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ      ³",
+	"                                        ÀÄÄ Time before data in memory",
+	"                                            is saved."
+	};
+
+resource help (PrefsHELP_ImportExport) {
+	"ÕÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"³  Export Field Separator:  44 (0-127) ÄÄÄÄ Export function field separator.",
+	"³ Export Record Separator:  13 (0-127) ÄÄ¿",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÀÄ Export function record",
+	"                                            separator."
+	};
+
+resource help (PrefsHELP_Network) {
+	"ÕÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"³ Publish/Subscribe Frequency: 300 seconds ÄÄÄÄ Time intervals in which new",
+	"³   Subscribe Retry Frequency:  60 seconds ÄÄ¿  date will be updated over a",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  ³  network.  A value of 0 will",
+	"                                             ³  disable this feature.",
+	"                                             ³",
+	"Time interval at which a network subscriber (client) will re-attempt to read",
+	"the data updated by the publisher (host).  This situation may occur if the",
+	"subscriber attempts to read while the publisher is writing.",
+	"",
+	"Installing the PCS100 on a network",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"Create a subdirectory for the PCS100 application.  For example, on a Novell",
+	"network, you may wish to place the PCS100 application subdirectory in a",
+	"globally accessible APPS subdirectory.",
+	"",
+	"Next, decide where you wish to have the PCS100 data files located.  For",
+	"example, on a Novell network, you may wish to place the PCS100 data",
+	"subdirectory in a globally accessible DATA subdirectory.",
+	"",
+	"       SYS \\ Ä¿",
+	"              ÃÄ PUBLIC",
+	"              ÃÄ SYSTEM",
+	"              ÃÄ APPS   Ä¿",
+	"              ³          ÀÄ PCS100",
+	"              ÀÄ DATA   Ä¿",
+	"                         ÀÄ PCS100",
+	"",
+	"The Host (Publisher) which will be communicating with the PCS100 counters",
+	"should have File Scan, Read, Write and Delete access rights to the",
+	"SYS:\\APPS\\PCS100 and SYS:\\DATA\\PCS100 subdirectories.  The Clients",
+	"(Subscribers) should only have File Scan and Read access rights.  Copy the",
+	"files PCS100.EXE, PCS100.001 and PCS100.049 to the SYS:\\APPS\\PCS100",
+	"subdirectory.",
+	"",
+	"When the PCS100 application is run, it will look for a DOS environment",
+	"variable nammed PCS100 to direct it to where all of the PCS100 data files",
+	"will reside.  If the DOS environment variable is not found, the PCS100 will",
+	"use the current subdirectory.  It is recommended that all users who will be",
+	"using the PCS100 software to have this DOS environment variable set.  If the",
+	"above directory structure has been used, then the DOS environment variable",
+	"would be set as:",
+	"",
+	"                       SET PCS100=SYS:\\DATA\\PCS100",
+	"",
+	"{CAUTION}: The PCS100 will automatically configure itself as the",
+	"         host/publisher if it has write access to the PCS100 data",
+	"         subdirectory.  It is important that one, and only one, user",
+	"         have write access to this subdirectory.  Failure to heed",
+	"         this CAUTION will result in data corruption!!!"
+	};
+
+resource help (QueryHELP) {
+	"The {Query} menu provides commands to alter the functionality of the",
+	"PCS100's querying of counters.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  Disable Communications ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ PCS100 will stop querying.",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³",
+	"³  Query Timing...        ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ Modify various query delays.",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³",
+	"³  Track Errors           ³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ Post errors in Error menu.",
+	"³û Archival data          ³ ÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  Offline Trace          ³ ÄÄÄÄÄÄÄÄÄ¿ ÀÄÄ Query for archival data.",
+	"³  Log to Printer         ³ ÄÄÄÄÄÄÄ¿ ³",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³        ³ ÀÄÄÄÄ Keep track of the number of times",
+	"³  Display Queries...     ³ ÄÄÄÄÄ¿ ³       that no response was received.",
+	"³  Manual Queries         ³ ÄÄÄ¿ ³ ³",
+	"³û Sound Bell             ³ Ä¿ ³ ³ ÀÄÄÄÄÄÄ Send data in error to printer.",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ  ³ ³ ³",
+	"                             ³ ³ ÀÄÄÄÄÄÄÄÄ Show exact data received.",
+	"                             ³ ³",
+	"                             ³ ÀÄÄÄÄÄÄÄÄÄÄ Force key to be pressed before",
+	"                             ³             deciding if counter is offline.",
+	"                             ³",
+	"                             ÀÄÄÄÄÄÄÄÄÄÄÄÄ Sound bell on errors."
+	};
+
+resource help (QueryHELP_Timing) {
+	"ÕÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"³       Minimum Query Delay: - time before response required",
+	"³       Maximum Query Delay: - time in which entire response needed",
+	"³        Repeat Query Delay: - time before same counter re-queried",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"³ Maximum Offline Tolerance: - time before status changes to offline",
+	"³   Maximum Error Tolerance: - status changes after X consecutive errors",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"³     Priority Preset Count: - number of queries before forces high priority",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource help (ScreenNoneHELP) {
+	"The PCS100 Production Control Software is a menu driven windowing",
+	"environment that queries the PCS100 Production Monitors and displays the",
+	"retrieved data by topic.",
+	"",
+	"The PCS100 software requires the following minimal hardware configuration:",
+	"  - a personal computer running MS-DOS or PC-DOS, version 2.0 or later;",
+	"  - one floppy diskette drive;",
+	"  - 384K RAM available memory; and",
+	"  - one RS485 serial asynchronous communications adapter.",
+	"",
+	"The performance of the PCS100 software can be improved by:",
+	"  - Creating a CONFIG.SYS file on the boot drive with the following;",
+	"                            BUFFERS = 20",
+	"                            FILES   = 15",
+	"    A minimal CONFIG.SYS file is supplied with the PCS100 software.  If",
+	"    your system already has such a file, make sure that the two statements",
+	"    have values of at least the minimal values.  Consult your MS-DOS or",
+	"    PC-DOS manual for details.",
+	"  - Having more than 384K of RAM.",
+	"  - Placing the PCS100 software on a hard disk drive.",
+	"  - Installing a RAM CACHE.  A RAM CACHE keeps a copy of the data recently",
+	"    read from your hard disk in primary memory.  If a program attempts to",
+	"    read a block of data that is currently in RAM, the disk drive does not",
+	"    need to be accessed, thus increasing program performance.  Note that",
+	"    some RAM CHACHE's only buffer data read from a hard disk drive.",
+	"",
+	"A computer network of PCS100 Production Monitors can be created on a three",
+	"wire bus using the RS485 serial communications standard.  In order to",
+	"communicate between the PCS100 counters and your Personal Computer, your",
+	"PC must have an RS485 serial board installed.  The PCS100 has a DB-9",
+	"connector with the following pin assignments:",
+	"",
+	"                            Pin 3 - Ground",
+	"                            Pin 4 - TX/RX +",
+	"                            Pin 5 - TX/RX -",
+	"",
+	"{Keyboard Key Convention}",
+	"",
+	"The PCS100 software tries to consistently provide similar functions to the",
+	"same keys throughout the program to ease the use of the software.  A single",
+	"key will usually be surrounded by angled brackets (<>).",
+	"",
+	"{<Enter>}: Sometimes named the Return key.  Pressing this key will accept or",
+	"save the current selection.",
+	"",
+	"{<Esc>}: Cancels or exits.  If making a modification, pressing the escape",
+	"key will ignore the changes.",
+	"",
+	"{<Tab>}: Advances to the next selection.  Holding down the shift key while",
+	"pressing the tab key will advance to the previous location.",
+	"",
+	"{Space Bar}: Outside of entering data, the space bar will advance a",
+	"selection bar to the next location, with wrap around capability.  What this",
+	"means is that when the selection bar reaches the last item of a list,",
+	"pressing the space bar will cause the selection bar to wrap around and",
+	"highlight the first item.",
+	"",
+	"{Cursor Keys}: Moves the cursor or highlight bar.  {<Up Arrow>} and {<Left}",
+	"{Arrow>} moves to the previous location.  {<Down Arrow>} and {<Right Arrow>}",
+	"moves to the next location.  {<Home>} moves to the first location.  {<End>}",
+	"moves to the last location.  {<Page Up>} moves to the previous screen.",
+	"{<Page Down>} moves to the next screen."
+	};
+
+resource help (HelpHELP) {
+	"The {Help} menu provides commands that tie the PCS100 software together.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  About PCS100...  ³ ÄÄÄÄÄÄÄÄÄÄÄÄ Displays the version and release date",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³              of the software.",
+	"³  Help           ^H³ ÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  Language        ³ ÄÄÄÄÄÄÄÄ¿ ÀÄ Provides on-line help.  Pressing ^H",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³         ³    at any time gives instant context",
+	"³  Screen Saver     ³ ÄÄÄÄÄÄ¿ ³    sensitive help.",
+	"³  Preferences     ³ ÄÄÄÄ¿ ³ ³",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³     ³ ³ ÀÄÄÄ The PCS100 software can be custom",
+	"³  Quit           ^Q³ ÄÄ¿ ³ ³      tailored to display text in several",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ   ³ ³ ³      different langauges.",
+	"                        ³ ³ ³",
+	"                        ³ ³ ÀÄÄÄ Immediately activates the screen saver.",
+	"                        ³ ³",
+	"                        ³ ÀÄÄÄ Provides a means to change certain",
+	"                        ³      characteristics of the PCS100 software.",
+	"                        ³",
+	"                        ÀÄÄÄ Terminates program execution.  All data is",
+	"                             saved automatically to disk."
+	};
+
+resource help (HelpHELP_About) {
+	"The PCS100 software package was written in Borland International's",
+	"Borland C++ v2.0.  Copyright (c) 1987-1991 Vorne Industries Incorporated.",
+	"All rights reserved.",
+	"",
+	"The Greenleaf Comm Library v2.10 revision T3 by Greenleaf Software provided",
+	"the routines necessary to establish high speed serial communication.",
+	"Copyright (c) 1983, 1984, 1985, 1986, 1987 Greenleaf Software Inc.",
+	"",
+	"c-tree (tm) File Handler v4.3 release B by FairCom Information Exchange",
+	"provided the set of keyed file accessing functions.  Portions of this",
+	"program are the Confidential and Proprietary property of FairCom.  Any",
+	"unauthorized use, reproduction or transfer of this program is strictly",
+	"prohibited.  Copyright (c) 1988 by FairCom.  (Subject to limited",
+	"distribution and restricted disclosure only.)  All rights reserved.",
+	"",
+	"SeaShell provided the menu driven windowing environment.  SeaShell is a",
+	"proprietary library of routines written in Borland C++ v2.0.",
+	"Copyright (c) 1987-1991 Vorne Industries Incorporated.",
+	"All rights reserved."
+	};
+
+resource help (HelpHELP_Help) {
+	"{Help} is a context-sensitive on-line help facility that pops up to",
+	"help the user when he or she presses the help key {^H}.",
+	"",
+	"A Help window contains text that explains some part of the program.  As",
+	"users operate the program and move from feature to feature, the context",
+	"and location of Help windows change to reflect the current window.  These",
+	"changes are not seen; they occur within the software.  When a user",
+	"presses the Help key, the appropriate Help message is displayed in a",
+	"pop-up window.",
+	"",
+	"Because the Help message is related to the current location in the",
+	"program, the Help window is said to be context-sensitive.  Experienced",
+	"users can ignore the Help features of a program; novices can press the",
+	"Help key with every change in the program's condition and receive hints,",
+	"reminders, or detailed instructions."
+	};
+
+resource help (HelpHELP_ScreenSaver) {
+	"Activates the screen saver.  The screen saver inverts the image on the",
+	"monitor every 30 seconds.  This prevents the phosphor screen from being",
+	"'burned in' when a non-changing image is displayed for a prolonged period",
+	"of time.",
+	"",
+	"The screen saver activates itself after a pre-determined length of time",
+	"passes without any user intervention.  This time interval can be modified",
+	"via the Preferences command in the Help menu."
+	};
+
+resource help (HelpHELP_Quit) {
+	"{Quit} terminates program execution.  All files are properly updated and",
+	"closed, and the status of the machine is left in the state found.  The",
+	"user may also press {^Q} to invoke the Quit command.",
+	"",
+	"At times a serious error may occur that forces the program to terminate",
+	"execution without the Quit command being used.  In such a case, an error",
+	"message is displayed on the screen and the user is prompted to read the",
+	"message and press a certain key.  Once done, the program attempts to exit",
+	"as gracefully as possible by saving and closing as many files as it can",
+	"and returning the system to a stable state."
+	};
+
+resource help (OperatorHELP) {
+	"The {Operator} menu provides commands to assign operators to individual",
+	"machines.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  Install Operators ³ ÄÄÄÄÄ Allows operator list to be added,",
+	"³  List Operators    ³ ÄÄ¿   modified and deleted.",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ   ³",
+	"                         ÀÄÄ Allows all installed operators to be",
+	"                             viewed."
+	};
+
+resource help (OperatorHELP_Install) {
+	"The {Install Operators} command allows operators to be installed,",
+	"modified, and deleted from the current operator list."
+	};
+
+resource help (OperatorHELP_List) {
+	"The {List Operators} command displays all currently installed operators.",
+	"The cursor keys may be used to scroll through the list of operators if",
+	"they can't all be displayed at once.  This command is only active if at",
+	"least one operator has been installed.  Press ^P to print the entire",
+	"list of operators."
+	};
+
+resource help (MachineHELP) {
+	"The {Machine} menu provides a complete set of commands to install,",
+	"maintain and display machines monitored by the PCS100 Production Monitor.",
+	"The Install Machines command is always available.  The others will be",
+	"available when at least one machine has been installed.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  Monitor All Machines   ^M³ ÄÄÄÄÄÄÄÄ Displays a brief statistical",
+	"³  Monitor Single Machine   ³ ÄÄÄÄÄÄ¿  summary of all machines.  Press",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³       ³  <Enter> to view a single machine.",
+	"³  Install Machines         ³ ÄÄÄÄ¿ ³",
+	"³  List Machines            ³ ÄÄ¿ ³ ÀÄ Displays a detailed statistical",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³   ³ ³    summary of a single machine.  Press",
+	"³  Operators               ³   ³ ³    <Esc> to view all machines.",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ   ³ ³",
+	"                                ³ ÀÄÄÄ Allows machines to be installed,",
+	"                                ³      modified and deleted.",
+	"                                ³",
+	"                                ÀÄÄÄÄÄ Lists all machines currently",
+	"                                       installed."
+	};
+
+resource help (MachineHELP_All) {
+	"{Monitor All Machines} displays a brief statistical summary of all",
+	"machines currently installed.",
+	"",
+	"",
+	"Machine       Job  Machine        Total  Current                        ",
+	"Number     Number  Status        Pieces    Rate     Run Time   Idle Time",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"M00000        126  Off-line        8682   65229      0:08:04     0:00:00",
+	"",
+	"",
+	"{Current Rate} - the current rate in pieces per hour is displayed in",
+	"  either run or make ready modes.  This information is updated every 3.6",
+	"  seconds (1/1000 of an hour) and will zero if no inputs occur during any",
+	"  7.2 second time sample.",
+	"",
+	"{Idle Time} - length of time the counter input has been idle.",
+	"",
+	"{Job Number} - current job number of the counter.",
+	"",
+	"{Machine Number} - number assigned to specific counter in the Installed",
+	"  Machines menu choice.",
+	"",
+	"{Machine Status} - shows the current run time status of the counter.  The",
+	"  status can be: Run, Idle, Make Ready, Printing, Bad Data or Off.",
+	"",
+	"{Run Time} - length of time input has been accumulating at the counter.",
+	"",
+	"{Total Pieces} - the total pieces produced since the last reset or since",
+	"  the last job change.  This value will increment as inputs occur."
+	};
+
+resource help (MachineHELP_Single) {
+	"{Monitor Single Machine} displays a detailed statistical summary of a",
+	"single machine.",
+	"",
+	"",
+	" Machine: M00000              Operator: Operator #1",
+	"",
+	"",
+	"{Machine} - name assigned to a specific counter in the Install Machines",
+	"  menu option.",
+	"",
+	"{Operator} - name of operator assigned to the Operator Number.",
+	"",
+	"",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Job Identification ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"  Machine Number:       00                       Machine Status: Off-line   ",
+	"      Job Number:      126                      Operator Number: 3400       ",
+	"     Job Started: 08-31-88  14:03:38               Shift Number:    3       ",
+	"",
+	"",
+	"{Machine Number} - physical address of the counter.",
+	"",
+	"{Job Number} - current job number of the counter.",
+	"",
+	"{Job Started} - date and time the job began.",
+	"",
+	"{Machine Status} - shows the current run time status of the counter.  The",
+	"  status can be: Run, Idle, Make Ready, Printing, Bad Data or Off.",
+	"",
+	"{Operator Number} - current operator number for the counter.",
+	"",
+	"",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Job Setup ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"      Preset Job:        0                          Output Delay: 0.000 Sec ",
+	"    Preset Batch:        0                       Output Duration: 0.000 Sec ",
+	"          Factor:        1                           Output Type: None      ",
+	"",
+	"",
+	"{Factor} - the number of pieces existing on one sheet.",
+	"",
+	"{Output Delay} - time delay before output turned on.",
+	"",
+	"{Output Duration} - duration output signal stays on before being turned off.",
+	"",
+	"{Output Type} - the type can be None, Feed or Kicker.",
+	"",
+	"{Preset Batch} - the batch countdown is loaded with the batch preset value",
+	"  each time the batch countdown reaches zero.  If the batch preset is",
+	"  zero batching will be disabled.",
+	"",
+	"{Preset Job} - the total number of pieces that the machine needs to",
+	"  complete.",
+	"",
+	"",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Running Information ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"   Run Time:    0:08:04    Total Batches:        0    Total Pieces:     8682",
+	"  Idle Time:    0:00:00  Countdown Batch:        0    Setup Pieces:       19",
+	" Setup Time:    0:00:00     Preset Batch:        0    Current Rate:    65229",
+	" Total Time:    0:08:06                               Average Rate:    64576",
+	"",
+	"",
+	"{Average Rate} - the average rate since the start of the job on the",
+	"  machine.",
+	"",
+	"{Countdown Batch} - each time the batch countdown reaches zero an output",
+	"  occurs, and the accumulated batch count is incremented and the batch",
+	"  countdown is loaded with the batch preset value.",
+	"",
+	"{Current Rate} - the current rate in pieces per hour is displayed in",
+	"  either run or make ready modes.  This information is updated every 3.6",
+	"  seconds (1/1000 of an hour) and will zero if no inputs occur during any",
+	"  7.2 second time sample.",
+	"",
+	"{Idle Time} - length of time that the counter has received no counts.",
+	"",
+	"{Preset Batch} - the batch countdown is loaded with the batch preset value",
+	"  each time the batch countdown reaches zero.  If the batch preset is",
+	"  zero batching will be disabled.",
+	"",
+	"{Run Time} - length of time input has been accumulating at the counter.",
+	"",
+	"{Setup Pieces} - the number of counts received while setting up the machine.",
+	"",
+	"{Setup Time} - length of time it took to prepare the machine.",
+	"",
+	"{Total Batches} - accumulated number of batches.  Each time the batch",
+	"  countdown reaches zero the accumulated batch count is incremented.",
+	"",
+	"{Total Pieces} - the total pieces produced since the last reset or since",
+	"  the last job change.  This value will increment as inputs occur.",
+	"",
+	"{Total Time} - the sum of all the times.",
+	"",
+	"",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Statistics ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"       Pieces Left:          0                      Time Left (Projected) ",
+	"   # of Times Idle:          0                     Current Rate:    0:00:00 ",
+	" Percent Completed:          0.0 %                 Average Rate:    0:00:00 ",
+	"",
+	"",
+	"{Number of Times Idle} - the total number of times that the counter received",
+	"  no counts.",
+	"",
+	"{Percent Completed} - reaches 100% when the Total Pieces equals the Pieces",
+	"  Required.",
+	"",
+	"{Pieces Left} - the number of pieces left to be produced.",
+	"",
+	"{Projected Time Left (Current Rate)} - estimate when the job will be",
+	"  completed without taking the Idle Time into account.",
+	"",
+	"{Projected Time Left (Average Rate)} - estimate when the job will be",
+	"  completed taking the Idle Time into account."
+	};
+
+resource help (MachineHELP_Install) {
+	"The {Install Machines} command allows machines to be installed, modified,",
+	"and deleted from the current machine list.  This list determines which",
+	"counters will be queried by the PCS100 software for current and archival",
+	"information.",
+	"",
+	"ÕÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"³ Machine Number:   ÄÄÄÄÄÄÄ Enter the counter address of the machine",
+	"³ Machine Name:     ÄÄÄÄ¿   that you wish to install.",
+	"³ Date Installed:   ÄÄ¿ ³",
+	"ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ   ³ ÀÄÄ Enter the name that will be associated with",
+	"³ <Esc> to EXIT       ³     the machine.",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ   ³",
+	"                      ÀÄÄÄÄ Enter the date of installation.  The default",
+	"                            is the current date, although it can be",
+	"                            changed."
+	};
+
+resource help (MachineHELP_List) {
+	"The {List Machines} command displays all currently installed machines.",
+	"The cursor keys may be used to scroll through the list of machines if",
+	"they can't all be displayed at once.  This command is only active if at",
+	"least one machine has been installed.  Press ^P to print the entire list",
+	"of machines.",
+	"",
+	"ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»",
+	"º Number  Machine Name                    Installed  º",
+	"ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶",
+	"    ³          ³    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ",
+	"    ³          ³    ³",
+	"    ³          ³    ÀÄ Date that the machine has been installed",
+	"    ³          ³",
+	"    ³          ÀÄÄÄÄÄÄ The machines name associated with the counter",
+	"    ³",
+	"    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ The machine's counter address"
+	};
+
+resource help (JobHELP) {
+	"The {Job} menu provides a complete set of commands to install, maintain",
+	"and display jobs monitored by the PCS100 Production Monitor.  The",
+	"Install Jobs command is always available.  The others will be available",
+	"when at least one machine has been installed.  If a counter is found with",
+	"a new job number, the job number will automatically be installed.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³ Monitor All Jobs    ^J³ ÄÄÄÄÄÄÄÄÄÄ Displays a brief statistical summary",
+	"³ Monitor Single Job    ³ ÄÄÄÄÄÄÄÄ¿  of all jobs.  Press <Enter> to view a",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³         ³  a single job.",
+	"³ Install Jobs          ³ ÄÄÄÄÄÄ¿ ³",
+	"³ List Jobs             ³ ÄÄÄÄ¿ ³ ÀÄ Displays a detailed statistical",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³     ³ ³    summary of a single job.  Press <Esc>",
+	"³ Close Job...          ³ ÄÄ¿ ³ ³    to view all jobs.",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³   ³ ³ ³",
+	"³ Export Open Jobs...   ³   ³ ³ ÀÄÄÄ Allows jobs to be installed, modified",
+	"³ Export Closed Jobs... ³   ³ ³      and deleted.",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ   ³ ³",
+	"                            ³ ÀÄÄÄÄÄ Lists all jobs currently installed.",
+	"                            ³",
+	"                            ÀÄÄÄÄÄÄÄ Saves and removes a job.",
+	"",
+	"The Export commands save the open or closed jobs in a standardized ASCII",
+	"format that second source programs can understand.  Use the Preferences",
+	"command in the Help menu to specify the field and record separator",
+	"characters.  See Help on Export commands for field labels."
+	};
+
+resource help (JobHELP_All) {
+	"{Monitor All Jobs} displays a brief statistical summary of all jobs.",
+	"",
+	"",
+	"     Job     %    Preset     Total   Current  Time Left (Projected)",
+	"  Number  Comp       Job    Pieces      Rate   Cur Rate    Avg Rate",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"     126   0.0         0     17194    130436    0:00:00     0:00:00",
+	"",
+	"",
+	"{Current Rate} - the current rate in pieces per hour is displayed in",
+	"  either run or make ready modes.  This information is updated every 3.6",
+	"  seconds (1/1000 of an hour) and will zero if no inputs occur during any",
+	"  7.2 second time sample.",
+	"",
+	"{Job Number} - current job number of the counter.",
+	"",
+	"{Preset Job} - the summation of the Total Pieces for all machines.",
+	"",
+	"{Percent Completed} - will reach 100% when the Total Pieces equals the",
+	"  Pieces Required.",
+	"",
+	"{Total Pieces} - the summation of the Pieces Left for all machines.",
+	"",
+	"{Time Left - Cur Rate} - estimate when the job will be completed without",
+	"  taking the Idle Time into account.",
+	"",
+	"{Time Left - Avg Rate} - estimate when the job will be completed taking",
+	"  the Idle Time into account."
+	};
+
+resource help (JobHELP_Single) {
+	"{Monitor Single Job} displays a detailed statistical summary of a single",
+	"job.",
+	"",
+	"",
+	"Job #      126 is  18.3 % completed.                Current Rate:      77880",
+	"  Preset Job:    2500000                            Average Rate:      25357",
+	"Total Pieces:     456448                    Time Left - Cur Rate:   26:14:22",
+	" Pieces Left:    2043552                    Time Left - Avg Rate:   26:51:50",
+	"",
+	"   Machine        Current  Average    Total   Pieces   Time Left (Projected)",
+	"Number  Status       Rate     Rate   Pieces     Left    Cur Rate    Avg Rate",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"M00000  Off-line    65229    64576     8682        0     0:00:00     0:00:00",
+	"",
+	"",
+	"{Average Rate} - the average rate since the start of the job on the",
+	"  machine.",
+	"",
+	"{Current Rate} - the current rate in pieces per hour is displayed in",
+	"  either run or make ready modes.  This information is updated every 3.6",
+	"  seconds (1/1000 of an hour) and will zero if no inputs occur during any",
+	"  7.2 second time sample.",
+	"",
+	"{Job Number} - current job number of the counter.",
+	"",
+	"{Preset Job} - the total number of pieces that the machine needs to",
+	"  complete.",
+	"",
+	"{Machine Number} - number assigned to a specific counter in the Install",
+	"  Machines menu option.",
+	"",
+	"{Machine Status} - shows the current run time status of the counter.  The",
+	"  status can be: Run, Idle, Make Ready, Printing, Bad Data or Off.",
+	"",
+	"{Percent Completed} - will reach 100% when the Total Pieces equals the",
+	"  Pieces Required.",
+	"",
+	"{Pieces Left} - the number of pieces left to be produced.",
+	"",
+	"{Time Left - Cur Rate} - estimate when the job will be completed",
+	"  without taking the Idle Time into account.",
+	"",
+	"{Time Left - Avg Rate} - estimate when the job will be completed",
+	"  taking the Idle Time into account.",
+	"",
+	"{Total Pieces} - the total pieces produced since the last reset or since",
+	"  the last job change.  This value will increment as inputs occur."
+	};
+
+resource help (JobHELP_Install) {
+	"The {Install Jobs} command allows jobs to be installed, modified, and",
+	"deleted from the current jobs list.  This in no way affects archival",
+	"jobs.  If a counter is found with a new job number, a new job record",
+	"will be automatically created.",
+	"",
+	"ÕÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"³ Job Number:      ÄÄÄÄÄÄÄÄ Enter the job number you wish to install.",
+	"³ Job Name:        ÄÄÄÄÄÄ¿",
+	"³ Job Total:       ÄÄÄÄ¿ ÀÄ Enter a name that will be associated to the",
+	"³ Date Installed:  ÄÄ¿ ³    job number.",
+	"ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ   ³ ³",
+	"³ <Esc> to EXIT      ³ ÀÄÄÄ Enter the total amount of pieces that the",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ   ³      entire job will need to be completed.",
+	"                     ³",
+	"                     ÀÄÄÄÄÄ The Date Installed is automatically defaulted",
+	"                            to the current date, although it can be",
+	"                            changed."
+	};
+
+resource help (JobHELP_List) {
+	"The {List Jobs} command displays all currently installed jobs.  The",
+	"cursor keys may be used to scroll through the list of machines if they",
+	"can't all be displayed at once.  This command is only active if at least",
+	"one job has been installed.  Press ^P to print the entire list of jobs.",
+	"",
+	"ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»",
+	"º    Job #  Job Name                           Total  Date      Status   º",
+	"ÇÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¶",
+	"      ³  ÚÄÄÄÄÄÙ                                 ³      ÀÄÄÄÄÄÄÄ¿  ³",
+	"      ³  ³                                       ÀÄÄÄÄÄÄÄÄÄÄÄ¿  ³  ³",
+	"      ³  ³   Total amount that the entire job needs      ÄÄÄÄÙ  ³  ³",
+	"      ³  ³   to be completed                                    ³  ³",
+	"      ³  ³                                                      ³  ³",
+	"      ³  ³   Date that the job was installed             ÄÄÄÄÄÄÄÙ  ³",
+	"      ³  ³                                                         ³",
+	"      ³  ³   The status will be 'Active' for the job     ÄÄÄÄÄÄÄÄÄÄÙ",
+	"      ³  ³   that is represented by any counter",
+	"      ³  ³",
+	"      ³  ÀÄ  The name that is associated with the job number",
+	"      ³",
+	"      ÀÄÄÄÄ  The job number that was installed"
+	};
+
+resource help (JobHELP_Close) {
+	"The {Close Job} command allows a job to be closed.  A job can be saved to a",
+	"seperate data disk.  Choosing this command causes the following sequence of",
+	"prompts to appear:",
+	"",
+	"  - selecting a single job to be closed",
+	"  - printing the Single Job Screen and Single Job by Shift Screen if desired",
+	"  - choosing any available drive and directory to be used to save the data",
+	"",
+	"At any time throughout these prompts the process of closing a job can be",
+	"aborted by pressing the <Esc> key.",
+	"",
+	"Closing a job implies the following:",
+	"  - current run time data is saved to the archival database",
+	"  - all archival records of the job to be closed are copied to the selected",
+	"      drive and the copied records are deleted from the archival database",
+	"  - job installation data is copied to the selected drive with the current",
+	"      date being stamped to indicate when the job was closed; the job",
+	"      installation data is then deleted",
+	"  - a record is kept of the job being closed in a private database so that",
+	"      the job is not reinstalled accidentally in the future"
+	};
+
+resource help (JobHELP_ExportOpen) {
+	"Save the open jobs and shifts in a standardized ASCII format that second",
+	"source programs can understand.  Use the Preferences command in the Help",
+	"menu to specify the field and record separators.",
+	"",
+	"Field description of the Job records",
+	"------------------------------------",
+	"Counter Address",
+	"Job Number",
+	"Shift Number",
+	"Operator Number",
+	"Output Type",
+	"Counter Status",
+	"Counter Factor/Multiplier",
+	"Number of Times Idle",
+	"Total Count",
+	"Total Batches",
+	"Batch Countdown",
+	"Setup Total Count",
+	"Batch Preset",
+	"Feed Output Time",
+	"Kicker Output Time",
+	"Setup Time",
+	"Idle Time",
+	"Production Time",
+	"Total Time",
+	"Time Until Done",
+	"Percent Done",
+	"Count Until Done",
+	"Job Quantity",
+	"Current Rate",
+	"Job Start Time",
+	"Job Start Date",
+	"Job End Time",
+	"Job End Date",
+	"",
+	"Field description of the Shift records",
+	"--------------------------------------",
+	"Counter Address",
+	"Job Number",
+	"Shift Number",
+	"Operator Number",
+	"Shift Start Time",
+	"Shift Start Date",
+	"Shift Total Count",
+	"Shift Setup Count",
+	"Shift Total Batches",
+	"Shift Setup Time",
+	"Shift Idle Time",
+	"Shift Production Time",
+	"Shift Total Time",
+	"Shift Current Rate"
+	};
+
+resource help (JobHELP_ExportClosed) {
+	"Save the closed jobs and shifts in a standardized ASCII format that second",
+	"source programs can understand.  Use the Preferences command in the Help",
+	"menu to specify the field and record separators.",
+	"",
+	"Field description of the Job records",
+	"------------------------------------",
+	"Counter Address",
+	"Job Number",
+	"Shift Number",
+	"Operator Number",
+	"Output Type",
+	"Counter Status",
+	"Counter Factor/Multiplier",
+	"Number of Times Idle",
+	"Total Count",
+	"Total Batches",
+	"Batch Countdown",
+	"Setup Total Count",
+	"Batch Preset",
+	"Feed Output Time",
+	"Kicker Output Time",
+	"Setup Time",
+	"Idle Time",
+	"Production Time",
+	"Total Time",
+	"Time Until Done",
+	"Percent Done",
+	"Count Until Done",
+	"Job Quantity",
+	"Current Rate",
+	"Job Start Time",
+	"Job Start Date",
+	"Job End Time",
+	"Job End Date",
+	"",
+	"Field description of the Shift records",
+	"--------------------------------------",
+	"Counter Address",
+	"Job Number",
+	"Shift Number",
+	"Operator Number",
+	"Shift Start Time",
+	"Shift Start Date",
+	"Shift Total Count",
+	"Shift Setup Count",
+	"Shift Total Batches",
+	"Shift Setup Time",
+	"Shift Idle Time",
+	"Shift Production Time",
+	"Shift Total Time",
+	"Shift Current Rate"
+	};
+
+resource help (ShiftHELP) {
+	"The {Shift} menu provides commands to monitor machines by shift.",
+	"The commands are only available when at least one machine is installed.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  All Machines by Shift  ^S³ ÄÄÄÄÄÄÄÄ Displays a brief statistical summary",
+	"³  Single Machine by Shift  ³ ÄÄÄÄÄÄ¿  of all machines by shift.  Press",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³       ³  <Enter> to view a single machine by",
+	"³  All Jobs by Shift        ³ ÄÄÄÄ¿ ³  shift.",
+	"³  Single Job by Shift      ³ ÄÄ¿ ³ ³",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ   ³ ³ ÀÄ Displays a detailed statistical",
+	"                                ³ ³    summary of a single machine by shift.",
+	"                                ³ ³    Press <Esc> to view all machines by",
+	"                                ³ ³    shift.",
+	"                                ³ ³",
+	"                                ³ ÀÄÄÄ Displays a brief statistical summary",
+	"                                ³      of all jobs by shift.  Press <Enter>",
+	"                                ³      to view a single job by shift.",
+	"                                ³",
+	"                                ÀÄÄÄÄÄ Displays a detailed statistical",
+	"                                       summary of a single job by shift.",
+	"                                       Press <Enter> to view all jobs by",
+	"                                       shift."
+	};
+
+resource help (ShiftHELP_AllMachines) {
+	"{All Machines by Shift}.",
+	"",
+	"",
+	" Machine       Job  Machine        Total  Average",
+	" Number     Number  Status        Pieces    Rate     Run Time   Idle Time",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	" M00000        126  Off-line        8682   65229      0:08:04     0:00:00",
+	"",
+	"",
+	"{Current Rate} - the current rate in pieces per hour is displayed in",
+	"  either run or make ready modes.  This information is updated every 3.6",
+	"  seconds (1/1000 of an hour) and will zero if no inputs occur during any",
+	"  7.2 second time sample.",
+	"",
+	"{Idle Time} - length of time the counter input has been idle.",
+	"",
+	"{Job Number} - current job number of the counter.",
+	"",
+	"{Machine Number} - number assigned to specific counter in the Installed",
+	"  Machines menu choice.",
+	"",
+	"{Machine Status} - shows the current run time status of the counter.  The",
+	"  status can be: Run, Idle, Make Ready, Printing, Bad Data or Off.",
+	"",
+	"{Run Time} - length of time input has been accumulating at the counter.",
+	"",
+	"{Total Pieces} - the total pieces produced since the last reset or since",
+	"  the last job change.  This value will increment as inputs occur."
+	};
+
+resource help (ShiftHELP_SingleMachine) {
+	"{Single Machine by Shift} displays a detailed statistical summary of a",
+	"single machine by shift.",
+	"",
+	"",
+	"   Machine Name:                                     Installed:",
+	"  Operator Name:",
+	"",
+	"",
+	"{Installed} - Date machine was installed.",
+	"",
+	"{Machine Name} - name assigned to a specific counter in the Install Machines",
+	"  menu option.",
+	"",
+	"{Operator Name} - name of the operator currently assigned to this machine.",
+	"",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Job Shift Identification ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"",
+	" Machine Number:       00                       Machine Status: Off-line  ",
+	"     Job Number:        0                      Operator Number:    0",
+	"  Shift Started: 00-00-00  00:00:00               Shift Number:    0",
+	"",
+	"",
+	"{Machine Number} - number assigned to a specific counter in the Install",
+	"  Machines menu option.  This is the same as the counter address.",
+	"",
+	"{Job Number} - current job number of the counter.",
+	"",
+	"{Machine Status} - shows the current run time status of the counter.  The",
+	"  status can be: Run, Idle, Make Ready, Printing, Bad Data or Off.",
+	"",
+	"{Operator Number} - current operator number for the counter.",
+	"",
+	"{Shift Number} - the number of the current shift.",
+	"",
+	"{Shift Started} - date and time the shift began.",
+	"",
+	"",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Running Shift Information ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"",
+	"       Run Time:                                  Total Pieces:",
+	"      Idle Time:                                 Total Batches:",
+	"     Setup Time:                                  Setup Pieces:",
+	"     Total Time:                                  Average Rate:",
+	"",
+	"",
+	"{Average Rate} - the average rate since the start of the job on the",
+	"  machine.",
+	"",
+	"{Idle Time} - length of time the counter input has been idle.",
+	"",
+	"{Run Time} - length of time input has been accumulating at the counter.",
+	"",
+	"{Setup Pieces} - the number of counts received while setting up the",
+	"  machine.",
+	"",
+	"{Setup Time} - length of time it took to prepare the machine.",
+	"",
+	"{Total Batches} - the batch total.",
+	"",
+	"{Total Pieces} - the total pieces produced since the last reset or",
+	"  since the last job change.  This value will increment as inputs occur.",
+	"",
+	"{Total Time} - the sum of all the times."
+	};
+
+resource help (ShiftHELP_AllJobs) {
+	"{All Jobs by Shift} displays a brief statistical summary for all jobs by",
+	"shift.",
+	"",
+	"",
+	"     Job     %    Preset     Total   Current  Time Left (Projected)",
+	"  Number  Comp       Job    Pieces      Rate   Cur Rate    Avg Rate",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"     126   0.0         0     17194    130436    0:00:00     0:00:00",
+	"",
+	"",
+	"{Current Rate} - the current rate in pieces per hour is displayed in",
+	"  either run or make ready modes.  This information is updated every 3.6",
+	"  seconds (1/1000 of an hour) and will zero if no inputs occur during any",
+	"  7.2 second time sample.",
+	"",
+	"{Job Number} - current job number of the counter.",
+	"",
+	"{Preset Job} - the summation of the Total Pieces for all machines.",
+	"",
+	"{Percent Completed} - will reach 100% when the Total Pieces equals the",
+	"  Pieces Required.",
+	"",
+	"{Total Pieces} - the summation of the Pieces Left for all machines.",
+	"",
+	"{Time Left - Cur Rate} - estimate when the job will be completed",
+	"  without taking the Idle Time into account.",
+	"",
+	"{Time Left - Avg Rate} - estimate when the job will be completed",
+	"  taking the Idle Time into account."
+	};
+
+resource help (ShiftHELP_SingleJob) {
+	"{Single Job by Shift} displays a detailed statistical summary of a single",
+	"job by shift.",
+	"",
+	"",
+	"Job #      126 is  24.3 % completed.                Current Rate:     101584",
+	"  Preset Job:    2500000                            Average Rate:      25394",
+	"Total Pieces:     608606                    Time Left - Cur Rate:   18:37:08",
+	" Pieces Left:    1891394                    Time Left - Avg Rate:   18:37:14",
+	"",
+	"   Machine        Current  Average    Total   Pieces   Time Left (Projected)",
+	"Number  Status       Rate     Rate   Pieces     Left    Cur Rate    Avg Rate",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"M00000  Off-line    65229    64576     8682        0     0:00:00     0:00:00",
+	"",
+	"",
+	"{Average Rate} - the average rate since the start of the job on the",
+	"  machine.",
+	"",
+	"{Current Rate} - the current rate in pieces per hour is displayed in",
+	"  either run or make ready modes.  This information is updated every 3.6",
+	"  seconds (1/1000 of an hour) and will zero if no inputs occur during any",
+	"  7.2 second time sample.",
+	"",
+	"{Job Number} - current job number of the counter.",
+	"",
+	"{Preset Job} - the total number of pieces that the job needs to complete.",
+	"",
+	"{Machine Number} - number assigned to a specific counter in the Install",
+	"  Machines menu option.",
+	"",
+	"{Machine Status} - shows the current run time status of the counter.  The",
+	"  status can be: Run, Idle, Make Ready, Printing, Bad Data or Off.",
+	"",
+	"{Percent Completed} - will reach 100% when the Total Pieces equals the",
+	"  Pieces Required.",
+	"",
+	"{Pieces Left} - the number of pieces left to be produced.",
+	"",
+	"{Time Left - Cur Rate} - estimate when the job will be completed",
+	"  without taking the Idle Time into account.",
+	"",
+	"{Time Left - Avg Rate} - estimate when the job will be completed",
+	"  taking the Idle Time into account.",
+	"",
+	"{Total Pieces} - the total pieces produced since the last reset or since",
+	"  the last job change.  This value will increment as inputs occur."
+	};
+
+resource help (GenerateHELP) {
+	"{Generate} allows archival data to be displayed and printed.",
+	"One can either print the archival jobs or the archival shifts.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  job by Machine            ³",
+	"³  job by Job Number         ³",
+	"³  job by Operator Number    ³",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³",
+	"³  shift by Machine          ³",
+	"³  shift by Job Number       ³",
+	"³  shift by Operator Number  ³",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ"
+	};
+
+resource help (ReportHELP) {
+	"The {Report} menu provides commands to generate reports based on",
+	"archivally saved data as well as on current data.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  Generate Report     ³ ÄÄÄÄÄÄ Generates reports based on archival data.",
+	"³  Print              ^P³ ÄÄÄÄ¿",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ³     ÀÄ Lists currently displayed data to the",
+	"³  Delete Archives...   ³ ÄÄ¿    printer.",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ   ³",
+	"                            ÀÄÄÄ Presents a dialog box that displays",
+	"                                 individual archival records.  Upon request",
+	"                                 all records with the same job number will",
+	"                                 be deleted from the archival records."
+	};
+
+resource help (ReportHELP_Print) {
+	"{Print} report of currently active screen."
+	};
+
+resource help (ReportHELP_Delete) {
+	"{Delete Archives...} displays a brief summary of an archival record.  The",
+	"user can use the cursor keys to view different records.  Pressing ^D will",
+	"delete all archival records with the same job number.",
+	"",
+	"ÕÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¸",
+	"³  Machine Number:       45                       ³",
+	"³      Job Number:      126                       ³",
+	"³ Operator Number:     1632                       ³",
+	"³    Shift Number:        2                       ³",
+	"³    Total Pieces:     8512                       ³",
+	"³    Average Rate:    64648                       ³",
+	"³        Run Time:     0:07                       ³",
+	"³       Idle Time:     0:00                       ³",
+	"³      Setup Time:     0:00                       ³",
+	"ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´",
+	"³ <Esc>-EXIT  <Cursor Keys>-POSITION  <^D>-DELETE ³",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ"
+	};
+
+resource help (PortHELP) {
+	"The {Port} menu allows either serial port 1 or 2 to be used to",
+	"communicate with the PCS100 counters.  If the host computer has only one",
+	"serial port, then the second choice is disabled.  If the host computer",
+	"has two serial ports, then the port which is not selected by this menu",
+	"will be used for serial transmission to the printer if serial printing",
+	"is selected via the Setup menu.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄ¿",
+	"³  COM1  ³ ÄÄÄÄÄ Serial port 1",
+	"³  COM2  ³ ÄÄ¿",
+	"ÀÄÄÄÄÄÄÄÄÙ   ÀÄÄ Serial port 2"
+	};
+
+resource help (SetupHELP) {
+	"The {Setup} menu provides commands to customize the way the program lists",
+	"output to the printer.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³û Parallel  ³ ÄÄÄÄ Selects the parallel port.",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄ³",
+	"³  Serial    ³ ÄÄÄÄ Selects the serial port.",
+	"³  Format   ³ ÄÄ¿",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÙ   ÀÄ Provides a way to modify the format of the data that",
+	"                    will be transmitted to the serial printer."
+	};
+
+resource help (SetupHELP_Parallel) {
+	"{Parallel} selects the standard 'Centronics' parallel interface.",
+	"The parallel interface has a maximum data transfer rate of 1000 characters",
+	"per second.  In general, parallel printing is much quicker than serial",
+	"printing.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³û Parallel  ³ ÄÄÄÄ The checkmark reconfirms that the parallel port is",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄ³      selected."
+	};
+
+resource help (SetupHELP_Serial) {
+	"{Serial} selects the RS232C/Current Loop serial interface.  The serial",
+	"interface has a maximum data transfer rate of 9600 Baud, or 9600 bits per",
+	"second.",
+	"",
+	"³ÄÄÄÄÄÄÄÄÄÄÄÄ³",
+	"³û Serial    ³ ÄÄÄÄ The checkmark reconfirms that the serial port is",
+	"³  Format   ³      selected."
+	};
+
+resource help (FormatHELP) {
+	"The {Format} menu provides commands to customize the way the program",
+	"lists data to the serial printer.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  COM2              ³ ÄÄÄÄÄÄÄÄÄ Displays the serial port that will be used.",
+	"³  Baud Rate (9600) ³ ÄÄÄÄÄÄÄ¿  Modify this choice indirectly by changing",
+	"³  Parity (None)    ³ ÄÄÄÄÄ¿ ³  the Serial Port via the Communications",
+	"³  Data bits (8)    ³ ÄÄÄ¿ ³ ³  menu.",
+	"³  Stop bits (1)    ³ Ä¿ ³ ³ ³",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ  ³ ³ ³ ÀÄ Select the transmission rate.",
+	"                        ³ ³ ³",
+	"                        ³ ³ ÀÄÄÄ Select the method of error detection.",
+	"                        ³ ³",
+	"                        ³ ÀÄÄÄÄÄ Select the word length.",
+	"                        ³",
+	"                        ÀÄÄÄÄÄÄÄ Select the end of word marker length."
+	};
+
+resource help (BaudHELP) {
+	"{Baud Rate} is the length of the shortest signal divided into one",
+	"second.  It is named for the French communications pioneer Baudot.  Bits",
+	"per second (bps) means the number of binary digits transmitted in one",
+	"second.  Available baud rates include 300, 600, 1200, 2400, 4800, 9600",
+	"and 19200.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄ¿",
+	"³    300  ³",
+	"³    600  ³",
+	"³   1200  ³",
+	"³   2400  ³",
+	"³   4800  ³",
+	"³   9600  ³",
+	"³  19200  ³",
+	"ÀÄÄÄÄÄÄÄÄÄÙ"
+	};
+
+resource help (ParityHELP) {
+	"{Parity} checking is a method of testing whether the transmission is being",
+	"received correctly.  The sending device adds a parity bit, which is",
+	"calculated according to the contents of the data bits.  The receiving",
+	"device checks that the parity bit does indeed bear the correct",
+	"relationship to the other bits.  If it does not, something must have gone",
+	"wrong during the transmission.  Parity can be computed in several ways.",
+	"Available parity includes None, Space, Odd, Mark and Even.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄ¿",
+	"³  None   ³",
+	"³  Space  ³",
+	"³  Odd    ³",
+	"³  Mark   ³",
+	"³  Even   ³",
+	"ÀÄÄÄÄÄÄÄÄÄÙ"
+	};
+
+resource help (DataHELP) {
+	"The serial communications standards, called protocols, allow for the",
+	"transmission of different lengths of characters, or words.  When",
+	"communications software asks you to select word length, it is asking for",
+	"the specific length of the data.  Available data length include 5, 6, 7",
+	"and 8.",
+	"",
+	"ÚÄÄÄÄÄ¿",
+	"³  5  ³",
+	"³  6  ³",
+	"³  7  ³",
+	"³  8  ³",
+	"ÀÄÄÄÄÄÙ"
+	};
+
+resource help (StopHELP) {
+	"At the end of each frame, {Stop Bits} are sent.  There can be one, one and",
+	"a half, or two stop bits.  One and a half bits means that the length of",
+	"the bit is greater than that of a normal bit.  The stop bits force a",
+	"certain minimum gap between frames.  They are sent as binary 1's, which,",
+	"in direct connection, equal a negative voltage.  There is always at least",
+	"one stop bit.  This ensures that there is a negative voltage for at least",
+	"some period of time between two frames so that the next frame can be",
+	"recognized by its positive start bit.  More than one stop bit is",
+	"generally used when the receiving device requires extra time before it",
+	"can handle the next incoming character. Stop bits can be either 1 or 2.",
+	"If you use 5 for data, a 2 here will mean 1.5 stop bits.",
+	"",
+	"ÚÄÄÄÄÄ¿",
+	"³  1  ³",
+	"³  2  ³",
+	"ÀÄÄÄÄÄÙ"
+	};
+
+// Item attributes can be composed of the following:
+//   - ""   : no special attributes
+//   - "!"  : check item
+//   - "("  : disable item
+//   - "/x" : keyboard shortcut, substitute x with uppercase letter
+//   - "=x" : hot key, substitute x with the active character
+
+resource menu (LanguageMENU, preload, purgeable) {
+	noflash,	LanguageHELP,		"Language",
+	NULL,		LanguageHELP,		"United States",	"=U",
+	NULL,		LanguageHELP,		"Germany",		"=G",
+	NULL,		LanguageHELP,		"France",		"=F",
+	NULL,		LanguageHELP,		"Spain",		"=S"
+	};
+
+resource menu (QueryMENU, preload, purgeable) {
+	noflash,	QueryHELP,		"Query",
+	NULL,		QueryHELP,		"Communications",	"=C",
+	NULL,		NULL,			"-",			"(", 
+	NULL,		QueryHELP_Timing,	"Query Timing...",	"=T",
+	NULL,		NULL,			"-",			"(", 
+	NULL,		QueryHELP,		"Track Errors",		"=E",
+	NULL,		QueryHELP,		"Archival Data",	"=A",
+	NULL,		QueryHELP,		"Offline Trace",	"=O",
+	NULL,		QueryHELP,		"Log to Printer",	"=L",
+	NULL,		NULL,			"-",			"(",
+	NULL,		QueryHELP,		"Display Queries...",	"=D",
+	NULL,		QueryHELP,		"Manual Queries",	"=M",
+	NULL,		QueryHELP,		"Sound Bell",		"=S"
+	};
+
+resource menu (PortMENU, preload, purgeable) {
+	noflash,	PortHELP,	"Port",
+	NULL,		PortHELP,	"COM1",	"=1(",
+	NULL,		PortHELP,	"COM2",	"=2("
+	};
+
+resource menu (BaudMENU, preload, purgeable) {
+	noflash,	BaudHELP,	"Baud",
+	NULL,		BaudHELP,	"  300",	"",
+	NULL,		BaudHELP,	"  600",	"",
+	NULL,		BaudHELP,	" 1200",	"",
+	NULL,		BaudHELP,	" 2400",	"",
+	NULL,		BaudHELP,	" 4800",	"",
+	NULL,		BaudHELP,	" 9600",	"",
+	NULL,		BaudHELP,	"19200",	""
+	};
+
+resource menu (ParityMENU, preload, purgeable) {
+	noflash,	ParityHELP,	"Parity",
+	NULL,		ParityHELP,	"None",		"=N",
+	NULL,		ParityHELP,	"Space",	"=S",
+	NULL,		ParityHELP,	"Odd",		"=O",
+	NULL,		ParityHELP,	"Mark",		"=M",
+	NULL,		ParityHELP,	"Even",		"=E"
+	};
+
+resource menu (DataMENU, preload, purgeable) {
+	noflash,	DataHELP,	"Data",
+	NULL,		DataHELP,	"5",	"=5",
+	NULL,		DataHELP,	"6",	"=6",
+	NULL,		DataHELP,	"7",	"=7",
+	NULL,		DataHELP,	"8",	"=8"
+	};
+
+resource menu (StopMENU, preload, purgeable) {
+	noflash,	StopHELP,	"Stop",
+	NULL,		StopHELP,	"1",	"=1",
+	NULL,		StopHELP,	"2",	"=2"
+	};
+
+resource menu (FormatMENU, preload, purgeable) {
+	noflash,	FormatHELP,	"Format",
+	NULL,		NULL,		"COM0",			"(",
+	BaudMENU,	BaudHELP,	"Baud rate (9600)",	"=B",
+	ParityMENU,	ParityHELP,	"Parity (None)",	"=P",
+	DataMENU,	DataHELP,	"Data bits (8)",	"=D",
+	StopMENU,	StopHELP,	"Stop bits (1)",	"=S"
+	};
+
+resource menu (SetupMENU, preload, purgeable) {
+	noflash,	SetupHELP,		"Setup",
+	NULL,		SetupHELP_Parallel,	"Parallel",	"=P(",
+	NULL,		NULL,			"-",		"(",
+	NULL,		SetupHELP_Serial,	"Serial",	"=S(",
+	FormatMENU,	FormatHELP,		"No Format",	"=C"
+	};
+
+resource menu (PrefsMENU, preload, purgeable) {
+	noflash,	PrefsHELP,		"Preferences",
+	LanguageMENU,	LanguageHELP,		"Language",		"=L",
+	QueryMENU,	QueryHELP,		"Query",		"=Q",
+	PortMENU,	PortHELP,		"No COM Port",		"(=C",
+	SetupMENU,	SetupHELP,		"Setup Printer",	"(=S",
+	NULL,		NULL,			"-",			"(",
+	NULL,		PrefsHELP_Timing,	"Timing...",		"=T",
+	NULL,		PrefsHELP_ImportExport,	"Import/Export...",	"=I",
+	NULL,		PrefsHELP_Network,	"Network...",		"=N",
+	NULL,		NULL,			"-",			"(",
+	NULL,		PrefsMENU,		"Exit to DOS",		"=x"
+	};
+
+resource menu (HelpMENU, preload, purgeable) {
+	noflash,	HelpHELP,		"Help",
+	NULL,		HelpHELP_About,		"About PCS100...",	"=A",
+	NULL,		NULL,			"-",			"(",
+	NULL,		HelpHELP_Help,		"Help",			"=H/H",
+	NULL,		NULL,			"-",			"(",
+	PrefsMENU,	PrefsHELP,		"Preferences",		"(=P",
+	NULL,		HelpHELP_ScreenSaver,	"Screen Saver",		"=S",
+	NULL,		NULL,			"-",			"(",
+	NULL,		HelpHELP_Quit,		"Quit",			"=Q/Q"
+	};
+
+resource menu (OperatorMENU, preload, purgeable) {
+	noflash,	OperatorHELP,		"Operator",
+	NULL,		OperatorHELP_Install,	"Install Operators",	"=I",
+	NULL,		OperatorHELP_List,	"List All Operators",	"(=L"
+	};
+
+resource menu (MachineMENU, preload, purgeable) {
+	noflash,	MachineHELP,		"Machine",
+	NULL,		MachineHELP_All,	"Monitor All Machines",		"=A(/M",
+	NULL,		MachineHELP_Single,	"Monitor Single Machine",	"=S(",
+	NULL,		NULL,			"-",				"(",
+	NULL,		MachineHELP_Install,	"Install Machines",		"=I",
+	NULL,		MachineHELP_List,	"List All Machines",		"=L(",
+	NULL,		NULL,			"-",				"(",
+	OperatorMENU,	OperatorHELP,		"Operator",			"=O"
+	};
+
+resource menu (JobMENU, preload, purgeable) {
+	noflash,	JobHELP,		"Job",
+	NULL,		JobHELP_All,		"Monitor All Jobs",		"=A(/J",
+	NULL,		JobHELP_Single,		"Monitor Single Job",		"=S(",
+	NULL,		NULL,			"-",				"(",
+	NULL,		JobHELP_Install,	"Install Jobs",			"=I",
+	NULL,		JobHELP_List,		"List All Jobs",		"=L(",
+	NULL,		NULL,			"-",				"(",
+	NULL,		JobHELP_Close,		"Close Job...",			"(=J",
+	NULL,		NULL,			"-",				"(",
+	NULL,		JobHELP_ExportOpen,	"Export Open Jobs...",		"(=O",
+	NULL,		JobHELP_ExportClosed,	"Export Closed Jobs...",	"(=C"
+	};
+
+resource menu (ShiftMENU, preload, purgeable) {
+	noflash,	ShiftHELP,			"Shift",
+	NULL,		ShiftHELP_AllMachines,		"Monitor All Machines by Shift",	"(=M/S",
+	NULL,		ShiftHELP_SingleMachine,	"Monitor Single Machine by Shift",	"(=S",
+	NULL,		NULL,				"-",					"(",
+	NULL,		ShiftHELP_AllJobs,		"Monitor All Jobs by Shift",		"(=J",
+	NULL,		ShiftHELP_SingleJob,		"Monitor Single Job by Shift",		"("
+	};
+
+resource menu (GraphMENU, preload, purgeable) {
+	noflash,	NULL,	"Graph",
+	NULL,		NULL,	"Rate All Machines",			"=R(/G",
+	NULL,		NULL,	"Percent Complete All Machines",	"=P("
+	};
+
+resource menu (GenerateMENU, preload, purgeable) {
+	noflash,	GenerateHELP,	"Generate",
+	NULL,		GenerateHELP,	"job by Machine",		"=M",
+	NULL,		GenerateHELP,	"job by Job Number",		"=J",
+	NULL,		GenerateHELP,	"job by Operator Number",	"=O",
+	NULL,		NULL,		"-",				"(",
+	NULL,		GenerateHELP,	"shift by Machine",		"",
+	NULL,		GenerateHELP,	"shift by Job Number",		"",
+	NULL,		GenerateHELP,	"shift by Operator Number",	""
+	};
+
+resource menu (ReportMENU, preload, purgeable) {
+	noflash,	ReportHELP,		"Report",
+	GenerateMENU,	GenerateHELP,		"Generate Report",	"=R",
+	NULL,		ReportHELP_Print,	"Nothing to Print",	"(=P/P",
+	NULL,		NULL,			"-",			"(",
+	NULL,		ReportHELP_Delete,	"Delete Archives...",	"(=D"
+	};
+
+resource menu (CloseJobMENU, preload, purgeable) {
+	noflash,	JobHELP_Close,	"Close",
+	NULL,		JobHELP_Close,	"Print Reports",	"=P",
+	NULL,		JobHELP_Close,	"Close Job",		"=C"
+	};
+
+
+resource status (GlobalSTATUS, purgeable) {
+	"Press any key to continue...",
+	"{<Esc>}-Cancel  {<Enter>}-Save  {<Tab>}-Position  {^H}-Help",
+	"{<Esc>}-Exit  {^P}-Print  {^H}-Help",
+	"{<Esc>}-Exit  {<>}-Position  {^P}-Print  {^H}-Help"
+	};
+
+resource status (PCS100_STATUS, purgeable) {
+	"Saving configuration data...",
+	"{^H}-Help  {^P}-Print  {^Q}-Quit  {<Alt><1st letter>}-Open Menu"
+	};
+
+resource status (OperatorSTATUS, purgeable) {
+	"Loading operators...",
+	"Saving operators..."
+	};
+
+resource status (DialogSTATUS, purgeable) {
+	"{<Esc>}-Exit  {<Enter>}-Select  {^H}-Help"
+	};
+
+resource status (MachineSTATUS, purgeable) {
+	"Loading machines...",
+	"Saving machines..."
+	};
+
+resource status (QuerySTATUS, purgeable) {
+	"Loading query data...",
+	"Saving query data..."
+	};
+
+resource status (JobSTATUS, purgeable) {
+	"Loading jobs...",
+	"Saving jobs...",
+	"{<Esc>}-Exit  {<Enter>}-Accept  {^H}-Help",
+	"{<Esc>}-Exit  {Cursor Keys}-Position  {^H}-Help  {^P}-Print",
+	"{<Esc>}-Exit  {^H}-Help  {^P}-Print",
+	"{<Esc>}-Exit  {<Space>}-Select  {<Enter>}-Close",
+	"Closing job %lu..."
+	};
+
+resource status (ArchiveSTATUS, purgeable) {
+	"Loading archival data...",
+	"Saving archival data...",
+	"Generating report by machine...",
+	"Generating report by job number...",
+	"Generating report by operator number...",
+	"Generating shift report by machine...",
+	"Generating shift report by job number...",
+	"Generating shift report by operator number...",
+	"Deleting archival jobs...",
+	"Exporting open jobs...",
+	"Exporting open shifts...",
+	"Exporting closed jobs...",
+	"Exporting closed shifts..."
+	};
+
+resource string (HelpSTRING, purgeable) {
+	"%ld bytes free"
+	};
+
+resource string (LanguageSTRING, purgeable) {
+	".001",				// United States
+	".049",				// Germany
+	".033",				// France
+	".034"				// Spain
+	};
+
+resource string (PrefsSTRING, purgeable) {
+	"Type EXIT to return to %s."
+	};
+
+resource string (GlobalSTRING, purgeable) {
+	"<Esc> to EXIT",
+	"<Cursor Keys> to POSITION"
+	};
+
+resource string (OperatorSTRING, purgeable) {
+	"Maximum number of operators created.",
+	"unnamed"
+	};
+
+resource string (MachineSTRING, purgeable) {
+	"Print all machines",
+	"Print single machine",
+	"Print shift all machines",
+	"Print shift single machine"
+	};
+
+resource string (QuerySTRING, purgeable) {
+	"Data Link Display.\nPress <Esc> key to EXIT.\n\n"
+	};
+
+resource string (QueryStatusSTRING, purgeable) {
+	"Running   ",
+	"Idle      ",
+	"Setup     ",
+	"Printing  ",
+	"Bad Data  ",
+	"Updating  ",
+	"Off-line  ",
+	"Unknown   "
+	};
+
+resource string (QueryOutputSTRING, purgeable) {
+	"Kicker",
+	"Feed  ",
+	"None  "
+	};
+
+resource string (JobSTRING, purgeable) {
+	"save job",
+	"export",
+
+	"Active",
+	"n/a",
+	"Print all jobs",
+	"Print single job",
+	"Print all jobs of shift",
+	"Print single job of shift",
+	"unnamed",
+	"Export Open Archival Jobs As:",
+	"Export Open Archival Shifts As:",
+	"Export Closed Archival Jobs As:",
+	"Export Closed Archival Shifts As:"
+	};
+
+resource string (CommSTRING, purgeable) {
+	"None",
+	"Odd",
+	"Even",
+	"Space",
+	"Mark",
+	"COM%d:%d,%s,%d,%d",
+	"COM%d",
+	"Baud Rate (%d)",
+	"Parity (%s)",
+	"Data bits (%d)",
+	"Stop bits (%d)"
+	};
+
+resource string (ScreenSTRING) {
+	"Nothing to Print"
+	};
+
+resource string (SaveFilterSTRING_Open) {
+	"*.ASC"
+	};
+
+resource string (OpenFilterSTRING_Closed) {
+	"HISTORY.JOB"
+	};
+
+resource string (SaveFilterSTRING_Closed) {
+	"*.ASC"
+	};
+
+// Version Resource defenition.
+// A new program has Version 1.0.  If there is a minor revision to the
+// program, it is then labeled Version 1.1.  If there's a bug fix to
+// Version 1.1, it's designated 1.1.1.  So, if you have a program that had a
+// second bug fix to a third minor revision, it would be Version 1.3.2.
+// If there's a major revision to the program, the first number is
+// incremented.  If the program has gone through a major revision, four minor
+// revisions, and six bug fixes, the current version is 2.4.6.
+// There's also a development suffix, which is added to indicate how far along
+// the product is.  There are four different stages: The earliest is 'ë' for
+// "delta".  The next level is 'à' for "alpha".  Then 'á' for "beta".
+// Finally, a '.' indicates the released version.  If you have a product
+// labeled 1.3ë1, it is the first development version of the third revision
+// of the first release of the product.
+
+resource version (PCS100_VERSION) {
+	4,			// program version
+	0,			// major revision
+	'á',			// revision stage (delta, alpha, beta, release)
+	4,			// build number / bug fix in release version
+	"v4.0á4",		// version string
+	"U.S.A.",		// resource file language format
+	"November 11, 1991"	// date of software release
+	};
+
+resource video (AboutVIDEO, purgeable) {
+	WindowCOLOR*_COLOR_High,
+	"                     Production Control Software                    ",
+	"                                 for                                ",
+	"                  Stahl PCS100 Production Monitors                  ",
+	"                                                                    ",
+	"                                                by Jack Niewiadomski"
+	};
+
+resource video (TimingVIDEO, purgeable) {
+	DialogCOLOR*_COLOR_High,
+	"  Screen Saver Delay:     minutes ",
+	"     Auto Save Delay:     minutes "
+	};
+
+resource video (ImportExportVIDEO, purgeable) {
+	DialogCOLOR*_COLOR_High,
+	"  Export Field Separator:     (0-127) ",
+	" Export Record Separator:     (0-127) "
+	};
+
+resource video (PrefsVIDEO_Network, purgeable) {
+	DialogCOLOR*_COLOR_High,
+	"Publish/Subscribe Frequency:     seconds",
+	"  Subscribe Retry Frequency:     seconds"
+	};
+
+resource video (CopyrightVIDEO, purgeable) {
+	WindowCOLOR*_COLOR_High,
+	"Copyright (c) 1987-1991 by Vorne Industries Incorporated        ",
+	"All rights reserved.                                            ",
+	"                                                                ",
+	"Portions of this program are the Confidential and Proprietary   ",
+	"property of FairCom.  Any unauthorized use, reproduction or     ",
+	"transfer of this program is strictly prohibited.  Portions of   ",
+	"software copyright (c) 1984-1988 by FairCom Corporation.        ",
+	"(Subject to limited distribution and restricted disclosure      ",
+	"only.)  All rights reserved.                                    "
+	};
+
+resource video (StartUpVIDEO, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°  Production Control Software  °°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°  FOR  °°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°  Stahl PCS100 Production Monitors  °°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ"
+	};
+
+resource video (OperatorVIDEO_Install, purgeable) {
+	DialogCOLOR*_COLOR_Low,
+	" Operator Number:                              ",
+	" Operator Name:                                ",
+	" Date Installed:                               ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                               "
+	};
+
+resource video (OperatorVIDEO_List, purgeable) {
+	WindowCOLOR*_COLOR_Low,
+	" Operator #  Operator Name                    Installed  ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                                         "
+	};
+
+resource video (MachineVIDEO_Install, purgeable) {
+	DialogCOLOR*_COLOR_Low,
+	" Machine Number:                              ",
+	" Machine Name:                                ",
+	" Date Installed:                              ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                              "
+	};
+
+resource video (MachineVIDEO_List, purgeable) {
+	WindowCOLOR*_COLOR_Low,
+	" Number  Machine Name                    Installed  ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    "
+	};
+
+resource video (MachineVIDEO_All, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"   Machine       Job  Machine        Total  Current                           ",
+	"   Number     Number  Status        Pieces    Rate     Run Time   Idle Time   ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (MachineVIDEO_Single, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	" Machine:                            Operator:                                ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Job Identification ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"   Machine Number:                                Machine Status:             ",
+	"       Job Number:                               Operator Number:             ",
+	"      Job Started:                                  Shift Number:             ",
+	"                                                                              ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Job Setup ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"       Preset Job:                                   Output Delay:       Sec  ",
+	"     Preset Batch:                                Output Duration:       Sec  ",
+	"           Factor:                                    Output Type:            ",
+	"                                                                              ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Running Information ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"    Run Time:               Total Batches:             Total Pieces:          ",
+	"   Idle Time:             Countdown Batch:             Setup Pieces:          ",
+	"  Setup Time:                Preset Batch:             Current Rate:          ",
+	"  Total Time:                                          Average Rate:          ",
+	"                                                                              ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Statistics ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"        Pieces Left:                                 Time Left (Projected)    ",
+	"    # of Times Idle:                                Current Rate:             ",
+	"  Percent Completed:              %                 Average Rate:             "
+	};
+
+resource video (JobVIDEO_All, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"       Job       %     Preset      Total    Current    Time Left (Projected)  ",
+	"    Number    Comp        Job     Pieces       Rate     Cur Rate    Avg Rate  ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (JobVIDEO_Single, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	" Job #          is       % completed.                Current Rate:            ",
+	"   Preset Job:                                       Average Rate:            ",
+	" Total Pieces:                               Time Left - Cur Rate:            ",
+	"  Pieces Left:                               Time Left - Avg Rate:            ",
+	"                                                                              ",
+	"   Machine         Current  Average    Total    Pieces   Time Left (Projected)",
+	"Number  Status        Rate     Rate   Pieces      Left    Cur Rate    Avg Rate",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (JobVIDEO_Install, purgeable) {
+	DialogCOLOR*_COLOR_Low,
+	" Job Number:                              ",
+	" Job Name:                                ",
+	" Job Total:                               ",
+	" Date Installed:                          ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                          "
+	};
+
+resource video (JobVIDEO_List, purgeable) {
+	WindowCOLOR*_COLOR_Low,
+	"    Job #  Job Name                           Total  Date        Status   ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          "
+	};
+
+resource video (ShiftVIDEO_AllMachine, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"   Machine       Job  Machine        Total  Average                           ",
+	"   Number     Number  Status        Pieces    Rate     Run Time   Idle Time   ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (ShiftVIDEO_SingleMachine, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"     Machine Name:                                     Installed:             ",
+	"    Operator Name:                                                            ",
+	"                                                                              ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Job Shift Identification ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"                                                                              ",
+	"   Machine Number:                                Machine Status:             ",
+	"       Job Number:                               Operator Number:             ",
+	"    Shift Started:                                  Shift Number:             ",
+	"                                                                              ",
+	"                                                                              ",
+	"                                                                              ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Running Shift Information ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"                                                                              ",
+	"         Run Time:                                  Total Pieces:             ",
+	"        Idle Time:                                 Total Batches:             ",
+	"       Setup Time:                                  Setup Pieces:             ",
+	"       Total Time:                                  Average Rate:             "
+	};
+
+resource video (ShiftVIDEO_AllJob, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"       Job       %     Preset      Total    Current    Time Left (Projected)  ",
+	"    Number    Comp        Job     Pieces       Rate     Cur Rate    Avg Rate  ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (ShiftVIDEO_SingleJob, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	" Job #          is       % completed.                Current Rate:            ",
+	"   Preset Job:                                       Average Rate:            ",
+	" Total Pieces:                               Time Left - Cur Rate:            ",
+	"  Pieces Left:                               Time Left - Avg Rate:            ",
+	"                                                                              ",
+	"   Machine         Current  Average    Total    Pieces   Time Left (Projected)",
+	"Number  Status        Rate     Rate   Pieces      Left    Cur Rate    Avg Rate",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (ArchiveVIDEO_Delete, purgeable) {
+	DialogCOLOR*_COLOR_Low,
+	"  Machine Number:                                ",
+	"      Job Number:                                ",
+	" Operator Number:                                ",
+	"    Shift Number:                                ",
+	"    Total Pieces:                                ",
+	"    Average Rate:                                ",
+	"        Run Time:                                ",
+	"       Idle Time:                                ",
+	"      Setup Time:                                ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	" <Esc>-EXIT  <Cursor Keys>-POSITION  <^D>-DELETE "
+	};
+
+resource video (OfflineTraceVIDEO, purgeable) {
+	WindowCOLOR*_COLOR_Low,
+	" Num  Offline ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"              ",
+	"              ",
+	"              ",
+	"              ",
+	"              "
+	};
+
+resource video (QueryVIDEO_Timing, purgeable) {
+	DialogCOLOR*_COLOR_High,
+	"       Minimum Query Delay:      mS      ( 80)",
+	"       Maximum Query Delay:      mS      (260)",
+	" High Priority Query Delay:      mS      (750)",
+	"  Low Priority Query Delay:      mS     (1500)",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	" Maximum Offline Tolerance:      seconds ( 60)",
+	"   Maximum Error Tolerance:      counts  (  5)"
+	};
+
+resource video (GraphVIDEO_Rates, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"        Machine    Current              Rates x 10,000                        ",
+	" Status  Number    Average 1         2         3         4         5         6",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÚÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄ¿"
+	};
+
+resource video (GraphVIDEO_PercComplete, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"        Machine  Percent                                                      ",
+	" Status  Number  Complete  0   10   20   30   40   50   60   70   80   90  100",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÚÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄ¿"
+	};
+
+
+resource window (AboutWINDOW, purgeable) {
+	9:4:15:75,
+	WindowCOLOR*_COLOR_Low,
+	w1111,
+	AboutVIDEO, 0:1,
+	""
+	};
+
+resource window (TimingWINDOW, purgeable) {
+	9:4:12:39,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	TimingVIDEO, 0:0,
+	" Timing "
+	};
+
+resource window (ImportExportWINDOW, purgeable) {
+	9:4:12:43,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	ImportExportVIDEO, 0:0,
+	" Import/Export "
+	};
+
+resource window (PrefsWINDOW_Network, purgeable) {
+	9:4:12:47,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	PrefsVIDEO_Network, 0:1,
+	" Network "
+	};
+
+resource window (CopyrightWINDOW, purgeable) {
+	7:6:17:73,
+	WindowCOLOR*_COLOR_Low,
+	w1111,
+	CopyrightVIDEO,0:1,
+	""
+	};
+
+resource window (OperatorWINDOW_Install, purgeable) {
+	9:18:15:66,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	OperatorVIDEO_Install, 0:0,
+	""
+	};
+
+resource window (OperatorWINDOW_List, purgeable) {
+	4:3:19:61,
+	WindowCOLOR*_COLOR_Low,
+	w2222,
+	OperatorVIDEO_List, 0:0,
+	""
+	};
+
+resource window (MachineWINDOW_Install, purgeable) {
+	5:4:11:51,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	MachineVIDEO_Install, 0:0,
+	""
+	};
+
+resource window (MachineWINDOW_List, purgeable) {
+	3:4:21:57,
+	WindowCOLOR*_COLOR_Low,
+	w2222,
+	MachineVIDEO_List, 0:0,
+	""
+	};
+
+resource window (JobWINDOW_Install, purgeable) {
+	4:33:11:76,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	JobVIDEO_Install, 0:0,
+	""
+	};
+
+resource window (JobWINDOW_List, purgeable) {
+	4:2:17:77,
+	WindowCOLOR*_COLOR_Low,
+	w2222,
+	JobVIDEO_List, 0:0,
+	""
+	};
+
+resource window (ArchiveWINDOW_Delete, purgeable) {
+	4:23:16:73,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	ArchiveVIDEO_Delete, 0:0,
+	""
+	};
+
+resource window (OfflineTraceWINDOW, purgeable) {
+	15:0:23:15,
+	WindowCOLOR*_COLOR_Low,
+	w2222,
+	OfflineTraceVIDEO, 0:0,
+	""
+	};
+
+resource window (QueryWINDOW_Timing, purgeable) {
+	3:29:11:76,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	QueryVIDEO_Timing, 0:0,
+	" Query Timing "
+	};
+
+resource window (JobWINDOW_Close, purgeable) {
+	6:17:17:61,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	NULL,
+	" Close Job "
+	};

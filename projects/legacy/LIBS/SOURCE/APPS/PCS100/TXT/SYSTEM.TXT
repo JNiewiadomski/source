@@ -1,0 +1,44 @@
+	PCS100 Production Control Software System Requirements
+      for the MetraByte RS-485 Network and Communications Board
+      ---------------------------------------------------------
+
+The PCS100 software requires the following minimal hardware configuration:
+  - an IBM PC/XT/AT or 100% IBM compatible (IBM PS/2's are not compatible)
+  - PC-DOS or MS-DOS version 2.0 or later
+  - one hard disk drive with a minimum of 1MB of disk space
+  - 384K RAM available memory
+  - a color monitor with compatible graphics card
+  - one available IBM PC or IBM AT slot for the MetraByte RS-485 Network and
+    Communications board (the IBM PS/2 MCA bus is not compatible)
+  - MetraByte RS-485 Network and Communications board
+
+		     Sample System Configurations
+		     ----------------------------
+
+System 1
+--------
+  - IBM PC/AT
+  - PC-DOS v3.30
+  - 20MB hard disk drive
+  - 640K RAM
+  - IBM color monitor and EGA color graphics card
+  - MetraByte RS-485 Network and Communications board
+
+System 2
+--------
+  - CompuAdd 216; 80286 processor running at 16MHz
+  - MS-DOS v3.30
+  - 40MB hard disk drive
+  - 512KB RAM
+  - CVGA color monitor
+  - MetraByte RS-485 Network and Communications board
+
+System 3
+--------
+  - Compaq Deskpro 386/33
+  - MS-DOS v4.01
+  - 84MB hard disk drive
+  - 2MB RAM
+  - VGA monitor
+  - MetraByte RS-485 Network and Communications board
+

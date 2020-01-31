@@ -1,0 +1,107 @@
+Requirements Analysis
+---------------------
+by Jack Niewiadomski
+
+
+Parallel Digital Interface
+--------------------------
+The software/hardware solution for the high speed input tests will consist
+of a very high speed data aquisition card that interfaces to a PC/AT and a
+compiler that will translate high level instructions to a test pattern that
+will be transmitted through the data aquisition board to the units being
+tested.
+
+
+Hardware
+--------
+PDMA-32 Very High Speed Parallel Digital Interface Board
+
+The PDMA-32 is a high speed 16 bit digital input/output board for the
+IBM PC/AT only.  The board has 8 or 16 bit direct memory access	(DMA).  It is
+intended for applications requiring high speed digital memory transfers to
+and/or from external computers and peripheral devices.  The PDMA-32 uses the
+full 16-bit data bus available in "AT" type computers, effectively doubling
+the transfer rate of the PC/XT.  Data transfers of up to 200,000 words
+(16-bit) per second can be accomplished in either input or output modes.  All
+high speed data transfers are performed under DMA (Direct Memory Access)
+control.
+
+The PDMA-32 provides 2 eight bit ports.  Each can be set as an input or
+output while the board is under software control, and each of the ports can
+be addressed as normal I/O locations.  However, when operating the board in
+high speed mode (under DMA control) both I/O ports must be set to operate in
+the same direction.
+
+
+Software
+--------
+The software will be in the form of a compiler.  The tester will create a
+source file using a text editor.  The source file will describe the set of
+output patterns that will be transfered by the PDMA-32 to the test unit.  An
+optional set of input patterns will allow the output patterns to be changed
+dynamically either by the user via the keyboard or an external signal via the
+input port.  The compiler will check the source file for syntax and semantic
+errors.  If any errors are detected, the compiler will identify the line on
+which the error occurred and a short description explaining the reason why an
+error exists.  If no errors are detected, the compiler will optionally begin
+driving the PDMA-32 data aquisition board with the test data.
+
+
+Qualitative Requirements
+------------------------
+
+I.  Degree of Functionality
+---------------------------
+The following is a list of commands and options that the compiler will
+provide:
+	.INCLUDE	Allows separate source files to be created and used
+			as interchangeable libraries.
+
+	.DEVICE		Accesses board specific functionality, such as clock
+			speed and port direction.  This is the link between
+			the user and the hardware that provides for future
+			expandability.
+
+	.TEXT		Help messages and prompts are defined and labeled.
+
+	.STATE		Input patterns are specified.  This enables an
+			external stimulus to be recognized and cause a new
+			action to be performed.
+
+	.ACTION		Output patterns that will be cyclically generated.
+
+	.CASE		Definitions of cause-effect relationships of states
+			and actions.
+
+	.STARTUP	Initial sequence of actions to be performed.
+
+
+II.  Useability
+---------------
+A.	Reliability
+	
+
+
+III.  Intended Use - Generality
+-------------------------------
+
+
+IV.  Future / Lifetime Expectations
+-----------------------------------
+
+
+V.  Documentation
+-----------------
+
+
+VI.  Schedule
+-------------
+
+
+VII.  Resources
+---------------
+
+
+VIII.  Benefits
+---------------
+

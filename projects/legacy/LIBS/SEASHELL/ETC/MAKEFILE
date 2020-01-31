@@ -1,0 +1,36 @@
+# Makefile for the SeaShell library
+.autodepend
+.silent
+
+LIBRARY = SEASHELL
+
+.PATH.001 = $(D)\lib\$(LIBRARY)
+.PATH.049 = $(D)\lib\$(LIBRARY)
+.PATH.gr  = .
+.PATH.inc = $(D)\include\$(LIBRARY)
+.PATH.lib = lib
+.PATH.us  = .
+
+# --- commands ---
+DASM  = tasm /e /m /ml /t /w2
+DCC   = bcc -c -ml
+DLIB  = tlib /C
+DLINK = tlink /d /ml /x
+
+# --- objects ---
+LIB = $(D)\lib\$(LIBRARY)
+US  = $(.PATH.001)\$(LIBRARY).001
+GR  = $(.PATH.049)\$(LIBRARY).049 
+
+# --- explicit rules ---
+ALL: $(US) $(GR)
+
+$(US): $(LIBRARY).r $(D)\tools\rez.exe
+$(GR): $(LIBRARY).r $(D)\tools\rez.exe
+
+# --- inference rules ---
+.us.001:
+	rez -i$(.PATH.inc) -o$(.PATH.001) $&.us
+
+.gr.049:
+	rez -i$(.PATH.inc) -o$(.PATH.049) $&.gr

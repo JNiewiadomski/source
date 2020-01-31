@@ -1,0 +1,38 @@
+Problem Definition
+------------------
+by Jack Niewiadomski
+
+
+The Problem
+-----------
+The inability to fully verify the correct performance of new and existing
+counters and displays (units) when subjected to high speed input.
+
+
+What
+----
+A software/hardware solution is needed to subject units to predefined high
+speed input tests so that the integrity and correct functionality of the unit
+may be verified.
+
+
+Why
+---
+When new displays and counters are designed and manufactured, the units are
+tested for noise immunity, tolerance to large shifts in temperature and
+for correct functionality in every day use.  Unfortunately, there is no way
+of testing the hardware to verify that they can perform as stated when
+subjected to high speed input signals.  This can lead to producing hardware
+that may possibly malfunction when used in the real world.
+
+
+Scope
+-----
+The software/hardware solution needs to subject the units to a fast stream of
+input signals to verify that the units perform as expected.  The user needs
+to be able to define the stream of data that will be input to the unit as
+well as the speed at which the signals will change.  There needs to be a way
+to save the test data so that it can be repeated at some future point in
+time.  In this way, the new version of the unit can be subjected to the same
+tests that the previous version of the design had passed.
+

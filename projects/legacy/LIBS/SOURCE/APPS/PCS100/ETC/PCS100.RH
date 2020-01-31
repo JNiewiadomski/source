@@ -1,0 +1,413 @@
+// ***********************************************************************
+// *                                                                     *
+// *                      PCS100 Network Supervisor                      *
+// *                                                                     *
+// *       Copyright (c) 1987-1991  Vorne Industries Incorporated.       *
+// *                         All rights reserved.                        *
+// *                                                                     *
+// ***********************************************************************
+
+#define _COLOR_Low			0
+#define _COLOR_High			1
+#define _COLOR_InvLow			2
+#define _COLOR_InvHigh			3
+#define _COLOR_Hot			4
+
+#define PCS100_BAR			1
+
+#define WindowCOLOR			1
+#define DialogCOLOR			2
+#define ScreenCOLOR			3
+#define DOS_COLOR			4
+
+#define PCS100_ERROR			1
+#define PCS100_ERROR_NoSave		0
+#define PCS100_ERROR_NoSerial		1
+
+#define OperatorERROR			2
+#define OperatorERROR_Load		0
+#define OperatorERROR_Save		1
+
+#define MachineERROR			3
+#define MachineERROR_Load		0
+#define MachineERROR_Save		1
+
+#define QueryERROR			4
+#define QueryERROR_Load			0
+#define QueryERROR_Save			1
+#define QueryERROR_Schedule		2
+#define QueryERROR_Delete		3
+#define QueryERROR_Reschedule		4
+
+#define JobERROR			5
+#define JobERROR_Load			0
+#define JobERROR_Save			1
+#define JobERROR_MaxCreated		2
+
+#define ArchiveERROR			6
+#define ArchiveERROR_NotFound		0
+#define ArchiveERROR_Ctree		1
+
+#define PrefsERROR			7
+#define PrefsERROR_ENOENT		0
+#define PrefsERROR_ENOMEM		1
+#define PrefsERROR_E2BIG		2
+#define PrefsERROR_ENOEXEC		3
+
+#define OperatorFORM_List		1
+#define MachineFORM_List		2
+#define MachineFORM_All			3
+#define MachineFORM_Single		4
+#define ShiftFORM_AllMachine		5
+#define ShiftFORM_SingleMachine		6
+#define JobFORM_All			7
+#define JobFORM_Single			8
+#define ShiftFORM_AllJob		9
+#define ShiftFORM_SingleJob		10
+#define JobFORM_List			11
+#define ArchiveFORM_Machine		12
+#define ArchiveFORM_Job			13
+#define ArchiveFORM_Operator		14
+#define ArchiveFORM_ShiftMachine	15
+#define ArchiveFORM_ShiftJob		16
+#define ArchiveFORM_ShiftOperator	17
+
+#define ScreenNoneHELP			1
+#define LanguageHELP			2
+#define PrefsHELP			3
+#define PrefsHELP_Timing		4
+#define PrefsHELP_ImportExport		5
+#define PrefsHELP_Network		6
+#define HelpHELP			7
+#define HelpHELP_About			8
+#define HelpHELP_Help			9
+#define HelpHELP_ScreenSaver		10
+#define HelpHELP_Quit			11
+#define OperatorHELP			12
+#define OperatorHELP_Install		13
+#define OperatorHELP_List		14
+#define MachineHELP			15
+#define MachineHELP_All			16
+#define MachineHELP_Single		17
+#define MachineHELP_Install		18
+#define MachineHELP_List		19
+#define JobHELP				20
+#define JobHELP_All			21
+#define JobHELP_Single			22
+#define JobHELP_Install			23
+#define JobHELP_List			24
+#define JobHELP_Close			25
+#define JobHELP_ExportOpen		26
+#define JobHELP_ExportClosed		27
+#define ShiftHELP			28
+#define ShiftHELP_AllMachines		29
+#define ShiftHELP_SingleMachine		30
+#define ShiftHELP_AllJobs		31
+#define ShiftHELP_SingleJob		32
+#define ReportHELP			33
+#define ReportHELP_Print		34
+#define ReportHELP_Delete		35
+#define GenerateHELP			36
+#define PortHELP			37
+#define BaudHELP			38
+#define ParityHELP			39
+#define DataHELP			40
+#define StopHELP			41
+#define FormatHELP			42
+#define SetupHELP			43
+#define SetupHELP_Parallel		44
+#define SetupHELP_Serial		45
+#define QueryHELP			46
+#define QueryHELP_Timing		47
+
+#define LanguageMENU			1
+
+#define PrefsMENU			2
+#define PrefsMENU_Language		1
+#define PrefsMENU_QueryMenu		2
+#define PrefsMENU_Port			3
+#define PrefsMENU_Printer		4
+#define PrefsMENU_Timing		6
+#define PrefsMENU_ImportExport		7
+#define PrefsMENU_Network		8
+#define PrefsMENU_ExitToDOS		10
+
+#define HelpMENU			3
+#define HelpMENU_About			1
+#define HelpMENU_Help			3
+#define HelpMENU_Prefs			5
+#define HelpMENU_ScreenSaver		6
+#define HelpMENU_Quit			8
+
+#define OperatorMENU			4
+#define OperatorMENU_Install		1
+#define OperatorMENU_List		2
+
+#define MachineMENU			5
+#define MachineMENU_All			1
+#define MachineMENU_Single		2
+#define MachineMENU_Install		4
+#define MachineMENU_List		5
+#define MachineMENU_Operator		7
+
+#define JobMENU				6
+#define JobMENU_All			1
+#define JobMENU_Single			2
+#define JobMENU_Install			4
+#define JobMENU_List			5
+#define JobMENU_Close			7
+#define JobMENU_ExportOpen		9
+#define JobMENU_ExportClosed		10
+
+#define ShiftMENU			7
+#define ShiftMENU_AllMachines		1
+#define ShiftMENU_SingleMachine		2
+#define ShiftMENU_AllJobs		4
+#define ShiftMENU_SingleJob		5
+
+#define GraphMENU			8
+#define GraphMENU_Rates			1
+#define GraphMENU_PercComplete		2
+
+#define GenerateMENU			9
+#define GenerateMENU_JobMachine		1
+#define GenerateMENU_JobJob		2
+#define GenerateMENU_JobOperator	3
+#define GenerateMENU_ShiftMachine	5
+#define GenerateMENU_ShiftJob		6
+#define GenerateMENU_ShiftOperator	7
+
+#define ReportMENU			10
+#define ReportMENU_GenerateReport	1
+#define ReportMENU_Print		2
+#define ReportMENU_Delete		4
+
+#define PortMENU			11
+#define PortMENU_COM1			1
+#define PortMENU_COM2			2
+
+#define BaudMENU			12
+#define BaudMENU_300			1
+#define BaudMENU_600			2
+#define BaudMENU_1200			3
+#define BaudMENU_2400			4
+#define BaudMENU_4800			5
+#define BaudMENU_9600			6
+#define BaudMENU_19200			7
+
+#define ParityMENU			13
+#define ParityMENU_None			1
+#define ParityMENU_Space		2
+#define ParityMENU_Odd			3
+#define ParityMENU_Mark			4
+#define ParityMENU_Even			5
+
+#define DataMENU			14
+#define DataMENU_5			1
+#define DataMENU_6			2
+#define DataMENU_7			3
+#define DataMENU_8			4
+
+#define StopMENU			15
+#define StopMENU_1			1
+#define StopMENU_2			2
+
+#define FormatMENU			16
+#define FormatMENU_Port			1
+#define FormatMENU_Baud			2
+#define FormatMENU_Parity		3
+#define FormatMENU_Data			4
+#define FormatMENU_Stop			5
+
+#define SetupMENU			17
+#define SetupMENU_Parallel		1
+#define SetupMENU_Serial		3
+#define SetupMENU_Format		4
+
+#define QueryMENU			19
+#define QueryMENU_Comm			1
+#define QueryMENU_Timing		3
+#define QueryMENU_TrackErrors		5
+#define QueryMENU_ArchivalData		6
+#define QueryMENU_OfflineTrace		7
+#define QueryMENU_LogToPrinter		8
+#define QueryMENU_DisplayQueries	10
+#define QueryMENU_ManualQueries		11
+#define QueryMENU_SoundBell		12
+
+#define CloseJobMENU			20
+#define CloseJobMENU_Print		1
+#define CloseJobMENU_Close		2
+
+#define GlobalSTATUS			1
+#define GlobalSTATUS_PressAnyKey	0
+#define GlobalSTATUS_Dialog		1
+#define GlobalSTATUS_List		2
+#define GlobalSTATUS_ListPosition	3
+
+#define PCS100_STATUS			2
+#define PCS100_STATUS_Save		0
+#define PCS100_STATUS_MenuAccess	1
+
+#define OperatorSTATUS			3
+#define OperatorSTATUS_Loading		0
+#define OperatorSTATUS_Saving		1
+
+#define DialogSTATUS			4
+#define DialogSTATUS_Key		0
+
+#define MachineSTATUS			5
+#define MachineSTATUS_Loading		0
+#define MachineSTATUS_Saving		1
+
+#define QuerySTATUS			6
+#define QuerySTATUS_Loading		0
+#define QuerySTATUS_Saving		1
+
+#define JobSTATUS			7
+#define JobSTATUS_Loading		0
+#define JobSTATUS_Saving		1
+#define JobSTATUS_Install		2
+#define JobSTATUS_ListPosition		3
+#define JobSTATUS_List			4
+#define JobSTATUS_CloseList		5
+#define JobSTATUS_Closing		6
+
+#define ArchiveSTATUS			8
+#define ArchiveSTATUS_Loading		0
+#define ArchiveSTATUS_Saving		1
+#define ArchiveSTATUS_JobByMachine	2
+#define ArchiveSTATUS_JobByJob		3
+#define ArchiveSTATUS_JobByOperator	4
+#define ArchiveSTATUS_ShiftByMachine	5
+#define ArchiveSTATUS_ShiftByJob	6
+#define ArchiveSTATUS_ShiftByOperator	7
+#define ArchiveSTATUS_Deleting		8
+#define ArchiveSTATUS_ExportOpenJob	9
+#define ArchiveSTATUS_ExportOpenShift	10
+#define ArchiveSTATUS_ExportClosedJob	11
+#define ArchiveSTATUS_ExportClosedShift	12
+
+#define HelpSTRING			1
+#define HelpSTRING_Free			0
+
+#define LanguageSTRING			2
+#define LanguageSTRING_Extension_US	0
+#define LanguageSTRING_Extension_GR	1
+
+#define PrefsSTRING			3
+#define PrefsSTRING_Exit		0
+
+#define GlobalSTRING			5
+#define GlobalSTRING_EscToExit		0
+#define GlobalSTRING_CursorKeys		1
+
+#define OperatorSTRING			6
+#define OperatorSTRING_MaxCreated	0
+#define OperatorSTRING_Unnamed		1
+
+#define MachineSTRING			7
+#define MachineSTRING_All		0
+#define MachineSTRING_Single		1
+#define MachineSTRING_ShiftAll		2
+#define MachineSTRING_ShiftSingle	3
+
+#define QuerySTRING			8
+#define QuerySTRING_DataLink		0
+
+#define QueryStatusSTRING		9
+#define QueryStatusSTRING_Running	0
+#define QueryStatusSTRING_Idle		1
+#define QueryStatusSTRING_Setup		2
+#define QueryStatusSTRING_Printing	3
+#define QueryStatusSTRING_BadData	4
+#define QueryStatusSTRING_Updating	5
+#define QueryStatusSTRING_Offline	6
+#define QueryStatusSTRING_Unknown	7
+
+#define QueryOutputSTRING		10
+#define QueryOutputSTRING_Kicker	0
+#define QueryOutputSTRING_Feed		1
+#define QueryOutputSTRING_None		2
+
+#define JobSTRING			11
+#define JobSTRING_SaveJob		0
+#define JobSTRING_Export		1
+#define JobSTRING_Active		2
+#define JobSTRING_NA			3
+#define JobSTRING_PrintAll		4
+#define JobSTRING_PrintSingle		5
+#define JobSTRING_PrintAllShift		6
+#define JobSTRING_PrintSingleShift	7
+#define JobSTRING_Unnamed		8
+#define JobSTRING_ExportOpenJob		9
+#define JobSTRING_ExportOpenShift	10
+#define JobSTRING_ExportClosedJob	11
+#define JobSTRING_ExportClosedShift	12
+
+#define CommSTRING			12
+#define CommSTRING_None			0
+#define CommSTRING_Odd			1
+#define CommSTRING_Even			2
+#define CommSTRING_Space		3
+#define CommSTRING_Mark			4
+#define CommSTRING_Format		5
+#define CommSTRING_ComPort		6
+#define CommSTRING_Baud			7
+#define CommSTRING_Parity		8
+#define CommSTRING_Data			9
+#define CommSTRING_Stop			10
+
+#define ScreenSTRING			13
+#define ScreenSTRING_PrintNothing	0
+
+#define SaveFilterSTRING_Open		14
+#define OpenFilterSTRING_Closed		15
+#define SaveFilterSTRING_Closed		16
+
+#define PCS100_VERSION			1
+
+#define AboutVIDEO			1
+#define TimingVIDEO			2
+#define ImportExportVIDEO		3
+#define PrefsVIDEO_Network		4
+#define CopyrightVIDEO			5
+#define StartUpVIDEO			6
+#define OperatorVIDEO_Install		7
+#define OperatorVIDEO_List		8
+#define MachineVIDEO_Install		9
+#define MachineVIDEO_List		10
+#define MachineVIDEO_All		11
+#define MachineVIDEO_Single		12
+#define JobVIDEO_All			13
+#define JobVIDEO_Single			14
+#define JobVIDEO_Install		15
+#define JobVIDEO_List			16
+#define ShiftVIDEO_AllMachine		17
+#define ShiftVIDEO_SingleMachine	18
+#define ShiftVIDEO_AllJob		19
+#define ShiftVIDEO_SingleJob		20
+#define ArchiveVIDEO_Delete		21
+#define OfflineTraceVIDEO		22
+#define QueryVIDEO_Timing		23
+#define GraphVIDEO_Rates		24
+#define GraphVIDEO_PercComplete		25
+
+#define AboutWINDOW			1
+#define TimingWINDOW			2
+#define ImportExportWINDOW		3
+#define PrefsWINDOW_Network		4
+#define CopyrightWINDOW			5
+#define ScreenWINDOW			6
+#define DOS_WINDOW			7
+#define OperatorWINDOW_Install		8
+#define OperatorWINDOW_List		9
+#define MachineWINDOW_Install		10
+#define MachineWINDOW_List		11
+#define JobWINDOW_Install		12
+#define JobWINDOW_List			13
+#define ArchiveWINDOW_Delete		14
+#define OfflineTraceWINDOW		15
+#define QueryWINDOW_Timing		16
+#define JobWINDOW_Close			17
+

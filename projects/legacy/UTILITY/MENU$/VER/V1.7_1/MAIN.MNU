@@ -1,0 +1,59 @@
+; This is the menu command description file.  Lines that begin with a
+; semicolon (';') are treated as comments and are ignored.
+
+; The .color directive specifies the low and high colors used by menu.  The
+; following colors are recognized:
+;    black   blue    green    cyan    red    magenta    brown    lgray
+;    dgray   lblue   lgreen   lcyan   lred   lmagenta   yellow   white
+
+.color
+	brown
+	yellow
+
+; The .saver directive specifies how much time (in minutes) of inactivity
+; must pass before the screen saver kicks in.  A value of 0 prevents the
+; screen saver from activating.
+
+.saver
+	11
+
+; The .init and .cleanup directives to perform actions before and after the
+; execution of a menu item command.
+
+; init
+;.cleanup
+
+; The .alias directive allows labels to represent commands.  For now, only
+; one alias may be defined per directive, and the command string may not
+; contain semicolons (';') which means an alias can only represent one
+; command.  The syntax for alias is as follows:
+;			label=command
+; To invoke the alias, insert the reference to the label within the list of
+; commands for a menu item.
+
+;.alias
+
+; Actual menu items and commands.  List up to 23 lines of menu labels and DOS
+; commands.
+;
+; The first line specifies a label, which is the menu item name that will
+; appear in the menu list.  A label beginning with '-' will be treated as an
+; item separator.  It cannot be selected and will be displayed as a long
+; horizontal bar.  Do not use the '-' label as the first, last, or
+; consecutive item.  Do not specify a command line for '-'.  
+;
+; The second line specifies a set of commands delimited by semicolons (';').
+; Use the CALL keyword to invoke batch files that should return control to
+; menu.  Use the EXIT keyword to prevent control from returning to menu.  Use
+; the LOGOUT keyword to logout from a Novell NetWare network.
+
+Many
+	cdd c:\dos;alert "Many"
+
+Once
+	alert "Once";exit
+
+-
+
+Logout
+	logout

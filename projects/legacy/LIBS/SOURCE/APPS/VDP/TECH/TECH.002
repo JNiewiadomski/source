@@ -1,0 +1,29 @@
+
+			      VDP Tech Note #2
+			      ================
+
+-----------------------------------------------------------------------------
+  Topic : Laptops and Compatibles with Monochrome Displays
+ Author : Jack Niewiadomski
+Created : October 19, 1990
+-----------------------------------------------------------------------------
+
+
+The VDP software sometimes does not display reverse video correctly on some
+laptops and compatibles with monochrome monitors.  The reason for this is due
+to the computer not being in the correct display mode.
+
+The original PC treats reverse video differently then the later PC's.  The
+VDP software tries to display colors correctly on the screen by looking at
+the current display mode and using the appropriate color attributes.  This is
+apparent when the current display mode is not set up correctly.
+
+The fix for this is simple.  Instruct the customer to use the DOS MODE
+to switch the active display adapter to the Monochrome Display Adapter.
+The following instruction should be typed at the DOS command line:
+
+				  MODE MONO
+
+Some versions of MS-DOS have a slightly different syntax (eg. MODE MDA).
+Have the customer consult the "DOS Operating System Reference" manual for
+more details.

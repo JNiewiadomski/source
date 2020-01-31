@@ -1,0 +1,91 @@
+
+		       TRANSMIT UTILITY DOCUMENTATION
+			    by Jack Niewiadomski
+				 Version 1.1
+
+			Thursday, September 19, 1991
+
+The Transmit utility sends data over the serial port of a personal computer. 
+Use the following syntax to invoke the program:
+
+       Transmit [-2] [-b] [-d] [-h] [-o] [-p] [-r] [-s] [filename...]
+
+-2	Use serial port COM2.  Default is COM1.
+-b	Change the Baud rate: 50, 75, 110, 134, 150, 300, 600, 1200, 1800,
+	2000, 2400, 3600, 4800, 7200, 9600 or 19200.  Default is 9600.
+-d	Change the number of data bits: 5, 6, 7 or 8.  Default is 8.
+-h	Display help screen.
+-o	Override DOS MODE settings with: 9600 Baud, no parity, 8 data bits
+	and 1 stop bit.  If this option is not specified, the current
+	settings are used.  Use the DOS MODE command to change the data
+	format.
+-p	Change the parity: N (none), O (odd), E (even), S (space) or
+	M (mark).  Default is None.
+-r	Use raw mode.  Default is cooked mode.
+-s	Change the number of stop bits: 1 or 2.  Default is 1.
+
+If a filename list is not specified, data is input from standard input.  If
+more than one file name is specified, the contents of all of the files are
+transmitted, one at a time, in the order that they have been specified.  The
+DOS '*' and '?' wild cards can be used.
+
+The following examples illustrate the calling syntax.  Assume that the
+following DOS MODE commands have been issued:
+
+			    MODE COM1:2400,E,7,2
+			    MODE COM2:4800,O,8,1
+
+				  Transmit
+
+Transmit all characters typed at the keyboard until a <Ctrl><Z> has been
+pressed.  Data is sent over COM1 at 2400 Baud, even parity, 7 data bits and
+2 stop bits.  Control characters are ignored.
+
+			    Transmit -2o test.dat
+
+Transmits the contents of the file TEST.DAT.  Data is sent over COM2 at 9600
+Baud, no parity, 8 data bits and 1 stop bit due to the override switch. 
+Control characters are ignored.
+
+			 Transmit -b1200 *.dat *.doc
+
+Transmits the contents of all files in the current directory that have a
+.DAT and a .DOC extension.  Data is sent over COM1 at 1200 Baud, no parity,
+8 data bits and 1 stop bit.  Since the Baud rate was changed, the internal
+defaults are used for the parity, data bits and stop bits.
+
+			    Transmit -r <test.dat
+
+Transmits the characters piped in from TEST.DAT through standard input. 
+Data is sent over COM1 at 2400 Baud, even parity, 7 data bits and 2 stop
+bits.  The exact contents of TEST.DAT is transmitted with literal control
+characters in raw mode.
+
+In the default cooked mode, control codes are introduced with the '~'
+character.  For example, ~M is replaced with a carriage return.  The
+following list specifies all of the recognized control codes:
+
+~@ = NUL	~H = BS	 	~P = DLE	~X = CAN	~~ = ~
+~A = SOH	~I = HT	 	~Q = DC1	~Y = EM	 	~` = DEL
+~B = STX	~J = LF	 	~R = DC2	~Z = SUB
+~C = ETX	~K = VT	 	~S = DC3	~[ = ESC
+~D = EOT	~L = FF	 	~T = DC4	~\ = FS
+~E = ENQ	~M = CR	 	~U = NAK	~] = GS
+~F = ACK	~N = SO	 	~V = SYN	~^ = RS
+~G = BEL	~O = SI	 	~W = ETB	~_ = US
+
+For example, to transmit:
+
+			   <ESC>3F<FF>Example<CR>
+
+type the following:
+
+			       ~[3F~LExample~M
+
+This eliminates the problems associated with embedding control characters
+within a document through a word processor or a text editor.
+
+The Transmit may return the following status codes:
+	0	No errors.
+	1	Syntax error.
+	2	I/O error.

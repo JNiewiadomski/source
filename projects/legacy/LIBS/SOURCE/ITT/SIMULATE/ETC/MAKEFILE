@@ -1,0 +1,61 @@
+# makefile for ITT.EXE
+
+NAME    = itt
+MODEL   = ml
+DEBUG   = 
+LDEBUG  = 
+
+$(NAME).exe: $(NAME).obj about.obj alarm.obj button.obj datalink.obj \
+    dialog.obj display.obj hardware.obj led.obj network.obj panel.obj \
+    setpoint.obj setup.obj state.obj test.obj text.obj \
+    \lib\comm\gfcl.lib \lib\seachest\seachest.lib
+  tlink /d /x $(LDEBUG) @listobjs, $(NAME), , @listlibs
+
+$(NAME).obj: $(NAME).c
+  tcc -c -$(MODEL) $(DEBUG) -f $(NAME).c
+
+about.obj: about.c about.h
+  tcc -c -$(MODEL) $(DEBUG) -f about.c
+
+alarm.obj: alarm.c alarm.h
+  tcc -c -$(MODEL) $(DEBUG) -f alarm.c
+
+button.obj: button.c button.h
+  tcc -c -$(MODEL) $(DEBUG) -f button.c
+
+datalink.obj: datalink.c datalink.h
+  tcc -c -$(MODEL) $(DEBUG) -f datalink.c
+
+dialog.obj: dialog.c dialog.h
+  tcc -c -$(MODEL) $(DEBUG) -f dialog.c
+
+display.obj: display.c display.h
+  tcc -c -$(MODEL) $(DEBUG) -f display.c
+
+hardware.obj: hardware.c hardware.h
+  tcc -c -$(MODEL) $(DEBUG) -f hardware.c
+
+led.obj: led.c led.h
+  tcc -c -$(MODEL) $(DEBUG) -f led.c
+
+network.obj: network.c network.h
+  tcc -c -$(MODEL) $(DEBUG) -f network.c
+
+panel.obj: panel.c panel.h
+  tcc -c -$(MODEL) $(DEBUG) -f panel.c
+
+setpoint.obj: setpoint.c setpoint.h
+  tcc -c -$(MODEL) $(DEBUG) -f setpoint.c
+
+setup.obj: setup.c setup.h
+  tcc -c -$(MODEL) $(DEBUG) -f setup.c
+
+state.obj: state.c state.h
+  tcc -c -$(MODEL) $(DEBUG) -f state.c
+
+test.obj: test.c test.h
+  tcc -c -$(MODEL) $(DEBUG) -f test.c
+
+text.obj: text.c text.h
+  tcc -c -$(MODEL) $(DEBUG) -f text.c
+

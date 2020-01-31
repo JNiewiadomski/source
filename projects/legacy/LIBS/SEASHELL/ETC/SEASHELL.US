@@ -1,0 +1,232 @@
+.MEMO	"SeaShell Resource File";
+.FILE	"SeaShell.001";
+
+#include "seashell.rh"			// symbolic definitions
+#include "seashell.r"			// language independent system resources
+
+resource error (_CriticalERROR, preload) {
+	"Critical Error",
+	"{A}bort program",
+	", {R}etry operation",
+	", {F}ail"
+	};
+
+resource error (_CriticalCodeERROR, preload) {
+	"Write-protected Diskette",
+	"Unknown Unit: Invalid Drive Number",
+	"Device Not Ready",
+	"Unknown Command Requested",
+	"Data Error (Bad CRC)",
+	"Bad Drive Request Structure Length",
+	"Seek Error: Move to Requested Track Failed",
+	"Unknown Media Type: Disk Format Not Recognized",
+	"Sector Not Found",
+	"Printer Out of Paper",
+	"Write Fault",
+	"Read Fault",
+	"General Failure",
+	"Insufficient primary memory available."
+	};
+
+resource error (_StatusERROR, purgeable) {
+	"No more messages left in stack.",
+	"No message stack found."
+	};
+
+
+resource error (_MenuERROR) {
+	"Menu bar resource %d not found.",
+	"Too many menus created.",
+	"Unable to find free menu id.",
+	"Menu resource %s not found.",
+	"Unable to match menu id %d.",
+	"Unable to add menu %d into menu bar.",
+	"Menu list is empty.",
+	"Unable to find menu id %d in menu list.",
+	"No menu callback installed (menu %d item %d).",
+	"Too Many Errors to Display"
+	};
+
+resource error (_WindowERROR, preload) {
+	"Window Manager Out Of Windows",
+	"Window Manager Out Of Virtual Screens"
+	};
+
+resource help (_MenuErrorHELP) {
+	"The Error menu lists the various errors that have beem posted by the",
+	"application.  Selecting the individual menu items will remove the",
+	"item from the Error menu.  The first menu choice will remove all the",
+	"menu items listed."
+	};
+
+resource help (_DialogHELP_Open) {
+	"ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"º Volume label: LABEL     - volume label of current diskette",
+	"º",
+	"º a:\\                     - current DOS path",
+	"º ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"º ³ <new_file>   ³        - creates new file",
+	"º ³ FILE.NAM     ³        - existing files",
+	"º ³ [..]         ³        - goes back to previous directory",
+	"º ³ [b:]         ³        - changes to drive B:",
+	"º ³ [PRODUCT]    ³        - goes to subdirectory PRODUCT",
+	"º"
+	};
+
+resource help (_DialogHELP_Save) {
+	"ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"º Volume label: LABEL     - volume label of current diskette",
+	"º",
+	"º a:\\                     - current DOS path",
+	"º ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"º ³ FILE.NAM     ³        - renames file to FILE.NAM",
+	"º ³ [..]         ³        - goes back to previous directory",
+	"º ³ [b:]         ³        - changes to drive B:",
+	"º ³ [PRODUCT]    ³        - goes to subdirectory PRODUCT",
+	"º ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ",
+	"º",
+	"º Save As:                - open dialog prompt",
+	"º   ÚÄÄÄÄÄÄÄÄÄÄ¿",
+	"º   ³ new_file ³          - current name of file",
+	"º   ÀÄÄÄÄÄÄÄÄÄÄÙ",
+	"ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ"
+	};
+
+resource internat (_LocalINTERNAT) {
+	usa,				// date format (usa, europe, japan)
+	',',				// thousands separator
+	'.',				// decimal separator
+	'-',				// date separator
+	':',				// time separator
+	"<MM-DD-YYYY>",			// date prompt
+	"<HH:MM:SS>",			// time prompt
+	"%02d-%02d-%04d",		// date template
+	"%02d:%02d:%02d",		// time template
+	"%4d:%02d:%02d"			// long time template
+	};
+
+resource menu (_MenuErrorMENU, preload, purgeable) {
+	flash,	_MenuErrorHELP,	"Error",
+	NULL,	_MenuErrorHELP,	"Remove All Items",	"=R",
+	NULL,	NULL,		"-",			"("
+	};
+
+resource status (_MenuSTATUS) {
+	"{<Esc>}-Close Menu  {\z}-Next Menu  {}-Next Item  {^H}-Help",
+	"{<Esc>}-Previous Menu  {}-Next Item  {^H}-Help"
+	};
+
+resource status (_DialogSTATUS) {
+	"{<Esc>}-Exit  {<Enter>}-Open File  {^H}-Help",
+	"{<Esc>}-Exit  {<Enter>}-Save File  {<Tab>}-Change Dir  {^H}-Help"
+	};
+
+resource string (_ErrorSTRING, preload) {
+	"Sorry, a system error occurred.",
+	"{<Esc>}-RESUME",
+	"{<Enter>}-ABORT",
+	"%ld bytes free"
+	};
+
+resource string (_EventSTRING) {
+	"Ctrl-Break"
+	};
+
+resource string (_PrinterSTRING) {
+	"Printer offline.",
+	"Printer out of paper.",
+	"Busy writing to PARALLEL printer.",
+	"Printer turned off.",
+	"Busy writing to SERIAL printer.",
+	"Printer time-out error.",
+	"Printer unavailable.",
+	"No default printer selected."
+	};
+
+resource string (_GlobalSTRING) {
+	"Press <Esc> to CANCEL.",
+	"Press any key to continue..."
+	};
+
+resource string (_HelpSTRING) {
+	"{<Esc>}-Exit  {^P}-Print  Page {%d} of {%d}",
+	"Help on %s"
+	};
+
+resource string (_DialogSTRING) {
+	"{O}k, {M}odify, {D}elete, {C}ancel: ",
+	"Open Dialog",
+	"Save Dialog",
+	"new_file",
+	"Overwrite existing file ({Y}/{N}):"
+	};
+
+resource video (_EventVIDEO) {
+	_EventCOLOR*_COLOR_High,
+	"Screen Saver inverts the screen every 30 seconds. ",
+	"This prevents 'burn in' from damaging the display.",
+	"Press any key to resume program execution.        "
+	};
+
+resource video (_DialogVIDEO_Open) {
+	_DialogCOLOR*_COLOR_Low,
+	" Volume label:                                ",
+	"                                              ",
+	"                                              ",
+	" ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿                             ",
+	" ³              ³                             ",
+	" ³              ³                             ",
+	" ³              ³                             ",
+	" ³              ³       <Enter> to OPEN       ",
+	" ³              ³                             ",
+	" ³              ³                             ",
+	" ³              ³       <Esc> to EXIT         ",
+	" ³              ³                             ",
+	" ³              ³                             ",
+	" ³              ³                             ",
+	" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ                             "
+	};
+
+resource video (_DialogVIDEO_Save) {
+	_DialogCOLOR*_COLOR_Low,
+	" Volume label:                                ",
+	"                                              ",
+	"                                              ",
+	" ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿                             ",
+	" ³              ³       <Tab> to CHANGE DIR   ",
+	" ³              ³                             ",
+	" ³              ³       <Enter> to SAVE       ",
+	" ³              ³                             ",
+	" ³              ³       <Esc> to EXIT         ",
+	" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ                             ",
+	"                                              ",
+	"                                              ",
+	" ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿                             ",
+	" ³              ³                             ",
+	" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ                             "
+	};
+
+resource window (_EventWINDOW) {
+	10:13:14:66,			// top, left, bottom, right
+	_EventCOLOR*_COLOR_Low,		// color
+	w1111,				// frame
+	_EventVIDEO, 0:1,		// video id, top, left
+	""				// title
+	};
+
+resource window (_DialogWINDOW_Open) {
+	3:15:19:64,			// top, left, bottom, right
+	_DialogCOLOR*_COLOR_Low,	// color
+	w2222,				// frame
+	_DialogVIDEO_Open, 0:1,		// video id, top, left
+	""				// title
+	};
+
+resource window (_DialogWINDOW_Save) {
+	3:15:19:64,			// top, left, bottom, right
+	_DialogCOLOR*_COLOR_Low,	// color
+	w2222,				// frame
+	_DialogVIDEO_Save, 0:1,		// video id, top, left
+	""				// title
+	};
+

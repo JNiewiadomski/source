@@ -1,0 +1,26 @@
+1993 Mar 17 10:49:23 <C> substenv.prj 1.0 JACKN 5352 0
+1993 Mar 17 10:49:24 <C> substenv.dsk 1.0 JACKN 331 0
+1993 Mar 17 10:49:24 <C> substenv.cpp 1.0 JACKN 2874 125 Original program; 9302.25
+1993 Mar 17 10:49:24 <C> substenv.exe 1.0 JACKN 32936 0
+1993 Mar 17 10:49:26 <RC> 1_0_0 JACKN
+1993 Mar 17 10:49:26 <RA> substenv.exe 1.0 1_0_0 JACKN
+1993 Mar 17 10:49:26 <RA> substenv.cpp 1.0 1_0_0 JACKN
+1993 Mar 17 10:49:26 <RA> substenv.dsk 1.0 1_0_0 JACKN
+1993 Mar 17 10:49:26 <RA> substenv.prj 1.0 1_0_0 JACKN
+1993 Mar 17 10:49:28 <OL> substenv.exe 1.0 JACKN 32936 0
+1993 Mar 17 10:49:28 <OL> substenv.cpp 1.0 JACKN 2874 125
+1993 Mar 17 10:49:28 <OL> substenv.dsk 1.0 JACKN 331 0
+1993 Mar 17 10:49:28 <OL> substenv.prj 1.0 JACKN 5352 0
+1993 Mar 17 10:53:42 <I> substenv.prj 1.1 JACKN 5354 1763734382 1 0
+1993 Mar 17 10:53:42 <I> substenv.dsk 1.1 JACKN 331 1763734382 1 0
+1993 Mar 17 10:53:42 <I> substenv.cpp 1.1 JACKN 2878 125 3 3 Allow /delimit and /max options to accept arguments.
+1993 Mar 17 10:53:42 <I> substenv.exe 1.1 JACKN 33962 125 -2 3
+1993 Mar 17 10:53:44 <RC> 1_0_1 JACKN
+1993 Mar 17 10:53:44 <RA> substenv.exe 1.1 1_0_1 JACKN
+1993 Mar 17 10:53:44 <RA> substenv.cpp 1.1 1_0_1 JACKN
+1993 Mar 17 10:53:44 <RA> substenv.dsk 1.1 1_0_1 JACKN
+1993 Mar 17 10:53:44 <RA> substenv.prj 1.1 1_0_1 JACKN
+1993 Mar 17 10:53:46 <OL> substenv.exe 1.1 JACKN 33962 0
+1993 Mar 17 10:53:46 <OL> substenv.cpp 1.1 JACKN 2878 125
+1993 Mar 17 10:53:46 <OL> substenv.dsk 1.1 JACKN 331 0
+1993 Mar 17 10:53:46 <OL> substenv.prj 1.1 JACKN 5354 0

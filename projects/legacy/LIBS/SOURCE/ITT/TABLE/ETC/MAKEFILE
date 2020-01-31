@@ -1,0 +1,24 @@
+# makefile for the TABLE program
+
+NAME    = table
+MODEL   = l
+
+# --- compiler options ---
+# --- c : compile to OBJ
+# --- m : memory model
+# --- v : source debugging
+
+OPTS	= $(TCC) -m$(MODEL)
+
+# --- objects ---
+01 = $(NAME).obj datalink.obj hardware.obj network.obj
+
+.c.obj:
+	@tcc $(OPTS) $<
+
+$(NAME).exe: $(01) $(NAME).res
+	tlink $(TLINK) @listobjs, $(NAME), , @listlibs
+
+$(NAME).res: $(NAME).r
+	@src $(NAME).r $(NAME).res
+

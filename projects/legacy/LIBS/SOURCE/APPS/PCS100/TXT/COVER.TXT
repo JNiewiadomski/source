@@ -1,0 +1,32 @@
+November 6, 1989
+
+This document explains how to translate text between languages.
+
+Blocks of text are separated by dashed lines spanning width of page.
+Error messages are restricted to 50 characters in length.
+Help text is restricted to 76 characters per line.
+Menu names are restricted to 20 characters in length.
+Menu items are restricted to 50 characters in length.
+String messages are restricted to 80 characters in length.
+
+Note that there is a maximum total length of menu names.  That is:
+  ä(menu name length) + ((# of menu names - 1) * 2) < 79
+
+Where appropriate, a key sequence has been provided to help translator
+understand how text should be translated by seeing it on the screen of a
+personal computer running the PCS100 software.  These key sequences do not
+need to be translated.
+
+The screen label positions must be maintained.  In general, the white space
+to the left of the text can be utilized.
+
+The strings "Running", "Idle", "Setup", "Printing", "Bad Data", "Updating",
+"Off-line", and "Unknown" are restricted to 10 characters in length.
+The strings "Kicker", "Feed", and "None" are restricted to 6 characters in
+length.
+
+Major sections are separated by a dashed line running across the page.
+At the start of each section is a label beginning with '*****' which
+identifies what type of text follows.  These labels do not need to be
+translated.
+

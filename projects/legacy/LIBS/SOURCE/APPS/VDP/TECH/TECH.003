@@ -1,0 +1,80 @@
+
+			      VDP Tech Note #3
+			      ================
+
+-----------------------------------------------------------------------------
+  Topic : Timing Problems when Programming the 2000C Display
+ Author : Jack Niewiadomski
+Created : October 19, 1990
+-----------------------------------------------------------------------------
+
+
+Versions of the VDP software prior to v2.0.5 at times exhibit problems when
+attempting to program the 2000C displays.  Symptoms include incorrect
+messages messages being programmed and incorrect chain linking options being
+programmed.
+
+The fix for this problem is simple: change the values in the Timing dialog.
+For v2.0 and above, the timing dialog box is accessed via the SYSTEM menu.
+Instruct the user to open the hidden SYSTEM menu by holding down the <Alt>
+key (the left <Alt> key on 101 keyboards) and press the <1> key.  Choosing
+the TIMING command will display the Timing dialog box.  For users of the
+v1.0 software, the Timing command is located in the HELP menu.
+
+Increasing the values in the timing dialog box will increase the delay
+between characters transmitted to the 2000C display.  The values should be
+increased by 1 cS (1 centisecond equals 10 milliseconds) increments.  Some
+versions of the software give the false illusion that the timing can be
+changed by mS's.  This is not the case.
+
+
+		Explanation of Why the Timing is so Critical
+		--------------------------------------------
+
+The 2000C display was originally designed to be programmed by a dumb
+terminal or an RCA keyboard.  This means that the 2000C display is
+programmed one character at a time.  Since a user can only type so fast, the
+2000C display was able to service each and every character received.
+
+To add a convenience to the user of the 2000C display, the VDP software had
+been developed to provide a convenient way to edit, save, recall, modify and
+serially transmit messages.
+
+The user is presented with the illusion that the VDP software communicates
+with the 2000C display.  In reality, the computer is transmitting characters
+to the 2000C display just as the dumb terminal and RCA keyboard.  There is
+no two-way communication between the PC and the 2000C.
+
+Since the PC can transmit characters to the 2000C at full speed, a problem
+had been encountered.  The 2000C display needs a finite amount of time to
+process each character and act on it.  Thus the concept of timing had been
+introduced.
+
+Initially there were two delays: the delay between characters and the delay
+between messages.  Since the 2000C needs more time to save a message in
+nonvolatile memory, the VDP software needed to wait longer when an entire
+message was being saved.  Through empirical testing an optimal set of timing
+delays have been found and used when programming the 2000C display.  The 2.0
+and later versions of the VDP software tried to increase throughput by
+introducing a third timing value: chain-link.  More time is needed to
+program the chain links than when programming the rest of the options in the
+display.  Since most messages do not use chain linking, an efficient
+optimization was to only delay longer when programming the chain linking.
+
+Unfortunately, not all of the permutations can be realistically found and
+from time to time an unforseen combination causes the VDP software to send
+faster serially than the 2000C can handle.  Thus, characters are lost and
+messages get programmed incorrectly.
+
+
+			   On 64 Message Displays
+			   ----------------------
+
+Notice that the latest version of the VDP software, v2.0.5, no longer
+supports the 64 message display.  Before suspecting a timing problem, verify
+that the user is not trying to program a 64 message display with software
+that only programs 250 message units (or older 64 message mode software
+trying to program 250 message units).
+
+If a user has a 64 message display, make sure that the customer receives the
+2.0.4 version of the VDP software.

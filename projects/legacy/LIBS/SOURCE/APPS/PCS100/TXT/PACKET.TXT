@@ -1,0 +1,173 @@
+9600 Baud, 8 Data Bits, 1 Stop Bit
+
+
+This document uses C++ notation.  Thus, all hexidecimal numbers are written
+with '0x' prefixing the actual hexidecimal number.  The character sequence
+'//' introduces a comment that spans the remainder of the line.
+
+
+The query data packet has the following format:
+
+Char	Length	Descrition
+-----------------------------------------------------------------------------
+0x02	1	Start of Text
+Class	1	Class of counter (for now, 'A' which is 0x41)
+Address	1	Counter address (0x00..0x63)
+Type	1	Type of data packet requested (Job/Shift & archival)
+0x0D	1	Terminated with a carriage return
+
+
+Values of Type
+-----------------------------------------------------------------------------
+0x30		- Current Job Record
+0x32		-  1st Archival Job Record
+0x34		-  2nd Archival Job Record
+0x36		-  3rd Archival Job Record
+0x38		-  4th Archival Job Record
+0x3A		-  5th Archival Job Record
+0x3C		-  6th Archival Job Record
+0x3E		-  7th Archival Job Record
+0x40		-  8th Archival Job Record
+0x42		-  9th Archival Job Record
+0x44		- 10th Archival Job Record
+0x46		- 11th Archival Job Record
+0x48		- 12th Archival Job Record
+0x4A		- 13th Archival Job Record
+0x4C		- 14th Archival Job Record
+0x4E		- 15th Archival Job Record
+0x50		- Current Shift Record
+0x52		-  1st Archival Shift Record
+0x54		-  2nd Archival Shift Record
+0x56		-  3rd Archival Shift Record
+0x58		-  4th Archival Shift Record
+0x5A		-  5th Archival Shift Record
+0x5C		-  6th Archival Shift Record
+0x5E		-  7th Archival Shift Record
+0x60		-  8th Archival Shift Record
+0x62		-  9th Archival Shift Record
+0x64		- 10th Archival Shift Record
+0x66		- 11th Archival Shift Record
+0x68		- 12th Archival Shift Record
+0x6A		- 13th Archival Shift Record
+0x6C		- 14th Archival Shift Record
+0x6E		- 15th Archival Shift Record
+
+
+The job data packet received from the PCS100 counter has the following format:
+
+Offset	Length	Descrition
+-----------------------------------------------------------------------------
+0	1	counter class (should always be 'A', which is 0x41)
+1	1	counter address (should be same as query address)
+2	1	counter type (should be same as query type)
+3	4	job number
+7	2	operator number
+9	1	shift number
+10	1	output (kicker=0x0F, feed=0xF0, none=0xFF)
+11	1	status (run=0x01, idle=0x02, setup=0x04, print=0x18)
+12	1	factor
+13	2	times idle
+15	4	total count
+19	3	batch count
+22	2	down count
+24	4	setup count
+28	2	preset
+30	2	feed time
+32	2	kick time
+34	4	setup time
+38	4	idle time
+42	4	production time
+46	4	total time
+50	4	time done
+54	2	percent done
+56	4	count done
+60	4	job preset
+64	3	current rate
+67	3	job start time
+70	3	job start date
+73	3	job end time
+76	3	job end date
+79	1	check sum
+80	1	carriage return (0x0D)
+
+
+The shift data packet received from the PCS100 counter has the following format:
+
+Offset	Length	Descrition
+-----------------------------------------------------------------------------
+0	1	counter class (should always be 'A', which is 0x41)
+1	1	counter address (should be same as query address)
+2	1	counter type (should be same as query type)
+3	4	job number
+7	2	operator number
+9	1	shift number
+10	3	shift start time
+13	3	shift start date
+16	4	shift total
+20	3	shift setup count
+23	2	shift batch
+25	3	shift setup time
+28	3	shift idle time
+31	3	shift production time
+34	3	shift total time
+37	3	shift current rate
+40	1	check sum
+41	1	carriage return (0x0D)
+
+
+Calculation of Check Sum
+-----------------------------------------------------------------------------
+char CalculateCheckSum(const char *buffer, short length) {
+	char checkSum = 0;			// start with sum of 0
+	while (length--)			// while length greater than 0
+		checkSum ^= *buffer++;		// exclusive or with previous sum
+	return (checkSum);			// return result
+	}
+
+This same function can be expanded into:
+
+char CalculateCheckSum(const char *buffer, short length) {
+	char	checkSum;			// declare checkSum variable
+
+	checkSum = 0;				// start with sum of 0
+	while (length > 0) {			// while lenhth greater than 0
+		length = length - 1;		// decrement length
+		checkSum = checkSum ^ *buffer;	// exclusive or with previous sum
+		buffer = buffer + 1;		// increment buffer pointer
+		}
+	return (checkSum);			// return result
+	}
+
+
+Examples of Queries
+-----------------------------------------------------------------------------
+0x02 0x41 0x00 0x30 0x0D	// query for current job record at counter 0
+0x02 0x41 0x01 0x50 0x0D	// query for current shift record at counter 1
+0x02 0x41 0x63 0x32 0x0D	// query for 1st archival job record at counter 99
+0x02 0x41 0x32 0x64 0x0D	// query for 64th archival shift job record at counter 50
+
+
+General Comments
+----------------
+The PCS100 RS485 port is bi-directional.  Two of the RS232/RS485 converters
+that we used required manipulating one of the protocol lines in order to
+put it into transmit or recieve mode.  Our solution in implementing the
+serial driver software was as follows:
+
+	Place the RS485 converter in transmit mode.
+	Transmit the query packet (for example, 0x02 0x41 0x00 0x30 0x0D)
+	Wait until the transmit shift register is empty.
+	Place the RS485 converter in receive mode.
+	Begin timer.
+	If timer expires and no characters received, then
+			status is OFFLINE.
+	Else if timer expires and partial packet received, then
+			status is TIMEOUT.
+	Else if packet does not end with a carriage return (0x0D), or
+		packet check sum does not match computed check sum, or
+		packet counter class is not 'A', or
+		packet counter address does not match query counter address, or
+		packet counter type does not match query counter type, then
+			status is ERROR.
+	Else
+			valid packet received.

@@ -1,0 +1,1236 @@
+The PDI Programming Language
+----------------------------
+by Jack Niewiadomski
+
+
+Introduction
+============
+PDI is a special-purpose parallel digital interface language.  The PDI
+language is designed to generate bit patterns and transmit them over a very
+high speed data bus.  The PDI language provides for a consistent method of
+testing hardware by subjecting it to a predefined stimulus and observing the
+results.
+
+This first version of the PDI language supports the PDMA-32 high speed 16 bit
+digital input/output board from MetraByte Corporation.  Even so, the PDI
+language has hooks provided that allow for the support of additional hardware
+if the need arises.
+
+
+Chapter 1:  A Tutorial Introduction
+===================================
+Let us begin with a quick introduction to PDI.  The goal here is to get
+aquainted with the language without having to understand its complete
+functionality.
+
+
+1.1  Getting Started
+--------------------
+The best way to learn a new language is to begin using it.  With this in
+mind, we will write a short program common to all languages:
+
+		Print the words "Hello, world."
+
+In order to do so, we will need to create the program, save it some place,
+compile it, and execute it.
+
+In PDI, the program to print "Hello, world." is:
+
+
+.TEXT
+	hello = "Hello, world.";
+
+.STARTUP
+	ECHO hello;
+
+.END
+
+
+To create the program, use a text editor, such as Brief by UnderWare, Inc.,
+to type in the text as shown.  When finished, save the program under the name
+HELLO.PDI.
+
+To check the syntax of the program, exit your text editor and enter the
+command:
+
+			pdi hello
+
+If you are using the Brief text editor, the environment may be customized by
+specifying how to run a compiler from within the editor.  If this has been
+done on your system, you may compile the above program by holding down the
+<Alt> key and pressing <F10>.  This is a quick method for checking the syntax
+of your program without leaving the editing environment.  You still need to
+exit the editor to run the program, however.
+
+If there were no mistakes, such as omitting punctuation of forgetting to type
+in the words in the correct case (upper case or lower case), the compiler
+will proceed silently, reporting that there were no warnings or severe errors
+and will create a batch file named HELLO.BAT.  If you run hello.bat by typing
+the command
+
+			hello
+
+it will print
+
+			Hello, world.
+
+Now for an explanation of the program itself.  A PDI program consists of
+states and actions.  A state defines a condition that will cause a different
+action to be performed.  A PDI program can be broken down into several
+different segments.  Each segment is begun with a special statement.  All
+statements begin with a period ('.').  The same statement segment may appear
+in more than one place and in any order.
+
+The first statement in our program is .TEXT.  All lines following the .TEXT
+statement assign text lines to an identifier.  In PDI, all states and actions
+must be defined before they are used by assigning them to identifiers.  Once
+defined, that identifier will be associated with the same text lines
+throughout the remainder of the program.  In our program, we assign the text
+line
+			"Hello, world."
+
+to the identifier hello.  The double quote marks are delimeters and will not
+appear when displayed.  Thus, the double quote mark cannot be displayed in a
+PDI program.  The newline character also cannot be explicitely embedded
+within a text line.  In PDI, each seperate text line will automatically be
+followed by a newline.  All statement lines in a PDI program are terminated
+with a semicolon.
+
+The second statement in our program is .STARTUP.  All lines following the
+.STARTUP statement specify an action to be performed when the program is
+first run.  The actions are performed in the order that they were found.  The
+first statement line begins with the action ECHO, which simply displays the
+text lines associated with the identifier argument.  In our case, the
+identifier is hello, and thus our text message is displayed.
+
+The third statement in our program is .END.  The .END statement notifies the
+PDI compiler to stop processing any more source code.  If we had any more
+statements following the .END statement, the compiler would have issued a
+warning telling us that all statements following the .END statement would be
+ignored.  Although the .END statement at the moment seems to be frivolous, it
+will come in useful later.  At the moment, let it simply be noted as good
+programming practice to always include it at the end of a program.
+
+
+1.2  Output Generation
+----------------------
+The next program generates 256 unique bit patterns, the maximum number
+representable within one byte.
+
+
+! output all possible combinations of bits representable within one byte
+! keep speed at 60 Hertz so we can see it
+
+.DEVICE
+	SELECT		@PDMA_32;	! specify the PDMA-32 driver card
+	BASE		0300h;		! base address of the card
+	MODE		@BYTE;		! do byte wide D.M.A. output
+	CLOCK		@TIMER 60 HZ;	! use on-board timer; set to 60 Hertz
+	INTERRUPT	@TERMINAL;	! change states on terminal count
+
+.TEXT
+	about = "Generating all combinations of bits in 1 byte...";
+
+.ACTION
+	all_bits = [ **** **** ];
+
+.STARTUP
+	ECHO	about;			! let user know program is running
+	all_bits;			! specify action to perform
+
+.END
+
+
+The two lines
+
+	! output all possible combinations of bits representable within one byte
+	! keep speed at 60 Hertz so we can see it
+
+are comments, which in this case explain briefly what the program does.  Any
+characters appearing after the exclamation point '!' are ignored; they may be
+used freely to make a program easier to understand.  Comments may appear
+anywhere a blank, tab or newline can appear.
+
+The .DEVICE statement is used to configure the hardware.  The SELECT statement
+line chooses the PDMA-32 hardware.  Currently this is the only hardware that
+is supported.  Even though the PDI compiler defaults to the PDMA-32 hardware
+and the statement could have been left out, it is used here as documentation
+to reinforce that fact.
+
+The BASE statement line specifies the physical address where the hardware is
+installed in the microcomputer.  All numeric values are unsigned integers in
+the PDI language, ranging from 0 to 65535.  By default, the base of the number
+is assumed to be decimal (base 10).  Any value may be expressed in binary
+(base 2) by appending a 'b' to the number, or hexadecimal (base 16) by
+appending an 'h'.  In our case, we specified the hexadecimal address of 0300h.
+Note that the number is preceeded by a 0.  This convention is used for all
+hexadecimal numbers.  In this case we could have left it out, but if the
+number began with a letter (A-F), it would have been interpreted as an
+identifier, and the compiler would have produced an error message, stating
+that it expected an unsigned integer as an argument.
+
+The MODE statement line specifies that the D.M.A. transfers will be a byte
+in width.  By default, D.M.A. transfers are performed in word (2 byte) width.
+
+The CLOCK statement line specifies the clock source for the D.M.A. transfers.
+We specified that we wish to use the on-board timer and have it running at a
+rate of 60 Hertz.
+
+The INTERRUPT statement line specifies the place where a state change can
+occur.  We specified a terminal count, meaning that a state change will only
+occur when the entire D.M.A. transfer is complete.
+
+The .ACTION statement is used to define the bit patterns that will be
+generated for D.M.A. transfer.  Bit patterns are specified with a pattern
+mask that is surrounded by square brackets ('[' and ']').  We specified eight
+asterisks in two groups of four.  The mask may be broken up by any sequence
+of spaces.  The spaces serve only to visually reinforce the groupings of
+related bits.  The asterisks are a form of wild-card which specify that we
+wish the indicated bit positions to be automatically filled in with all
+possible permutations of bit patterns.
+
+
+1.3  Output Generation With State Changes
+-----------------------------------------
+Our third program is a modification of the second:
+
+
+! display a help screen explaining available choices for key presses
+! generate patterns when appropriate keys are pressed and let user know which
+! one is being done
+
+.DEVICE
+	SELECT		@PDMA_32;	! specify the PDMA-32 driver card
+	BASE		0300h;		! base address of the card
+	MODE		@BYTE;		! do byte wide D.M.A. output
+	CLOCK		@TIMER 60 HZ;	! use on-board timer; set to 60 Hertz
+	INTERRUPT	@TERMINAL;	! change states on terminal count
+
+.TEXT
+	help = {
+		"Press <F1> for upper nibble";
+		"Press <F2> for lower nibble";
+		"Press <Space> for both nibbles";
+		"Press <Esc> to EXIT";
+		};
+
+	both_nibbles = "Generating pattern for both nibbles...";
+
+	hi_nibble = "Generating pattern for upper nibble...";
+
+	lo_nibble = "Generating pattern for lower nibble...";
+
+.ACTION
+	all_bits = [ **** **** ];
+	hi_bits  = [ **** 0000 ];
+	lo_bits  = [ 0000 **** ];
+
+.CASE
+	IF @F1_KEY THEN {
+		ECHO hi_nibble;
+		hi_bits;
+		};
+
+	IF @F2_KEY THEN {
+		ECHO lo_nibble;
+		lo_bits;
+		};
+
+	IF @SPACE_KEY THEN {
+		ECHO both_nibbles;
+		all_bits;
+		};
+
+	IF @ESC_KEY THEN
+		HALT;
+
+.STARTUP
+	ECHO	help;			! let user know program is running
+
+.END
+
+
+There are several things to note in this program.  First, the text message
+help has several text lines associated with it.  In the PDI language,
+multiple lines of text can be specified by surrounding them with curly
+brackets.
+
+Secondly, we've introduced the .CASE statement.  The .CASE statement is used
+to define states that should be trapped and the actions to be performed when
+they occur.  Each state is introduced by an IF...THEN clause.  When a state
+change occurs, which is defined by the INTERRUPT statement line, the IF list
+is searched for a match.  The first match will cause the actions specified in
+the THEN list to be performed because we've defined keypress states, or
+events, for them.  Whenever the <F1> function key is pressed, the first
+IF...THEN clause will be performed.  Since we surrounded the action list with
+curly brackets, two actions will be performed for a single state change.
+Whenever the <F2> function key is pressed, the second IF...THEN clause will
+be performed.  And so on.
+
+Thirdly, notice that the .STARTUP statement contains only one statement line.
+If you run this program, you will notice that the program will continue to run
+well after the help text is displayed.  The reason for this is that we have
+provided a .CASE statement list.  The program will display the help text and
+then wait until a key is pressed.  If you press the <F1> function key, the
+hi_nibble text message will be displayed, the hi_bits bit pattern will be
+generated, and the program will wait for another key to be pressed.  If you
+press a key that is not defined in the .CASE statement list, nothing will
+occur.  The only way to stop the program is via pressing the <Esc> key.  The
+program will terminate execution because of the HALT action specified in the
+THEN part of the IF...THEN clause.
+
+
+1.4  File Inclusion
+-------------------
+Our fourth program introduces new language features that ease the burden of
+program creation:
+
+
+! FILE DEFAULT.INI ----------------------------------------------------------
+! This file will automatically be included in the compilation of all PDI
+! programs within the same subdirectory.  We provide the default environment
+! that will be common to a large group of programs.
+
+.DEVICE
+	SELECT		@PDMA_32;	! specify the PDMA-32 driver card
+	BASE		0300h;		! base address of the card
+	MODE		@BYTE;		! do byte wide D.M.A. output
+	CLOCK		@TIMER 60 HZ;	! use on-board timer; set to 60 Hertz
+	INTERRUPT	@TERMINAL;	! change states on terminal count
+
+.TEXT
+	help_esc = "Press the <Esc> key to EXIT";
+
+.CASE
+	IF @ESC_KEY THEN		! make sure user can quit program
+		HALT;
+
+.STARTUP
+	ECHO help_esc;			! let user know how to quit program
+
+! END OF FILE DEFAULT.INI ---------------------------------------------------
+
+
+! FILE PARTS.PLB ------------------------------------------------------------
+! This file defines several action bit patterns that may have a common usage.
+
+.ACTION
+	pat_all_bits = [ **** **** ];
+	pat_hi_bits  = [ **** 0000 ];
+	pat_lo_bits  = [ 0000 **** ];
+
+! END OF FILE PARTS.PLB -----------------------------------------------------
+
+
+! FILE PROJ1.PDI ------------------------------------------------------------
+! output all possible combinations of bits representable within one byte
+! generate patterns for upper or lower nibble for key presses
+
+#INCLUDE	"parts.plb"		! include parts source file here
+
+.TEXT
+	help = {
+		"Press <F1> for upper nibble";
+		"Press <F2> for lower nibble";
+		"Press <Space> for both nibbles";
+		};
+
+.ACTION
+	slow = [ 00** **11 ] TIME (1 S);
+
+.CASE
+	IF @F1_KEY THEN {
+		BEEP 500;
+		pat_hi_bits;
+		};
+
+	IF @F2_KEY THEN {
+		BEEP 1000;
+		pat_lo_bits;
+		};
+
+	IF @SPACE_KEY THEN {
+		BEEP 2000;
+		pat_all_bits;
+		};
+
+.STARTUP
+	ECHO	help;			! let user know program is running
+	slow;
+
+.END
+
+! END OF FILE PROJ1.PDI -----------------------------------------------------
+
+
+This program introduces several new concepts.  Notice that this program
+actually consists of three seperate files.  The reason that we split this
+program up is to alleviate the task at hand.
+
+Since the .DEVICE statement and its statement list has not changed for the
+last two programs, it makes sense that we should create this definition once
+and let it be without having to constantly worry about it.  Thus, the
+.DEVICE statement and list, together with a .CASE that defines a method of
+exiting the program, is saved in a file named DEFAULT.INI.  This name is
+rather special in that its filename extension is .INI.  Whenever the PDI
+compiler begins to compile a program, it searches the current subdirectory
+for all files that have a .INI filename extension, and reads in and processes
+the programs contained within them.  Since this is done automatically, we no
+longer need to worry about specifying these lines of code.
+
+The second file is named PARTS.PLB.  This name could have been anything at
+all, and did not need to have the .PLB filename extension.  We used it here
+to indicate to us what function this file serves.  In this file we put in
+the .ACTION statement with a list of common bit patterns that we may wish to
+generate.
+
+A new statement #INCLUDE is introduced in the third file PROJ1.PDI.  The
+#INCLUDE statement is used to include source files.  In effect, the named
+source file is compiled at the point of inclusion.  When the end of the
+included file is reached, compilation continues from just past the point
+where the file was included.  Note that multiple #INCLUDE statements are
+needed to include multiple files.
+
+The .ACTION statement line makes use of an extended syntax.  The TIME
+qualifier specifies that each pattern generated will last for the duration of
+1 second.  Since there were 4 wild-card bit patterns specified, the action
+statement line will generate bit patterns that will last for 16 seconds.
+
+A BEEP statement line in the .CASE statement list will cause the
+microcomputer to emit an audible sound at the specified frequency whenever
+the appropriate IF...THEN case is trapped.  Also notice that the THEN clause
+references an .ACTION statement defined in the #INCLUDEd file.
+
+
+Chapter 2:  Compiler Use And Invocation
+=======================================
+A PDI program is written using a text editor.  If using a word processor,
+make sure that the document is saved as a text file.  Failure to heed this
+warning may cause the compiler to incorrectly translate the source file due
+to embedded control characters used by the word processor to format the text
+on a page.
+
+All further references will be directed towards the Brief text editor by
+UnderWare Incorporated.  The Brief editor was chosen because it is a
+powerful and flexible programming tool that has the capability to run other
+programs from within the text editing environment.
+
+
+2.1  Conventions And Editor Configuration
+-----------------------------------------
+When writing programs in the PDI language, the convention used is to append
+a .PDI extension to all main file names, a .PLB extension to all library file
+names, and a .INI extension to all initialization file names.
+
+Setup the Brief editor with a new file name extension of .PDI and assign to
+it the following description when defining the command used to compile a
+program named EXAMPLE.PDI: 'PDI EXAMPLE'.  The PDI compiler automatically
+appends a .PDI filename extension when no extension is specified.  Having
+done this, the Brief text editor now has enough information to invoke the
+PDI compiler to compile any program with a .PDI filename extension.
+
+A program may be compiled within Brief by pressing the <Alt><F10> keys
+simultaneously.  If there are any warnings or errors, they will be displayed
+on the status line and the cursor will be positioned in close proximity of
+the offending line.  Pressing the <Ctrl><N> keys will step to the next error,
+and pressing the <Ctrl><P> keys will display a list of warnings and errors
+generated by the PDI compiler.
+
+You may also wish to add filename extensions for library (.PLB) and
+initialization (.INI) files as well.  Remember to specify the -b compiler
+switch to suppress the creation of batch files for these files, since by
+definition they are not programs in and of themselves.
+
+
+2.2  Command Line Arguments
+---------------------------
+The PDI compiler is invoked with the following command line:
+
+			PDI [ -b | -e ] filename
+
+If the file name is specified without an extension, the PDI compiler assumes
+the extension is '.PDI'.  A drive and path specifier may preceed the file
+name to notify the compiler where the file may actually be found.
+
+The options may be a combination of the following:
+		-b	suppress creation of batch file
+		-e	execute the source program
+
+If any of the arguments on the command line were incorrectly specified or
+the source file could not be found, a diagnostic will be displayed and
+compilation will terminate.  Otherwise the PDI program will begin compiling
+the source file specified.
+
+
+2.3  Local Environments
+-----------------------
+The PDI compiler allows customization of local environments for different
+subdirectories.  The PDI compiler will search within the current subdirectory
+for all files with the extension '.INI'.  All files found will be compiled
+first followed by the specified source file.
+
+
+2.4  Program Compilation And Invocation
+---------------------------------------
+If the compiler found no errors, a batch file will be created in the current
+subdirectory.  If the source file had any errors, the batch file will be
+deleted.  The name of the batch file will be the same as the source file
+name and will reside in the current subrirectory.  Typing the batch file
+name and pressing <Enter> will cause the program to begin executing.
+
+
+Appendix A:  Reference Manual
+=============================
+The following section specifies the complete PDI (Parallel Digital Interface)
+language.
+
+
+A1.  Introduction
+-----------------
+This manual describes the PDI language.  Any features of the language not
+described here are purely side-effects and may change in the future.  Use of
+side-effects is not supported and should be avoided.
+
+
+A2.  Lexical Conventions
+------------------------
+A program consists of one or more translation units stored in files.  The
+current implementaion has only one phase, and all translation is done in this
+phase.  When the translation is complete, the program has been reduced to a
+sequence of tokens.
+
+
+A2.1  Tokens
+------------
+There are 6 classes of tokens: identifiers, keywords, constants, string
+literals, bit masks, and other separators.  Blanks, horizontal and vertical
+tabs, newlines, formfeeds and comments as described below (collectively,
+"white space") are ignored except as they separate tokens.  Some white space
+is required to separate otherwise adjacent identifiers, keywords and
+constants.
+
+
+A2.2  Comments
+--------------
+The character ! introduces a comment.  A comment extends to the next newline
+character.
+
+
+A2.3  Identifiers
+-----------------
+An identifier is a sequence of letters, digits and dollar signs.  The first
+character must be a letter; the underscore '_' counts as a letter.  Upper and
+lower case letters are different.  Identifiers may have a length of up to 32
+characters.
+
+
+A2.4  Keywords
+--------------
+The following identifiers are reserved for use as keywords, and may not be
+used otherwise:
+	BASE		BEEP		CLEAR		CLOCK
+	ECHO		HALT		HZ		IF
+	INTERRUPT	KHZ		MHZ		MODE
+	MS		NEGATIVE	POSITIVE	REPEAT
+	S		SELECT		SET		THEN
+	TIME		US
+
+
+A2.5  Integer Constants
+-----------------------
+All integer constants begin with a digit.  Integer constants range from 0 to
+65535.  All integer constants are unsigned and default to decimal.  An
+integer constant is taken to be binary if it ends with a 'b'.  Binary
+constants only contain the digits 0 and 1.  A sequence of digits followed by
+an 'h' is taken to be a hexadecimal integer.  The hexadecimal digits include
+'a' or 'A' through 'f' or 'F' with values 10 through 15.
+
+
+A2.6  String Literals
+---------------------
+A string literal, also called a text string, is a sequence of characters
+surrounded by double quotes, as in "...".  The quotes are not part of the
+string, but serve only to delimit it.
+
+
+A3.  Meaning Of Identifiers
+---------------------------
+Identifiers, or names, refer to several things:  text strings, states and
+actions.  The identifier definition remains for the lifetime of the program
+and cannot be redefined.
+
+
+A4.  Syntax Notation
+--------------------
+In the syntax notation used in this manual, productions are blocks of lines,
+the first of which is followed by a colon.  The first line is considered the
+LHS (left hand side) of a production and is always a non-terminal.  The
+remaining lines are the RHS (right hand side) and can be either terminals or
+non-terminals.  An optional syntax is the vertical bar, which is used to
+separate RHS rules.
+
+Non-terminal symbols are surrounded by angled brackets.  Non-terminal
+symbols always derive other non-terminals or terminals.  The 'î' character
+is the empty symbol.  It is replaced by nothing and can cause a non-terminal
+to become terminal.
+
+Production rules are applied as follows.  The production rules begin with the
+<start> production.  A LHS is always replaced by one of its RHS's.  All of
+the non-terminals in the RHS become the LHS and the process repeats.  If a
+production contains the 'î' symbol in its RHS, then it is used iff (if and
+only if) there is no rule within the production that can derive the next
+symbol.
+
+
+A5.  Program Structure
+----------------------
+A PDI program consists of a statement list followed by the .END statement.
+Program translation stops when the .END statement is encountered.
+
+	<start>:
+		<statement_list> .END
+
+
+A6.  Statements
+---------------
+A statement introduces a new program segment and is followed by a variable
+list of statement lines.  An existing segment definition terminates upon the
+definition of a new segment through a new statement.  Statements may appear
+in any order and may be repeated any number of times.  Statements fall into
+several groups:
+
+	<statement>:
+		.DEVICE <device_list>
+		.TEXT <text_list>
+		.STATE <state_list>
+		.ACTION <action_list>
+		.CASE <case_list>
+		.STARTUP <startup_list>
+		î
+
+
+A6.2  .DEVICE Statement
+-----------------------
+Device statement lines define the operation of the parallel digital interface
+hardware.
+
+	<device_list>:
+		<device_spec> <device_list>
+		î
+	<device_spec>:
+		SELECT <device_select> ;
+		BASE <integer_constant> ;
+		MODE <device_mode> ;
+		CLOCK <device_clock> ;
+		INTERRUPT <device_interrupt> ;
+
+
+A6.2.1  SELECT Statement Line
+-----------------------------
+The SELECT statement line chooses the PDMA-32 hardware.  Currently this is
+the only parallel digital interface hardware that is supported.
+
+	<device_select>:
+		@PDMA_32
+
+
+A6.2.2  BASE Statement Line
+---------------------------
+The BASE statement line specifies the physical address where the hardware is
+installed in the microcomputer.  The BASE address defaults to 0300h.
+
+
+A6.2.3  MODE Statement Line
+---------------------------
+The MODE statement line specifies the width of the D.M.A. transfers.  By
+default, D.M.A. transfers are performed in word (2 byte) width.
+
+	<device_mode>:
+		@BYTE
+		@WORD
+
+
+A6.2.4  CLOCK Statement Line
+----------------------------
+The CLOCK statement line specifies the clock source for the D.M.A. transfers.
+@EXTERNAL indicates that an external clock source will be provided to drive
+the D.M.A. transfer.  @TIMER indicates that the on-board timer will be used
+at the speed indicated.  The valid speed range is from 1 Hz to 2.5 MHz.
+
+	<device_clock>:
+		@EXTERNAL
+		@TIMER <integer_constant> <speed>
+	<speed>:
+		HZ
+		KHZ
+		MHZ
+
+
+A6.2.5  INTERRUPT Statement Line
+--------------------------------
+The INTERRUPT statement line specifies the place where a state change can
+occur.  @EXTERNAL specifies that an external signal will generate the
+interrupt at either a positive or negative edge.  @TERMINAL specifies that an
+interrupt will occur when the entire D.M.A. transfer is complete.  @TIMER
+specifies that an interrupt will occur after every byte/word of D.M.A.
+transfer.  By default, interrupts are set for @DISABLE.
+
+Selecting the @EXTERNAL or @TIMER option turns the D.M.A. auto-recycle mode
+on.  Selecting the @TERMINAL option turns the D.M.A. auto-recycle mode off.
+The direction of D.M.A data transfer is implicitly set for output.
+
+	<device_interrupt>:
+		@EXTERNAL POSITIVE
+		@EXTERNAL NEGATIVE
+		@TERMINAL
+		@TIMER
+		@DISABLE
+
+
+A6.3  .TEXT Statement
+---------------------
+Text statement lines assign text strings to identifiers.  Multiple lines of
+text strings may be assigned to one identifier by surrounding them with curly
+brackets.
+
+	<text_list>:
+		<text_group> ; <text_list>
+		î
+	<text_group>:
+		<id> = " <text> "
+		<id> = { <text_block> }
+	<text_block>:
+		" <text> " ; <text_block>
+		" <text> " ;
+
+
+A6.4  .STATE Statement
+----------------------
+State statement lines assign bit patterns to identifiers.  Only one bit
+pattern may be assigned to an identifier.  The bit pattern, or mask, consists
+of up to 8 characters of 0's, 1's and -'s.  Spaces may be used freely to
+visually group the bits together.  The '-' character is a wild-card that
+represents a don't care condition.
+
+	<state_list>:
+		<state> ; <state_list>
+		î
+	<state>:
+		<id> = [ <mask> ]
+	<mask>:
+		0 <mask>
+		1 <mask>
+		- <mask>
+		<blank> <mask>
+		î
+
+
+
+A6.5  .ACTION Statement
+-----------------------
+Action statement lines assign bit patterns to identifiers.  Multiple bit
+patterns may be assigned to one identifier by surrounding them with curly
+brackets.  The bit pattern, or mask, consists of up to 16 characters of 0's,
+1's, and *'s.  Spaces may be used freely to visually group the bits together.
+The '*' is a wild-card character that represents all possible permutations of
+bits within those positions.  The number of permuations will be 2ü, where n
+is the number of asterisks specified.
+
+The bit pattern may be qualified with a REPEAT or TIME quantity.  The REPEAT
+qualifier specifies the number of times to repeat each bit pattern.  The TIME
+qualifier specifies the time duration of the bit pattern.  The time duration
+does not get evaluated till run-time.  This means that time will be constant
+throughout program execution.  If time is not generated by the on-board timer
+or the time specified is not an exact multiple of the base clock rate, a
+run-time error will be generated.  Time may be specified in microseconds,
+milliseconds, or seconds.
+
+The REPEAT and TIME qualifiers affect each individual bit pattern.  If wild-
+cards were specified, then the qualifier will be applied to each permuation
+of the bit pattern.
+
+	<action_list>:
+		<action_group> ; <action_list>
+		î
+	<action_group>:
+		<id> = <mask_line>
+		<id> = { <mask_block> }
+	<mask_block>:
+		<mask_line> ; <mask_block>
+		<mask_line> ;
+	<mask_line>:
+		[ <mask> ]
+		[ <mask> ] REPEAT ( <integer_constant> )
+		[ <mask> ] TIME ( <integer_constant> US )
+		[ <mask> ] TIME ( <integer_constant> MS )
+		[ <mask> ] TIME ( <integer_constant> S )
+	<mask>:
+		0 <mask>
+		1 <mask>
+		* <mask>
+		<blank> <mask>
+		î
+
+
+
+
+A6.6  .CASE Statement
+---------------------
+Case statement lines define actions to be performed when specified states are
+trapped.  Each case statement line is introduced via an IF...THEN clause.  If
+there are no IF...THEN clauses defined, the program will automatically
+terminate when the startup list is exhausted.
+
+The IF clause specifies the type of state that is trapped.  The state can
+either be a previously defined .STATE statement line or a key press.  The
+point at which a state change occurs is determined by the type of interrupt
+that is generated by the hardware.
+
+The THEN clause specifies the action to be taken when an IF state is trapped.
+More than one action may be defined by surrounding them with curly brackets.
+
+The type of actions that can be performed are:
+	<id>	references a previously defined action bit pattern
+	BEEP	makes an audible sound at the specified frequency
+	CLEAR	clears the specified auxiliary port
+	ECHO	displays a previously defines text string
+	HALT	terminates program execution
+	SET	sets the specified auxilliary port
+
+	<case_list>:
+		<case> <case_list>
+		î
+	<case>:
+		IF <id> THEN <case_action_group> ;
+		IF <key_press> THEN <case_action_group> ;
+	<key_press>:
+		@F1_KEY   | @F2_KEY   | @F3_KEY    | @F4_KEY    | @F5_KEY
+		@F6_KEY   | @F7_KEY   | @F8_KEY    | @F9_KEY    | @F10_KEY
+		@ESC_KEY  | @TAB_KEY  | @ENTER_KEY | @SPACE_KEY
+		@UP_KEY   | @DOWN_KEY | @LEFT_KEY  | @RIGHT_KEY
+		@HOME_KEY | @END_KEY  | @PGUP_KEY  | @PGDN_KEY
+	<case_action_group>:
+		<case_action>
+		{ <case_action_block> }
+	<case_action_block>:
+		<case_action> ; <case_action_block>
+		<case_action> ;
+	<case_action>:
+		<id>
+		BEEP <integer_constant>
+		CLEAR <output>
+		ECHO <id>
+		HALT
+		SET <output>
+	<output>:
+		@AUX0
+		@AUX1
+		@AUX2
+
+
+A6.7  .STARTUP Statement
+------------------------
+Startup statement lines define actions to be performed when the program is
+initially executed.
+
+The type of actions that can be performed are:
+	<id>	references a previously defined action bit pattern
+	BEEP	makes an audible sound at the specified frequency
+	CLEAR	clears the specified auxiliary port
+	ECHO	displays a previously defines text string
+	HALT	terminates program execution
+	SET	sets the specified auxilliary port
+
+	<startup_list>:
+		<case_action> ; <startup_list>
+		î
+	<case_action>:
+		<id>
+		BEEP <integer_constant>
+		CLEAR <output>
+		ECHO <id>
+		HALT
+		SET <output>
+	<output>:
+		@AUX0
+		@AUX1
+		@AUX2
+
+
+A7.  The Preprocessor
+---------------------
+The PDI compiler includes a preprocessor functions.  Currently only one
+preprocessor directive is implemented.
+
+
+A7.2  #INCLUDE Statement
+------------------------
+The #INCLUDE preprocessor replaces the command with the file specified as its
+argument.  The syntax of the #INCLUDE directive is as follows:
+
+	#INCLUDE	<quoted-filename>
+
+For example, to include the file ALLON at the current location of the source
+file, use the following preprocessing directive:
+
+	#INCLUDE	"ALLON"
+
+Notice several things about this directive:
+	- the #INCLUDE directive can begin anywhere on a line
+	- the argument filename is enclosed in double quotes
+	- anything following the quoted file name is ignored
+	- no filename extensions are added by default; i.e. the entire
+		literal filename must be specified
+	- the filename can contain any valid DOS path
+
+When compilation first begins, the PDI compiler will search within the
+current subdirectory for all files with the extension '.INI'.  All files
+found will automatically be included before lexical translation begins.
+
+
+A8.  Grammar
+------------
+Below is a recapitulation of the grammar that was given throughout the
+earlier part of this appendix.  It has exactly the same content, but in a
+different order.
+
+This grammar is in LL(1) form.  It can be transformed mechanically into input
+acceptable to an automatic parser-generator.
+
+	<start>:
+		<statement_list> .END
+
+	<statement_list>:
+		<statement> <statement_list>
+		î
+
+	<statement>:
+		.DEVICE <device_list>
+		.TEXT <text_list>
+		.STATE <state_list>
+		.ACTION <action_list>
+		.CASE <case_list>
+		.STARTUP <startup_list>
+		î
+
+	<device_list>:
+		<device_spec> <device_list>
+		î
+
+	<device_spec>:
+		SELECT <device_select> ;
+		BASE <value> ;
+		MODE <device_mode> ;
+		CLOCK <device_clock> ;
+		INTERRUPT <device_interrupt> ;
+
+	<device_select>:
+		@PDMA_32
+
+	<value>:
+		<integer constant>
+
+	<device_mode>:
+		@BYTE | @WORD
+
+	<device_clock>:
+		@EXTERNAL
+		@TIMER <value> <speed>
+
+	<speed>:
+		HZ | KHZ | MHZ
+
+	<device_interrupt>:
+		@EXTERNAL <edge>
+		@TERMINAL
+		@TIMER
+		@DISABLE
+
+	<edge>:
+		POSITIVE | NEGATIVE
+
+	<text_list>:
+		<text_group> ; <text_list>
+		î
+
+	<text_group>:
+		<id> = <text_line>
+		<id> = { <text_block> }
+
+	<text_block>:
+		<text_line> ; <text_block>
+		<text_line> ;
+
+	<text_line>:
+		" <text> "
+
+	<state_list>:
+		<state> ; <state_list>
+		î
+
+	<state>:
+		<id> = <mask_string>
+
+	<mask_block>:
+		<mask_line> ; <mask_block>
+		<mask_line> ;
+
+	<mask_line>:
+		<mask_string> <qualify>
+
+	<mask_string>:
+		[ <mask> ]
+
+	<mask>:
+		0 <mask>
+		1 <mask>
+		- <mask>
+		* <mask>
+		<blank> <mask>
+		î
+
+	<qualify>:
+		REPEAT ( <value> )
+		TIME ( <value> <time> )
+		î
+
+	<time>:
+		US | MS | S
+
+	<action_list>:
+		<action_group> ; <action_list>
+		î
+
+	<action_group>:
+		<id> = <mask_line>
+		<id> = { <mask_block> }
+
+	<case_list>:
+		<case> <case_list>
+		î
+
+	<case>:
+		IF <case_state> THEN <case_action_group> ;
+
+	<case_state>:
+		<id>
+		<key_press>
+
+	<case_action_group>:
+		<case_action>
+		{ <case_action_block> }
+
+	<case_action_block>:
+		<case_action> ; <case_action_block>
+		<case_action> ;
+
+	<case_action>:
+		<id>
+		BEEP <value>
+		CLEAR <output>
+		ECHO <id>
+		HALT
+		SET <output>
+
+	<output>:
+		@AUX0 | @AUX1 | @AUX2
+
+	<key_press>:
+		@F1_KEY   | @F2_KEY   | @F3_KEY    | @F4_KEY    | @F5_KEY
+		@F6_KEY   | @F7_KEY   | @F8_KEY    | @F9_KEY    | @F10_KEY
+		@ESC_KEY  | @TAB_KEY  | @ENTER_KEY | @SPACE_KEY
+		@UP_KEY   | @DOWN_KEY | @LEFT_KEY  | @RIGHT_KEY
+		@HOME_KEY | @END_KEY  | @PGUP_KEY  | @PGDN_KEY
+
+	<startup_list>:
+		<case_action> ; <startup_list>
+		î
+
+
+Appendix B:  Error Conditions And Messages
+==========================================
+The following section specifies the different types of errors that can be
+encountered when using the PDI compiler.
+
+
+B1.  Invocation Errors
+----------------------
+"Syntax: PDI [ -b | -e ] filename"
+	The PDI compiler was invoked with either no parameters, more than 1
+	parameter, or the command line option was not a -b or -e.
+
+
+B2.  Warnings
+-------------
+"Actual clock speed will be %.15g Hz"
+	The exact clock speed selected cannot be achieved.  The closest clock
+	speed attainable is displayed.
+"Identifier truncated to first %d characters"
+	The length of the identifier is longer than 32 characters.
+"Ignoring illegal input '%c'"
+	A character was encountered that is not recognized by the PDI
+	compiler as a valid lexical token.
+"Illegal characters in mask string ignored"
+	The bit pattern mask contained characters other than 0, 1, -, * or a
+	blank.
+"Inserting missing .END statement"
+	The parser was expecting the next lexical token to be .END.  Instead,
+	and end of input was encountered.
+"Inserting missing equal sign"
+	The parser was expecting to find an equal sign as the next lexical
+	token in the input stream.
+"Inserting missing left parenthesis"
+	The parser was expecting the next lexical token to be a left
+	parenthesis.
+"Inserting missing right curly bracket"
+	The parser was expecting the next lexical token to be a right curly
+	bracket.
+"Inserting missing right parenthesis"
+	The parser was expecting the next lexical token to be a right
+	parenthesis.
+"Inserting missing THEN statement"
+	The parser was expecting the next lexical token to be THEN.
+"Only the last %d characters used"
+	The bit pattern mask contained more than 8 bit definitions for a
+	state bit pattern or more than 16 bit definitions for an action bit
+	pattern.
+"Statements following .END will be ignored"
+	The parser was not expecting any more lexical tokens to be available.
+"Wild card '*' treated as don't care"
+	An asterisk was encountered in a state bit pattern.
+
+
+B3.  Severe Errors
+------------------
+"'%s' is not of type .ACTION"
+	The identifier referenced is of type .STATE or type .TEXT.
+"'%s' is not of type .STATE"
+	The identifier referenced is of type .ACTION or type .TEXT.
+"'%s' is not of type .TEXT"
+	The identifier referenced is of type .ACTION or type .STATE.
+"Constant unrepresentable as an unsigned integer"
+	The integer constant value is greater than 65535.
+"Expecting a mask string"
+	The parser was expecting the next lexical token to be a bit pattern
+	mask.
+"Expecting a string constant"
+	The parser was expecting the next lexical token to be a text string.
+"Expecting an unsigned integer constant"
+	The parser was expecting the next lexical token to be an integer
+	constant.  If the value was specified in hexadecimal and the first
+	value is between 'a' or 'A' and 'f' or 'F', it must be preceeded by
+	a '0'.  Otherwise it is interpreted as an identifier.
+"Expecting auxiliary output"
+	The parser was expecting the next lexical token to be @AUX0, @AUX1 or
+	@AUX2.
+"Expecting case action"
+	The parser was expecting the next lexical token to be an action
+	identifier, BEEP, CLEAR, ECHO, HALT or SET.
+"Expecting device clock source"
+	The parser was expecting the next lexical token to be @EXTERNAL or
+	@TIMER.
+"Expecting external interrupt slope"
+	The parser was expecting the next lexical token to be NEGATIVE or
+	POSITIVE.
+"Expecting ID or keypress"
+	The parser was expecting the next lexical token to be a state
+	identifier or a keypress pseudo-variable.
+"Expecting interrupt source"
+	The parser was expecting the next lexical token to be @EXTERNAL,
+	@TERMINAL OR @TIMER.
+"Expecting label to text string"
+	The parser was expecting the next lexical token to be a text
+	identifier.
+"Expecting speed measure"
+	The parser was expecting the next lexical token to be HZ, KHZ or MHZ.
+"Expecting the statement terminator ';'"
+	The parser was expecting the next lexical token to be a semicolon.
+"Illegal attempt to redefine identifier '%s'"
+	An identifier assignment lasts for the lifetime of program execution
+	and cannot be redefined.
+"Invalid speed of %ld Hz selected"
+	A clock speed of less then 1 Hz was specified.
+"Referencing undefined .ACTION '%s'"
+"Referencing undefined .STATE '%s'"
+"Referencing undefined .TEXT '%s'"
+	The identifier used has never been defined.  All action, state and
+	text identifiers must be defined before they can be used.
+"Syntax error: '%s'"
+	The next lexical token was not expected by the parser.
+"Transfer rate of %ld Hz cannot be achieved"
+	A clock speed of more than 2.5 MHz was specified.
+"Unable to include file '%s'"
+	The file name specified in the #INCLUDE statement list could not be
+	found or opened.
+"Unrecognized device '%s'"
+	The device selected was not @PDMA_32.
+"Unrecognized statement '%s'"
+	The parser was expecting the next lexical token to be .DEVICE, .TEXT,
+	.STATE, .ACTION, .CASE, .STARTUP or .END.
+"Unterminated Mask"
+	A newline character has been encountered before a closing square
+	bracket terminated a bit pattern mask.
+"Unterminated String"
+	A newline character has been encountered before an ending quote mark
+	terminated a text string.
+
+
+B4.  Fatal Errors
+-----------------
+"Internal Error"
+	This error message is issued whenever an inconsistency has been
+	detected.  The program under compilation should be copied and
+	submitted as evidence of a bug in the PDI compiler.
+"Out of Memory"
+	The microcomputer used in compiling the program has insufficient
+	memory.
+"Sorry, an internal error occurred (%s)"
+	This error message is a catch-all and should never appear.  The
+	program under compilation should be copied and submitted as evidence
+	of a bug in the PDI compiler.
+"Unable to open file '%s'"
+	The specified file could not be found or opened.
+
+
+B5.  Run-Time Errors
+--------------------
+".ACTION '%s' overflows physical page boundary"
+	The pattern generated does not fit within a physical page boundary.
+	A maximum total of 64K bytes/words of bit patterns can be generated
+	for D.M.A. transfer.
+"PDMA-32 hardware not found"
+	Attempting to run the program on a microcomputer that does not have
+	the PDMA-32 parallel digital interface card installed.  The BASE
+	address possibly specifies an invalid memory location.
+"%s TIME undefined when using external clock source"
+	A TIME qualifier has been specified for a bit pattern when an
+	external clock source is being used.  If the TIME qualifier must be
+	used, change to a @TIMER clock source.
+"Unable to allocate sufficient far memory"
+	The PDI compiler attempts to allocate 128K of memory when BYTE mode
+	has been specified for D.M.A. transfer, and 192K of memory when WORD
+	mode has been specified.  This error message is generated when the
+	symbol table has been build and an attempt is being made to allocate
+	this much more memory.
+"Unable to clear auxiliary outputs"
+	The PDMA-32 driver was unable to service the call to clear the
+	auxiliary outputs.
+"Unable to enable hardware interrupt"
+	The PDMA-32 driver was unable to enable to hardware interrupt service
+	routine.
+"Unable to set PDMA-32 timers"
+	The PDMA-32 driver was unable to set the hardware timers.
+
+
+B6.  Run-Time Status
+--------------------
+"%s TIME specified not a multiple of unit time\n"
+	The TIME qualifier specified a time that is not exactly divisible by
+	the base time.
+"Clock rate set to %.15g Hz\n"
+	This message is displayed to confirm the clock rate at which D.M.A.
+	transfers will be made.
+"Unit time of %.15g uS is indivisible (%s)\n"
+	The TIME qualifier specified a time that is smaller than the base
+	time.
+

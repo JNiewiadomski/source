@@ -1,0 +1,20 @@
+1993 Mar 17 13:41:09 <C> delete.cpp 1.0 JACKN 4605 192 Original program; 9006.07
+1993 Mar 17 13:41:09 <C> delete.exe 1.0 JACKN 13498 0
+1993 Mar 17 13:41:12 <RC> 1_0_0 JACKN
+1993 Mar 17 13:41:11 <RA> delete.exe 1.0 1_0_0 JACKN
+1993 Mar 17 13:41:11 <RA> delete.cpp 1.0 1_0_0 JACKN
+1993 Mar 17 13:41:12 <OL> delete.exe 1.0 JACKN 13498 0
+1993 Mar 17 13:41:12 <OL> delete.cpp 1.0 JACKN 4605 192
+1993 Mar 18 09:03:38 <C> delete.dsk 1.0 JACKN 886 0
+1993 Mar 18 09:03:38 <C> delete.prj 1.0 JACKN 5635 0
+1993 Mar 18 09:03:40 <I> delete.cpp 1.1 JACKN 7713 312 312 192 Report if unable to delete a file or remove a directory; accept multiple patterns; prompt to remove directory if verify requested.
+1993 Mar 18 09:03:40 <I> delete.exe 1.1 JACKN 36140 312 -191 192
+1993 Mar 18 09:03:42 <RC> 1_1_0 JACKN
+1993 Mar 18 09:03:42 <RA> delete.prj 1.0 1_1_0 JACKN
+1993 Mar 18 09:03:42 <RA> delete.dsk 1.0 1_1_0 JACKN
+1993 Mar 18 09:03:43 <RA> delete.exe 1.1 1_1_0 JACKN
+1993 Mar 18 09:03:43 <RA> delete.cpp 1.1 1_1_0 JACKN
+1993 Mar 18 09:03:44 <OL> delete.prj 1.0 JACKN 5635 0
+1993 Mar 18 09:03:44 <OL> delete.dsk 1.0 JACKN 886 0
+1993 Mar 18 09:03:46 <OL> delete.exe 1.1 JACKN 36140 0
+1993 Mar 18 09:03:46 <OL> delete.cpp 1.1 JACKN 7713 312

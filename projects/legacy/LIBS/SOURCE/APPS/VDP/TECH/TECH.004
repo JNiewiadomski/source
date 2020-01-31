@@ -1,0 +1,36 @@
+
+			      VDP Tech Note #4
+			      ================
+
+-----------------------------------------------------------------------------
+  Topic : Naming Directories and Running VDP
+ Author : Jack Niewiadomski
+Created : September 27, 1991
+-----------------------------------------------------------------------------
+
+
+If the VDP software is placed in a directory that has a file name extension,
+or any of its parent directories has a file name extension, the VDP software
+will be unable to find its resource file VDP.RES.
+
+Examples of correct paths leading to the VDP software:
+
+	C:\VDP
+	C:\VDP\V2_0_5
+	C:\VORNE\VDP
+	C:\VORNE\VDP\V2_0_5
+
+Examples of incorrect paths leading to the VDP software:
+
+	C:\VORNE.VDP
+	C:\VORNE\VDP\V2.05
+	C:\VORNE.VDP\APPS
+
+If the VDP software is in the path C:\VORNE.VDP, running the VDP software
+will display the message:
+
+	      C:\VORNE\VDP cannot run without C:\VORNE\VDP.RES
+
+The correct solution would be to change the name of the C:\VORNE.VDP
+directory to a name without the extension, such as C:\VORNE or C:\VORNE\VDP. 
+This should correct the problem.

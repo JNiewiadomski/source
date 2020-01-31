@@ -1,0 +1,58 @@
+
+			      VDP Tech Note #1
+			      ================
+
+-----------------------------------------------------------------------------
+  Topic : Supporting Previous Versions of the Software
+ Author : Jack Niewiadomski
+Created : October 19, 1990
+-----------------------------------------------------------------------------
+
+Please be aware that there have been previous incarnations of the 2000C
+programming software.  Each successive version has maintained downward
+compatability except where noted.  The following list provides a history of
+the software in reverse chronological order.
+
+
+Name   Version  Release   Type  Notes
+-----------------------------------------------------------------------------
+VDP    2.0.5    12/19/89  .MSG  Remove 64/250 message option; increase timing delay.
+VDP    2.0.4    04/17/89  .MSG  Algorithm to find # of drives w/o accessing drive.
+VDP    2.0.3    03/16/89  .MSG  Add heading to printouts.
+VDP    2.0.2    02/13/89  .MSG  Insert CR before LF when printing.
+VDP    2.0.1    02/03/89  .MSG  Fix bug in loading v1.0 message files.
+VDP    2.0      01/16/89  .MSG  Re-written in C; revised user interface; new file format.
+VDP    1.0      08/07/87  .MSG  Redesigned user interface with pull-down menus.
+ANC    7.0      03/20/87  .MSG  Support for 250 message displays.
+ANC    6.0      02/20/87  .MSG  Standalone program; enhanced user interface.
+ANC    5.1      06/24/86  .TXT  Minor enhancements.
+ANC    5.0      06/10/86  .TXT  Revised algorithm to calculate PC speed.
+ANC    4.0      03/11/86  .TXT  Calculates processor speed for faster PC's.
+ANC    3.0      10/15/85  .TXT  Major enhancement; name change.
+RS232  2.2      09/21/85  .TXT  Minor enhancement.
+RS232  2.1      08/31/85  .TXT  First supported version; full functionality.
+RS232  2.0      08/01/85        Prototype; unsupported file format.
+RS232  1.0      06/24/85        Dumb terminal mode only; no file saving.
+
+
+			 How to Read Version Numbers
+			 ---------------------------
+
+A new program has version 1.0.  If there is a minor revision to the program,
+it is then labeled 1.1.  If there's a bug fix to 1.1, it is designated 1.1.1.
+So, if you have a program that had a second bug fix to a third minor
+revision, it would be 1.3.2.
+
+If there's a major revision to the program, the first number is incremented.
+If the program has gone through a major revision, four minor revisions, and
+six bug fixes, the current version is 2.4.6.
+
+There is also a development suffix, which is added to indicate how far along
+the product is.  There are four different stages: The earliest is 'ë' for
+"development".  The next level is 'à' for "alpha".  Then 'á' for "beta".
+Finally, a '.' indicates the released version.  If you have a product
+labeled 1.3ë1, it is the first development version of the third revision of
+the first release of the product.
+
+This version number convention has been first used with VDP v2.0.  For all
+previous versions, a minor revision and a bug fix are indistinguishable.

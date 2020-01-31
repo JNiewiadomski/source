@@ -1,0 +1,10 @@
+[header]
+	DEFSEG	CHAR_SET, CLASS=CODE
+
+	SEG	CHAR_SET
+[public]
+	GLOBAL	%
+[extern]
+	GLOBAL	%
+[footer]
+	END

@@ -1,0 +1,109 @@
+// By convention, all system id's are negative and all labels begin with an
+// underscore (_).
+
+#define _COLOR_Low		0
+#define _COLOR_High		1
+#define _COLOR_InvLow		2
+#define _COLOR_InvHigh		3
+#define _COLOR_Hot		4
+
+#define _ErrorCOLOR		-1
+#define _VideoCOLOR		-2
+#define _EventCOLOR		-3
+#define _StatusCOLOR		-4
+#define _PrinterCOLOR		-5
+#define _HelpCOLOR		-6
+#define _MenuCOLOR		-7
+#define _DialogCOLOR		-8
+
+#define _CriticalERROR		-1
+#define _CriticalERROR_Message	0
+#define _CriticalERROR_Abort	1
+#define _CriticalERROR_Retry	2
+#define _CriticalERROR_Fail	3
+
+#define _CriticalCodeERROR	-2
+
+#define _StatusERROR		-3
+#define _StatusERROR_Empty	0
+#define _StatusERROR_None	1
+
+#define _MenuERROR		-4
+#define _MenuERROR_BarNotFound	0
+#define _MenuERROR_TooManyMenus	1
+#define _MenuERROR_NoneFree	2
+#define _MenuERROR_NotFound	3
+#define _MenuERROR_NoMatch	4
+#define _MenuERROR_BarTooMany	5
+#define _MenuERROR_MenuListNil	6
+#define _MenuERROR_MenuNotFound	7
+#define _MenuERROR_NoCallBack	8
+#define _MenuERROR_TooManyItems	9
+
+#define _WindowERROR		-5
+#define _WindowERROR_OutOfWin	0
+#define _WindowERROR_OutOfVirt	1
+
+#define _MenuErrorHELP		-1
+#define _DialogHELP_Open	-2
+#define _DialogHELP_Save	-3
+
+#define _LocalINTERNAT		-1
+
+#define _MenuErrorMENU		-1
+
+#define _MenuSTATUS		-1
+#define _MenuSTATUS_PullDown	0
+#define _MenuSTATUS_PopUp	1
+
+#define _DialogSTATUS		-2
+#define _DialogSTATUS_Open	0
+#define _DialogSTATUS_Save	1
+
+#define _ErrorSTRING		-1
+#define _ErrorSTRING_Sorry	0
+#define _ErrorSTRING_Resume	1
+#define _ErrorSTRING_Abort	2
+#define _ErrorSTRING_Free	3
+
+#define _EventSTRING		-2
+#define _EventSTRING_Break	0
+
+#define _PrinterSTRING		-3
+#define _PrinterSTRING_Offline	0
+#define _PrinterSTRING_Paper	1
+#define _PrinterSTRING_Parallel	2
+#define _PrinterSTRING_Off	3
+#define _PrinterSTRING_Serial	4
+#define _PrinterSTRING_Timeout	5
+#define _PrinterSTRING_Avail	6
+#define _PrinterSTRING_Default	7
+
+#define _GlobalSTRING		-4
+#define _GlobalSTRING_EscCancel	0
+#define _GlobalSTRING_PressAny	1
+
+#define _HelpSTRING		-5
+#define _HelpSTRING_Page	0
+#define _HelpSTRING_Title	1
+
+#define _DialogSTRING		-6
+#define _DialogSTRING_OMDC	0
+#define _DialogSTRING_Open	1
+#define _DialogSTRING_Save	2
+#define _DialogSTRING_NewFile	3
+#define _DialogSTRING_Overwrite	4
+
+#define _EventVIDEO		-1
+#define _DialogVIDEO_Open	-2
+#define _DialogVIDEO_Save	-3
+
+#define _ErrorWINDOW		-1
+#define _EventWINDOW		-2
+#define _StatusWINDOW		-3
+#define _PrinterWINDOW		-4
+#define _HelpWINDOW		-5
+#define _HelpPeekWINDOW		-6
+#define _DialogWINDOW_Open	-7
+#define _DialogWINDOW_Save	-8
+

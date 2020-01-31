@@ -1,0 +1,2095 @@
+// ***********************************************************************
+// *                                                                     *
+// *                      PCS100 Network Supervisor                      *
+// *                                                                     *
+// *       Copyright (c) 1987-1991  Vorne Industries Incorporated.       *
+// *                         All rights reserved.                        *
+// *                                                                     *
+// ***********************************************************************
+
+// -----------------------------------------------------------------------
+//    German version
+// -----------------------------------------------------------------------
+
+.MEMO	"PCS100 GR Resource File";
+.FILE	"PCS100.049";
+
+#include "inc\pcs100.rh"		// symbolic definitions
+#include "src\pcs100.r"			// language independent system resources
+
+read "seashell.049";			// seashell resources
+
+
+resource error (PCS100_ERROR, purgeable) {
+	"Unable to save configuration data.",
+	"Communications disabled"
+	};
+
+resource error (OperatorERROR, purgeable) {
+	"Unable to load operator installation list.",
+	"Unable to save operator installation list."
+	};
+
+resource error (MachineERROR, purgeable) {
+	"Unable to load machine installation list.",
+	"Unable to save machine installation list."
+	};
+
+resource error (QueryERROR, purgeable) {
+	"Unable to load run-time query data.",
+	"Unable to save run-time query data.",
+	"Unable to schedule counter %d.",
+	"Unable to delete counter %d from scheduling.",
+	"Unable to re-schedule counter %d."
+	};
+
+resource error (JobERROR, purgeable) {
+	"Unable to load job installation list.",
+	"Unable to save job installation list.",
+	"Maximale Anzahl von Auftr„gen eingerichtet."
+	};
+
+resource error (ArchiveERROR, purgeable) {
+	"No archival records found.",
+	"Ctree error #%d with file #%d"
+	};
+
+resource error (PrefsERROR, purgeable) {
+	"No such file or directory.",
+	"Not enough memory.",
+	"Argument list too long.",
+	"Exec format error."
+	};
+
+resource form (OperatorFORM_List, purgeable) {
+	"<Liste aller Bediener> gedruckt am %s um %s.\n\n",
+	"Bedienernummer   Bedienername                Aufnahmedatum\n",
+	"----------------------------------------------------------\n"
+	};
+
+resource form (MachineFORM_List, purgeable) {
+	"<Liste aller Maschinen> gedruckt am %s um %s.\n\n",
+	" Nummer  Maschinenname              Aufnahmedatum\n",
+	"-------------------------------------------------\n"
+ 	};
+
+resource form (MachineFORM_All, purgeable) {
+	"<šbersicht aller Maschinen> gedruckt am %s um %s.\n\n\n",
+	"Maschine  Auftrag  Maschine       Total  Aktuelle\n",
+	"Nummer     Nummer  Status         Bogen  Leistung  Falz-Zeit   Stop-Zeit\n",
+	"------------------------------------------------------------------------\n"
+	};
+
+resource form (MachineFORM_Single, purgeable) {
+	"<šbersicht Einzelmaschine> gedruckt am %s um %s.\n\n\n",
+	"  Maschinenname: %-*s   Aufnahmedatum: %s\n",
+	"   Bedienername: %-*s\n\n\n",
+	"----------------------------- Auftragskenndaten ---------------------------\n",
+	"Maschinennummer:       %0*d                       Maschinenstatus: %s\n",
+	" Auftragsnummer: %s                        Bedienernummer: %s\n",
+	" Auftragsbeginn: %s  %s               Schichtnummer:    %s\n\n\n\n",
+	"------------------------- Auftrags-Einrichtedaten -------------------------\n",
+	"Auflage-Vorwahl: %s                      Impulsverz”gerung: %s Sec\n",
+	" Partie-Vorwahl:     %s                 Saugtakt-Unterbrechung: %s Sec\n",
+	"         Nutzen:       %s                      Partienmarkierung: %s\n\n\n\n",
+	"-------------------------- Aktuelle Auftragsdaten -------------------------\n",
+	" Falz-Zeit: %s    Total-Partien: %s     Total-Bogen: %s\n",
+	" Stop-Zeit: %s Partie Restbogen:     %s  Einricht Bogen: %s\n",
+	"Einr.-Zeit: %s   Partie-Vorwahl:     %s   Akt. Leistung:   %s\n",
+	"Total-Zeit: %s                              Eff. Leistung:   %s\n\n\n\n",
+	"----------------------------- Auftragsstatistik ---------------------------\n",
+	"       Rest Bogen: %s                                Restzeit bei\n",
+	"  Anzahl-Unterbr.:       %s                 Aktuelle Leistung: %s\n",
+	"  Anteilig fertig:        %s %%            Effektive Leistung: %s\n"
+	};
+
+resource form (ShiftFORM_AllMachine, purgeable) {
+	"<šbersicht aller Maschinen einer Schicht> gedruckt am %s um %s.\n\n\n",
+	"Maschine  Auftrag  Maschine       Total    Eff.\n",
+	"Nummer     Nummer  Status         Bogen   Lstg.    Falz-Zeit   Stop-Zeit\n",
+	"------------------------------------------------------------------------\n"
+	};
+
+resource form (ShiftFORM_SingleMachine, purgeable) {
+	"<šbersicht Einzelmaschine einer Schicht> gedruckt am %s um %s.\n\n\n",
+	"  Maschinenname: %-*s   Aufnahmedatum: %s\n",
+	"   Bedienername: %-*s\n\n\n",
+	"--------------------------- Auftrags-Schichtdaten -------------------------\n",
+	"Maschinennummer:       %0*d                       Maschinenstatus: %s\n",
+	" Auftragsnummer: %s                        Bedienernummer: %s\n",
+	"  Schichtbeginn: %s  %s               Schichtnummer:    %s\n\n\n\n",
+	"--------------------------- Aktuelle Schichtdaten -------------------------\n",
+	" Falz-Zeit: %s                                  Total-Bogen: %s\n",
+	" Stop-Zeit: %s                                Total-Partien: %s\n",
+	"Einr.-Zeit: %s                               Einricht-Bogen: %s\n",
+	"Total-Zeit: %s                           Effektive Leistung:   %s\n"
+	};
+
+resource form (JobFORM_All, purgeable) {
+	"<šbersicht aller Auftr„ge> gedruckt am %s um %s.\n\n",
+	" Auftrag      %%   Auflage     Total  Aktuelle      Restzeit bei:    \n",
+	"  Nummer fertig   Vorwahl     Bogen  Leistung  Akt. Lstg.  Eff. Lstg.\n",
+	"--------------------------------------------------------------------\n"
+	};
+
+resource form (JobFORM_Single, purgeable) {
+	"<šbersicht Einzelauftrag> gedruckt am %s um %s.\n\n",
+	"Auft. %*ld -- %5s %% fertig.               Aktuelle Leistung:   %8ld\n",
+	" Aufl. Vorw.:   %*ld                       Effektive Leistung:   %8.0f\n",
+	" Total-Bogen: %10ld                  Restzeit bei akt. Lstg.: %10s\n",
+	"  Rest-Bogen:   %8s                  Restzeit bei eff. Lstg.: %10s\n\n",
+	"   Maschine           Akt.     Eff.    Total    Bg. zu       Restzeit bei:    \n",
+	"Nummer  Status       Lstg.    Lstg.    Bogen    falzen   Akt. Lstg.  Eff. Lstg.\n",
+	"------------------------------------------------------------------------------\n"
+	};
+
+resource form (ShiftFORM_AllJob, purgeable) {
+	"<šbersicht aller Auftr„ge einer Schicht> gedruckt am %s um %s.\n\n",
+	" Auftrag      %%   Auflage     Total  Aktuelle      Restzeit bei:    \n",
+	"  Nummer fertig   Vorwahl     Bogen  Leistung  Akt. Lstg.  Eff. Lstg.\n",
+	"--------------------------------------------------------------------\n"
+	};
+
+resource form (ShiftFORM_SingleJob, purgeable) {
+	"<šbersicht Einzelauftrag einer Schicht> gedruckt am %s um %s.\n\n",
+	"Auft. %*ld -- %5s %% fertig.               Aktuelle Leistung:   %8ld\n",
+	" Aufl. Vorw.:   %*ld                       Effektive Leistung:   %8.0f\n",
+	" Total-Bogen: %10ld                  Restzeit bei akt. Lstg.: %10s\n",
+	"  Rest-Bogen:   %8s                  Restzeit bei eff. Lstg.: %10s\n\n",
+	"   Maschine           Akt.     Eff.    Total      Rest       Restzeit bei:    \n",
+	"Nummer  Status       Lstg.    Lstg.    Bogen     Bogen   Akt. Lstg.  Eff. Lstg.\n",
+	"------------------------------------------------------------------------------\n"
+	};
+
+resource form (JobFORM_List, purgeable) {
+	"<Liste aller Auftr„ge> gedruckt am %s um %s.\n\n",
+	"Auftr. Nr.   Auftragsname               Gesamtauflage  Datum     Status\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_Machine, purgeable) {
+	"Protokoll <Auftrag nach Maschinennummer> gedruckt am %s um %s.\n\n",
+	"Mch. Auftrag  Bed.  Schicht  Total      Eff.     Falz     Stop Einricht\n",
+	"Num.  Nummer  Num.  Nummer   Bogen     Lstg.     Zeit     Zeit     Zeit\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_Job, purgeable) {
+	"Protokoll <Auftrag nach Auftragsnummer> gedruckt am %s um %s.\n\n",
+	"Mch. Auftrag  Bed.  Schicht  Total      Eff.     Falz     Stop Einricht\n",
+	"Num.  Nummer  Num.  Nummer   Bogen     Lstg.     Zeit     Zeit     Zeit\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_Operator, purgeable) {
+	"Protokoll <Auftrag nach Bedienernummer> gedruckt am %s um %s.\n\n",
+	"Mch. Auftrag  Bed.  Schicht  Total      Eff.     Falz     Stop Einricht\n",
+	"Num.  Nummer  Num.  Nummer   Bogen     Lstg.     Zeit     Zeit     Zeit\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_ShiftMachine, purgeable) {
+	"Protokoll <Schicht nach Maschinennummer> gedruckt am %s um %s.\n\n",
+	"Mch. Auftrag  Bed.  Schicht  Total      Eff.     Falz     Stop Einricht\n",
+	"Num.  Nummer  Num.  Nummer   Bogen     Lstg.     Zeit     Zeit     Zeit\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_ShiftJob, purgeable) {
+	"Protokoll <Schicht nach Auftragsnummer> gedruckt am %s um %s.\n\n",
+	"Mch. Auftrag  Bed.  Schicht  Total      Eff.     Falz     Stop Einricht\n",
+	"Num.  Nummer  Num.  Nummer   Bogen     Lstg.     Zeit     Zeit     Zeit\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+resource form (ArchiveFORM_ShiftOperator, purgeable) {
+	"Protokoll <Schicht nach Bedienernummer> gedruckt am %s um %s.\n\n",
+	"Mch. Auftrag  Bed.  Schicht  Total      Eff.     Falz     Stop Einricht\n",
+	"Num.  Nummer  Num.  Nummer   Bogen     Lstg.     Zeit     Zeit     Zeit\n",
+	"-----------------------------------------------------------------------\n"
+	};
+
+
+resource help (ScreenNoneHELP) {
+	"Die PCS100 Software zur Produktionsdatenerfassung basiert im Dialog auf",
+	"der Fenstertechnik. Die PCS100-Z„hlger„te werden st„ndig im Hintergrund",
+	"abgefragt. Die emfangenen Daten werden dann entsprechend formatiert und",
+	"online am PC ausgegeben.",
+	"",
+	"Die PCS100 Software erfordert zumindest die folgenden Voraussetzungen:",
+	"  - einen PC mit dem Betriebssystem MS-DOS oder PC-DOS Version 2.0",
+	"    oder einer h”heren Version.",
+	"  - 1 Diskettenlaufwerk",
+	"  - 384KB RAM-Speicher",
+	"  - 1 RS485 Schnittstellenkarte",
+	"",
+	"In die Datei CONFIG.SYS am PC sind folgende Eintr„ge notwendig:",
+	"               BUFFERS = 20",
+	"               FILES   = 15",
+	"",
+	"Existiert auf ihrem PC bereits die Datei CONFIG.SYS, so sind diese",
+	"Werte als Minimalwerte zu verstehen. Fr detailiertere Informationen",
+	"steht Ihnen Ihr PC-Handbuch zur Verfgung oder fragen sie ihren",
+	"PC-H„ndler.",
+	"",
+	"Die Leistungsf„higkeit der PCS100 Software l„át sich durch einige",
+	"Parameter steigern:",
+	"  - mehr als 384KB RAM-Speicher",
+	"  - installieren der Software auf einem Festplatttenlaufwerk",
+	"",
+	"Die PCS100 Z„hlger„te k”nnen ber die RS485 Schnittstelle und eine",
+	"verdrillte 3-Aderleitung mit dem Computer vernetzt werden. Um eine",
+	"Verbindung zwischen dem Computer und den PCS100 Z„hlger„ten herstellen",
+	"zu k”nnen, ben”tigt man im Computer eine RS485-Schnittstellenkarte.",
+	"",
+	"Der DB-9 Stecker am  PCS100 Z„hlger„t hat folgende Belegung:",
+	"      Pin3 - Data (GND)",
+	"      Pin4 - RS485 TX/RX (+)",
+	"      Pin5 - RS485 TX/RX (-)",
+	"",
+	"",
+	"Tastaturbelegung:",
+	"",
+	"Die PCS100 Software belegt soweit als m”glich einzelnen Tasten mit",
+	"gleichen oder „hnlichen Funktionen. Dadurch l„át sich das Programm",
+	"einfach bedienen.",
+	"",
+	"<ENTER>:",
+	"Auch als RETURN-Taste bezeichnet, best„tigt immer die angew„hlte",
+	"Funktion.",
+	"",
+	"<ESC>:",
+	"Abbrechen einer angefangenen Funktion. Bereits eingegebene, aber noch",
+	"nicht mit ENTER best„tigte Daten oder Befehle werden ohne Auswirkung",
+	"auf bestehende Daten gel”scht.",
+	"",
+	"<TAB>:",
+	"Mit der Tabulatortaste wechselt man auf das n„chste Eingabefeld. Wird",
+	"die TAB-Taste zusammen mit der SHIFT-Taste gedrckt, so wechselt man",
+	"auf das vorhergehende Eingabefeld.",
+	"",
+	"<LEERTASTE>:",
+	"Abgesehen von Dateneingaben kann man mit der LEERTASTE auf die n„chsten",
+	"Positionen in den Menfenstern vorrcken. Das heiát, wenn die",
+	"Auswahlleiste die letzte Positon der Vorschlagliste errreicht hat, und",
+	"dann die LEERTASTE gedrckt wird, dann springt die Auswahlleiste auf",
+	"die erste Position der Vorschlagliste zurck.",
+	"",
+	"<CURSORTASTEN>:",
+	"Bewegen den Cursor oder die Zeilenmarkierung.",
+	"",
+	"<Pfeil nach oben> und <Pfeil nach links> bewegen die Zeilenmarkierung",
+	"auf die vorhergehende Auswahl.",
+	"",
+	"<Pfeil nach unten> und <Pfeil nach rechts> bewegen die Zeilenmarkierung",
+	"auf die nachfolgende Auswahl.",
+	"",
+	"<HOME> bewegt die Zeilenmarkierung auf die erste Auswahl.",
+	"",
+	"<END> bewegt die Zeilenmarkierung auf die letzte Auswahl.",
+	"",
+	"<PAGE UP> bl„ttert auf die vorhergehende Bildschirmseite.",
+	"",
+	"<PAGE DOWN> bl„ttert auf die nachfolgende Bildschirmseite."
+	};
+
+resource help (LanguageHELP) {
+	"Die PCS100-Software kann je nach Bedarf so eingestellt werden, daá sie",
+	"ihre Dialog in den Sprachen Englisch, Deutsch, Franz”sisch oder",
+	"Spanisch anzeigt."
+	};
+
+resource help (PrefsHELP) {
+	"The {Preferences} Menu provides options to customize the operation",
+	"of the PCS100 software.",
+	"",
+	"Serial Port: Es wird eine Liste der zur Verfgung stehenden seriellen",
+	"  RS485 Schnittstellen, durch die das Programm mit den",
+	"  PCS100-Z„hlger„ten kommuniziert, angezeigt.",
+	"",
+	"Setup Drucker...: Drucker einrichten: Hier kann man ausw„hlen, ob der",
+	"  Drucker ber die parallele oder ber eine weitere serielle",
+	"  Schnittstelle angeschlossen wird."
+	};
+
+resource help (PrefsHELP_Timing) {
+	"Bildsch.-Sich.-Zeit: Zeit nach der die automatische Bildschirm-",
+	"  sicherung aktiv wird.",
+	"",
+	"Daten-Sich.-Zeit: Zeit nach der automatisch alle Daten auf das aktive",
+	"  Laufwerk gesichert werden."
+	};
+
+resource help (PrefsHELP_ImportExport) {
+	"Export function field separator",
+	"",
+	"Export function record separator"
+	};
+
+resource help (PrefsHELP_Network) {
+	"ÕÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"³ Publish/Subscribe Frequency: 300 seconds ÄÄÄÄ Time intervals in which new",
+	"³   Subscribe Retry Frequency:  60 seconds ÄÄ¿  date will be updated over a",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  ³  network.  A value of 0 will",
+	"                                             ³  disable this feature.",
+	"                                             ³",
+	"Time interval at which a network subscriber (client) will re-attempt to read",
+	"the data updated by the publisher (host).  This situation may occur if the",
+	"subscriber attempts to read while the publisher is writing.",
+	"",
+	"Installing the PCS100 on a network",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"Create a subdirectory for the PCS100 application.  For example, on a Novell",
+	"network, you may wish to place the PCS100 application subdirectory in a",
+	"globally accessible APPS subdirectory.",
+	"",
+	"Next, decide where you wish to have the PCS100 data files located.  For",
+	"example, on a Novell network, you may wish to place the PCS100 data",
+	"subdirectory in a globally accessible DATA subdirectory.",
+	"",
+	"       SYS \\ Ä¿",
+	"              ÃÄ PUBLIC",
+	"              ÃÄ SYSTEM",
+	"              ÃÄ APPS   Ä¿",
+	"              ³          ÀÄ PCS100",
+	"              ÀÄ DATA   Ä¿",
+	"                         ÀÄ PCS100",
+	"",
+	"The Host (Publisher) which will be communicating with the PCS100 counters",
+	"should have File Scan, Read, Write and Delete access rights to the",
+	"SYS:\\APPS\\PCS100 and SYS:\\DATA\\PCS100 subdirectories.  The Clients",
+	"(Subscribers) should only have File Scan and Read access rights.  Copy the",
+	"files PCS100.EXE, PCS100.001 and PCS100.049 to the SYS:\\APPS\\PCS100",
+	"subdirectory.",
+	"",
+	"When the PCS100 application is run, it will look for a DOS environment",
+	"variable nammed PCS100 to direct it to where all of the PCS100 data files",
+	"will reside.  If the DOS environment variable is not found, the PCS100 will",
+	"use the current subdirectory.  It is recommended that all users who will be",
+	"using the PCS100 software to have this DOS environment variable set.  If the",
+	"above directory structure has been used, then the DOS environment variable",
+	"would be set as:",
+	"",
+	"                       SET PCS100=SYS:\\DATA\\PCS100",
+	"",
+	"{CAUTION}: The PCS100 will automatically configure itself as the",
+	"         host/publisher if it has write access to the PCS100 data",
+	"         subdirectory.  It is important that one, and only one, user",
+	"         have write access to this subdirectory.  Failure to heed",
+	"         this CAUTION will result in data corruption!!!"
+	};
+
+resource help (QueryHELP) {
+	"Das Query-Men stellt Befehle zur Verfgung, um die Funktionsf„higkeit",
+	"der Abfrage von Z„hleger„ten abzu„ndern.",
+	"",
+	"Disable Communications: Die Kommunikationen werden gesperrt.",
+	"",
+	"Query Timing: Abfragezeite „ndern",
+	"",
+	"Track Errors: Fehleraufsprung: Fehler werden in die",
+	"  Fehlerprogrammauswahl eingegeben.",
+	"",
+	"Archival data: Daten archivieren",
+	"",
+	"Offline Trace: Offline_Spur: Die Daten werden so lange gehalten, bis",
+	"  eine Antwort erfolgt ist.",
+	"",
+	"Log to Printer: Weitergabe an den Drucker: Die fehlerhaften Daten",
+	"  werden an den Drucker ausgegeben.",
+	"",
+	"Display Queries: Queries anzeigen: Die genauen Daten, die empfangen",
+	"  wurden, werden angezeigt.",
+	"",
+	"Manual Queries: Manuelle Queries: Die Best„tigungstaste muá gedrckt",
+	"  werden, bevor das Z„hlger„t in den Status 'offline' gehen kann.",
+	"",
+	"Sound Bell: Alarmton: Bei Fehlern ert”nt ein Signal."
+	};
+
+resource help (QueryHELP_Timing) {
+	"Minimum-Query-Delay: Die Antwort braucht erst nach dieser Zeit zu",
+	"  erscheinen.",
+	"",
+	"Maximum-Querys-Delay: Maximale Zeit, bis die gesamte Antwort vorliegen",
+	"  muá.",
+	"",
+	"Repeat-Query-Delay: Zeit, bevor derselbe Z„hler erneut abgefragt werden",
+	"  kann.",
+	"",
+	"Maximal Offline-Tolerance: Eine Status„nderung in 'off line' kann erst",
+	"  nach dieser Zeit erfolgen.",
+	"",
+	"Maximal Error-Tolerance: Der Status „ndert sich nach x",
+	"  aufeinanderfolgenden Fehlern.",
+	"",
+	"Priority Preset Count: Anzahl von m”glichen Abfragungen, bevor eine",
+	"  h”here Priorit„t in den Programmablauf eingreift."
+	};
+
+resource help (HelpHELP) {
+	"Das Hilfemen  erkl„rt alle in der PCS100 Software implementierten",
+	"Funktionen.",
+	"",
+	"Info allg...: Zeigt die Softwareversion und das Freigabedatum",
+	"",
+	"Hilfe: Das drcken der ^H Taste aktiviert einen funktionsbezogen",
+	"  Hilfebildschirm",
+	"",
+	"Landessprache...: Die PCS100 Software kann in mehreren Sprachen ihre",
+	"  Dialoge ausgeben",
+	"",
+	"Bildschirm Sicherung: Aktiviert die Bildschirm-Einbrennsicherung",
+	"",
+	"Einstellungen: Hier k”nnen bestimmte Eigenschaften der PCS100 Software",
+	"  ge„ndert werden.",
+	"",
+	"Ende: Beedet die Programmausfhrung und sichert automatisch alle Daten",
+	"  auf das aktive Laufwerk."
+	};
+
+resource help (HelpHELP_About) {
+	"Das PCS100 Software-Paket wurde fr den Borland C++ v2.0",
+	"geschrieben.  Urheberrechte (c) 1987-1991 Vorne Industries Incorporated.",
+	"Alle Rechte vorbehalten.",
+	"",
+	"Die Greenleaf Comm. Library v2.10 Version T3 von Greenleaf-Software,",
+	"stellt die notwendigen Programmroutinen fr schnellste serielle",
+	"Kommunikationsverbindungen zur Verfgung.",
+	"Urheberrechte (c) 1983, 1984, 1985, 1986, 1987 Greenleaf Software Inc.",
+	"",
+	"Das C-tree (tm)-Dateihandlesystem v4.3 Version B von FairCom stellt die",
+	"Dateihandlefunktionen zur Verfgung. Der Dateihandler ist ein",
+	"geschlossense System und das Eigentum von FairCom. Jeder unbefugte",
+	"Gebrauch, die Vervielf„ltigung oder die Weitergabe dieses Programms ist",
+	"ausdrcklich verboten. Urheberrechte (c) 1988 durch FairCom (unterliegt",
+	"einer begrenzten Verteilung und einer beschr„nkten Verteilung). Alle",
+	"Rechte vorbehalten.",
+	"",
+	"Die SeaShell von Vorne Industries Incorporated untersttzt das in",
+	"Fenstertechnik erstellte Programm. Die SeaShell ist eine in",
+	"Borland C++ v2.0.  Urheberrechte (c) 1987-1991",
+	"Vorne Industries Incorporated.  Alle Rechte vorbehalten."
+	};
+
+resource help (HelpHELP_Help) {
+	"{Hilfe} ist eine 'ONLINE' Programmhilfe, die sobald der Benutzer die",
+	"Tastenkombiantion ' ^H ' drckt, problembezogen aktiv wird.",
+	"",
+	"Das Hilfsfenster enth„lt den Text, der einen Teil des Programms",
+	"erkl„rt. Da die Benutzer mit dem Programm arbeiten und von einem Bild",
+	"zum anderen wechseln, wechseln auch automatisch die entsprechenden",
+	"Hilfefenster mit.",
+	"",
+	"Da die Hilfenachricht mit der aktuellen Programmstellung in Verbindung",
+	"gebracht wird, sagt man das Hilfsfenster sei 'kontextempfindlich'.",
+	"Gebte Benutzer k”nnen die Hilfsmerkmale eines Programms auáer acht",
+	"lassen. Anf„nger k”nnen die 'Help'-Taste bei jeder Änderung des",
+	"Programms drcken und erhalten dann Hinweise, Erinnerungen oder",
+	"detaillierte Anweisungen."
+	};
+
+resource help (HelpHELP_ScreenSaver) {
+	"Aktivieren der Bildschirm-Sicherung:",
+	"Das Bildschirm-Sicherungsprogramm invertiert das Bild auf dem Monitor",
+	"alle 30 Sekunden. Das verhindert, daá das angezeigte Bild nicht auf dem",
+	"Bildschirm 'einbrennt'. Dies kann passieren, wenn ein sich nicht",
+	"ver„nderndes Bild ber einen l„ngeren Zeitraum statisch angezeigt wird.",
+	"",
+	"Das Bildschirm-Sicherungsprogramm aktiviert sich nach einer",
+	"vorgegebenen Zeitspanne selbst, ohne daá der Benutzer eingreifen muá.",
+	"Diese Zeitspanne kann ber die Einstellungen im Hilfe-Men abge„ndert",
+	"werden."
+	};
+
+resource help (HelpHELP_Quit) {
+	"{Ende} beendet die Programmausfhrung. Alle Daten werden geordent auf",
+	"dem neuesten Stand abgelegt, und die Maschine kann danach abgeschalten",
+	"werden. Der Benutzer kann auch die Taste (^Q) drcken, um den Befehl",
+	"{Ende} aufzurufen.",
+	"",
+	"Immer wenn ein Systemfehler auftaucht, der das Programm zwingt sich",
+	"selbst abzubrechen, geschieht dies ohne den manuell ausgel”sten Befehl",
+	"{Ende}. In solch einem Fall wird eine Fehlermeldung auf dem Bildschirm",
+	"angezeigt. Der Benutzer liest diese und drckt eine Taste. Danach",
+	"sichert das Proramm die noch zur Verfgung stehenden Daten und bringt",
+	"das Dateisystem in einen stabilen Zustand zurck."
+	};
+
+resource help (OperatorHELP) {
+	"The {Operator} menu provides commands to assign operators to individual",
+	"machines.",
+	"",
+	"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿",
+	"³  Install Operators ³ ÄÄÄÄÄ Allows operator list to be added,",
+	"³  List Operators    ³ ÄÄ¿   modified and deleted.",
+	"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ   ³",
+	"                         ÀÄÄ Allows all installed operators to be",
+	"                             viewed."
+	};
+
+resource help (OperatorHELP_Install) {
+	"Erm”glicht die Aufnahme, nderung und L”schung aller Bediener.",
+	"",
+	"Mit dem Befehl {Bediener aufnehmen} k”nnen Bediener aufgenommen,",
+	"abge„ndert und von der aktuellen Bedienerliste gestrichen werden."
+	};
+
+resource help (OperatorHELP_List) {
+	"Beim Befehl {Liste Bediener} werden alle zu diesem Zeitpunkt",
+	"aufgenommenen Bediener angezeigt. Mit dem Cursor kann man, wenn nicht",
+	"die komplette Bedienerliste auf einmal gezeigt werden kann, durch die",
+	"Bedienerliste bl„ttern.",
+	"",
+	"Dieser Befehl ist nur dann aktiv, wenn mindestens ein Bediener",
+	"aufgenommen ist. Drcken Sie '^D' zum Ausdrucken der Bedienerliste."
+	};
+
+resource help (MachineHELP) {
+	"Das Men {Maschine} stellt einen kompletten Satz Befehle zur Verfgung.",
+	"Damit werden Maschinen in die Software aufgenommen, gepflegt und",
+	"angezeigt, die durch das PCS100 Z„hlger„t berwacht werden sollen.",
+	"",
+	"Der Befehl {Maschinen_aufnehmen} steht immer zur Verfgung. Die anderen",
+	"sind verfgbar, wenn zumindest eine Maschine aufgenommen ist.",
+	"",
+	"šbersicht aller Maschinen: Zeigt eine kurze statistische",
+	"  Zusammenfassung aller Maschien an. Nach RETURN wird die angew„hlete",
+	"  (šbersicht Einzelmaschine) angezeigt.",
+	"",
+	"šbersicht Einzelmaschine: Zeigt eine detaillierte statistische",
+	"  Zusammenfassung einer einzelnen Maschine an.  Nach <Esc> wird wieder",
+	"  die šbersicht aller Maschinen aktiv",
+	"",
+	"Maschinen aufnehmen: Ergm”glicht die Aufnahme, nderung und L”schung",
+	"  von Maschinen.",
+	"",
+	"Liste aller Maschinen: Auflistung aller aufgenommenen Maschinen."
+	};
+
+resource help (MachineHELP_All) {
+	"Die {šbersicht aller Maschinen} zeigt eine kurze statistische šbersicht",
+	"aller zur Zeit aufgenommenen Maschinen.",
+	"",
+	"Maschine Auftrag Maschinen Total Akt.",
+	"Nummer   Nummer  Status    Bogen Lstg. Falz-Zeit Stop-Zeit",
+	"",
+	"",
+	"Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart",
+	"  Falzen und Einrichten angezeigt. Diese Information wird alle 3,6",
+	"  Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn",
+	"  innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.",
+	"",
+	"{Stop-Zeit} - Die Zeitspanne, w„hrend der das Z„hlger„t keine Bogen",
+	"  z„hlt.",
+	"",
+	"{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.",
+	"",
+	"{Maschinennummer} - Die Nummer, die einem bestimmten Z„hlger„t im Men",
+	"  der aufgenommenen Maschinen, zugeteilt wurde.",
+	"",
+	"{Maschinenstatus} - Zeigt den aktuellen Status des Z„hlger„tes an.",
+	"  Dieser Stand kann sein: 'Aktiv', 'Stillstand', 'Einrichten',",
+	"  'Drucken', 'Falsche Daten' oder 'AUS'.",
+	"",
+	"{Falz-Zeit} - Die gesamte Zeit seit dem Einschalten des Z„hlger„ts.",
+	"",
+	"{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten",
+	"  L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden",
+	"  sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen."
+	};
+
+resource help (MachineHELP_Single) {
+	"Die {šbersicht Einzelmaschine} zeigt eine detaillierte Zusammenfassung",
+	"der Statistik einer Einzelmaschine.",
+	"",
+	"{Maschine}: - Name, der einem bestimmten Z„hlger„t im Men",
+	"  'Maschinen_aufnahmen' gegeben wurde.",
+	"",
+	"{Bediener}: -  Name des Bedieners, der im Men 'Bediener_aufnehmen'",
+	"  aufgenommen wurde.",
+	"",
+	"{Maschinennummer}: - Die Nummer, die einem bestimmten Z„hlger„t im Men",
+	"  der aufgenommenen Maschinen, zugeteilt wurde.",
+	"",
+	"{Auftragsnummer}: - Die momentan bearbeitete Auftragsnummer.",
+	"",
+	"{Auftragsbeginn}: - Datum und Uhrzeit bei Auftragsbeginn.",
+	"",
+	"{Maschinenstatus}: - Zeigt den aktuellen Status des Z„hlger„tes an.",
+	"  Dieser Stand kann sein: 'Aktiv', 'Stillstand', 'Einrichten',",
+	"  'Drucken', 'Falsche_Daten' oder 'AUS'.",
+	"",
+	"{Bedienernummer}: -  Nummer des Bedieners, der gerade falzt.",
+	"",
+	"{Nutzen pro Bogen}: - die Anzahl der Nutzen, die aus einem Falzbogen",
+	"  entstehen.",
+	"",
+	"{Impulsverz”gerung}: - die Zeitverz”gerung, bevor der Markierimpuls",
+	"  gestartet wird.",
+	"",
+	"{Impulsdauer}: - Die Zeitdauer vom Einschalten bis zum Ausschalten des",
+	"  Impulssignals.",
+	"",
+	"{Partienmarkierung}: - Es gibt drei Arten von Impulsen:",
+	"  kein Impuls, Saugtakt-Unterbrechung, Kicker.",
+	"",
+	"{Partie-Vorwahl}: - Zur Partiez„hlung  wird der gewnschte Wert der",
+	"  Partiengr”áe vorgew„hlt und eingegeben. Dieser Wert wird auf Null",
+	"  zurckgez„hlt und f„ngt dann wieder beim vorgew„hlten Wert an. Wird",
+	"  Null vorgew„hlt so findet keine Partienz„hlung statt.",
+	"",
+	"{Auflage-Vorwahl}: - Die vorgegebene Gesamtzahl der zu falzenden Bogen.",
+	"",
+	"{effektive Leistung}: - Die Durchschnittsleistung seit Auftragsbeginn",
+	"  (inklusive der Pausenzeiten, ohne Einrichtezeit).",
+	"",
+	"{Partie Restbogen}: - Die noch zu falzenden Bogen der aktuellen Partie",
+	"",
+	"Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart",
+	"  Falzen und Einrichten angezeigt. Diese Information wird alle 3,6",
+	"  Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn",
+	"  innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.",
+	"",
+	"{Stop-Zeit} - Die Zeitspanne, w„hrend der das Z„hlger„t keine Bogen",
+	"  z„hlt.",
+	"",
+	"{Partie-Vorwahl}: - Zur Partiez„hlung  wird der gewnschte Wert der",
+	"  Partiengr”áe vorgew„hlt und eingegeben. Dieser Wert wird auf Null",
+	"  zurckgez„hlt und f„ngt dann wieder beim vorgew„hlten Wert an. Wird",
+	"  Null vorgew„hlt so findet keine Partienz„hlung statt.",
+	"",
+	"{Falz-Zeit} - Die gesamte Bearbeitungszeit des Auftrags, in der das",
+	"  Z„hlger„t den Status 'aktiv' hatte.",
+	"",
+	"{Einricht-Bogen}: - Die Anzahl der Bogen, die w„hrend des Einrichtens",
+	"  der Maschine gefalzt wurden.",
+	"",
+	"{Einricht-Zeit}: - Die Zeitspanne, die das Einrichten der Maschine in",
+	"  Anspruch nahm.",
+	"",
+	"{Total-Partien}: - Die Gesamtzahl der gez„hlten Partien. Diese Zahl",
+	"  erh”ht sich jeweils, wenn eine weitere Partie abgearbeitet wurde.",
+	"",
+	"{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten",
+	"  L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden",
+	"  sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen.",
+	"",
+	"{Total-Zeit}: - Die gesamte Bearbeitungszeit dieses Auftrags.",
+	"",
+	"{Anzahl der Unterbrechungen}: - Die Gesamtanzahl der Unterbrechungen,",
+	"  w„hrend denen der Z„hler keine Bogen gez„hlt hat.",
+	"",
+	"{anteilig fertig}: - Dieser Wert erreicht 100%, wenn die Gesamtzahl der",
+	"  gefalzten  Bogen der vorgegebenen Bogenanzahl entspricht.",
+	"",
+	"{Bogen noch zu falzen}: - Die Anzahl der noch zu falzenden Bogen dieses",
+	"  Auftrags.",
+	"",
+	"{Restzeit bei aktueller Leistung}: - Die Zeit, die unter",
+	"  Bercksichtigung der aktuellen Leistung, d.h. ohne Stopzeiten, noch",
+	"  gebraucht wird, um den Auftrag fertigzustellen.",
+	"",
+	"{Restzeit bei effektiver Leistung}: - Die Zeit, die unter",
+	"  Bercksichtigung der effektiven Leistung, d.h. mit den zu erwartenden",
+	"  Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen."
+	};
+
+resource help (MachineHELP_Install) {
+	"Mit dem Befehl {Maschinen aufnehmen} k”nnen Maschinen aufgenommen,",
+	"abge„ndert oder von der aktuellen Maschinenliste gestrichen werden.",
+	"Diese Liste bestimmt, welche Z„hler von der PCS 100 Software nach",
+	"aktuellen oder archivierten Daten abgefragt werden.",
+	"",
+	"Maschinennummer: Geben Sie die Z„hlernummer der Maschine ein, die Sie",
+	"  aufnehmen m”chten.",
+	"",
+	"Maschinen Name: Geben Sie den Maschinennamen ein.",
+	"",
+	"Aufnahmedatum: Geben Sie das Aufnahmedatum ein. Der Vorschlag ist das",
+	"  aktuelle Datum, das jedoch abge„ndert werden kann.",
+	"",
+	"<ESC> abbrechen: Mit der Taste <ESC> den Dialog abbrechen"
+	};
+
+resource help (MachineHELP_List) {
+	"Der Befehl {Liste aller Maschinen} zeigt alle im Moment aufgenommenen",
+	"Maschinen an. Die Cursor-Tasten k”nnen benutzt werden, um durch die",
+	"Maschinenliste zu bl„ttern. Dies wird notwendig, wenn die Liste l„nger",
+	"als eine Bildschirmseite ist und deshalb nicht alle Maschinen",
+	"gleichzeitig angezeigt werden k”nnen.",
+	"",
+	"Dieser Befehl kann nur aktiviert werden, wenn zumindest eine Maschine",
+	"aufgenommen ist. Drcken Sie ' ^D ', um die komplette Maschinenliste",
+	"auszudrucken."
+	};
+
+resource help (JobHELP) {
+	"Das Men {Auftrag} stellt einen kompletten Satz von auftragsbezogenen",
+	"Befehlen zur Verfgung. Damit werden Auftr„ge, die durch das PCS100",
+	"Z„hlger„t berwacht und verwaltet werden, aufgenommen, gepflegt und",
+	"angezeigt.",
+	"",
+	"Der Befehl {Auftr„ge_aufnehmen} steht immer zur Verfgung. Die anderen",
+	"sind verfgbar, wenn zumindest eine Maschine aufgenommen ist. Wird ein",
+	"Z„hlger„t mit einer neuen Auftragsnummer angetroffen, so wird die",
+	"Auftragsnummer automatisch in die Auftragsliste aufgenommen.",
+	"",
+	"šbersicht aller Auftr„ge: Gibt eine kurze statistische šbersicht ber",
+	"  alle Auftr„ge an",
+	"",
+	"šbersicht Einzelauftrag: Zeigt einen detailierte statistische šbersicht",
+	"  eines einzelnen Auftrags",
+	"",
+	"Auftr„ge aufnehmen: Aufnehmen oder „ndern von bestehenden Auftr„gen",
+	"",
+	"Maschinen auflisten: Zeigt alle momentan im System installierten",
+	"  Maschinen an",
+	"",
+	"Auftr„ge ablegen: Speichern und ablegen von Auftr„gen",
+	"",
+	"Export Open Jobs & Export Closed Jobs:  The Export commands save the open",
+	"or closed jobs in a standardized ASCII format that second source programs",
+	"can understand.  Use the Preferences command in the Help menu to specify",
+	"the field and record separator characters.  See Help on Export commands",
+	"for field labels."
+	};
+
+resource help (JobHELP_All) {
+	"{šbersicht aller Auftr„ge}: - gibt eine kurze statistische šbersicht",
+	"  ber alle Auftr„ge.",
+	"",
+	"Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart",
+	"  Falzen und Einrichten angezeigt. Diese Information wird alle 3,6",
+	"  Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn",
+	"  innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.",
+	"",
+	"{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.",
+	"",
+	"{Auflage-Vorwahl}: - die vorgegebene Gesamtzahl der zu falzenden Bogen.",
+	"",
+	"{anteilig fertig}: - Dieser Wert erreicht 100%, wenn die Gesamtzahl der",
+	"  gefalzten  Bogen der vorgegebenen Bogenanzahl entspricht.",
+	"",
+	"{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten",
+	"  L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden",
+	" sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen.",
+	"",
+	"{Restzeit bei aktueller Leistung}: - Die Zeit, die unter",
+	"  Bercksichtigung der aktuellen Leistung, d.h. ohne Stopzeiten, noch",
+	"  gebraucht wird, um den Auftrag fertigzustellen.",
+	"",
+	"{Restzeit bei effektiver Leistung}: - Die Zeit, die unter",
+	"  Bercksichtigung der effektiven Leistung, d.h. mit den zu erwartenden",
+	"  Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen."
+	};
+
+resource help (JobHELP_Single) {
+	"{šbersicht Einzelauftrag}: - Zeigt eine detaillierte statistische",
+	"  šbersicht ber einen einzelnen Auftrag.",
+	"",
+	"{effektive Leistung}: - Die Durchschnittsleistung seit Auftragsbeginn",
+	"  (inklusive der Pausenzeiten, ohne Einrichtezeit).",
+	"",
+	"Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart",
+	"  Falzen und Einrichten angezeigt. Diese Information wird alle 3,6",
+	"  Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn",
+	"  innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.",
+	"",
+	"{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.",
+	"",
+	"{Auflage-Vorwahl}: - die vorgegebene Gesamtzahl der zu falzenden Bogen.",
+	"",
+	"{Maschinennummer} - Die Nummer, die einem bestimmten Z„hlger„t im Men",
+	"  der aufgenommenen Maschinen, zugeteilt wurde.",
+	"",
+	"{Maschinenstatus} - Zeigt den aktuellen Status des Z„hlger„tes an.",
+	"  Dieser Stand kann sein: 'Aktiv', 'Stillstand', 'Einrichten',",
+	"  'Drucken', 'Falsche_Daten' oder 'AUS'.",
+	"",
+	"{anteilig fertig}: - Dieser Wert erreicht 100%, wenn die Gesamtzahl der",
+	"  gefalzten  Bogen der vorgegebenen Bogenanzahl entspricht.",
+	"",
+	"{Bogen noch zu falzen}: - Die Anzahl der noch zu falzenden Bogen dieses",
+	"  Auftrags.",
+	"",
+	"{Restzeit bei aktueller Leistung}: - Die Zeit, die unter",
+	"  Bercksichtigung der aktuellen Leistung, d.h. ohne Stopzeiten, noch",
+	"  gebraucht wird, um den Auftrag fertigzustellen.",
+	"",
+	"{Restzeit bei effektiver Leistung}: - Die Zeit, die unter",
+	"  Bercksichtigung der effektiven Leistung, d.h. mit den zu erwartenden",
+	"  Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen.",
+	"",
+	"{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten",
+	"  L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden",
+	"  sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen."
+	};
+
+resource help (JobHELP_Install) {
+	"Mit dem Befehl {Auftr„ge aufnehmen} k”nnen Auftr„ge aufgenommen,",
+	"abge„ndert und von der aktuellen Auftragsliste gestrichen werden.",
+	"Dieses hat keinerlei Einfluá auf die archivierten Auftr„ge. Wird ein",
+	"neuer Auftrag im Z„hler aufgenommen, so wird automatisch eine neue",
+	"Auftragsstatistik angelegt.",
+	"",
+	"Auftr. Nr.: Geben Sie die Auftragsnummer, die Sie aufnehmen m”chten,",
+	"  ein.",
+	"",
+	"Auftr.: Geben Sie den Auftragsnamen ein.",
+	"",
+	"Auflage: Geben Sie die fertigzustellende Gesamtbogenzahl ein.",
+	"",
+	"Aufnahemdatum: Als Aufnahmedatum wird automatisch das Tagesdatum",
+	"  vorgeschlagen. Es kann allerdings auch ge„ndert werden."
+	};
+
+resource help (JobHELP_List) {
+	"Auflistung aller momentan aufgenommenen Auftr„ge.",
+	"",
+	"Beim Befehl {Liste Auftr„ge} werden alle zu dem Zeitpunkt aufgenommenen",
+	"Auftr„ge angezeigt. Mit den Pfeiltastern kann man, wenn nicht alle",
+	"Maschinen auf einmal angezeigt werden k”nnen, durch die Maschinenliste",
+	"bl„ttern. Dieser Befehl ist nur dann aktiviert, wenn mindestens ein",
+	"Auftrag aufgenommen ist. Drcken Sie ' ^D ' zum Ausdrucken der",
+	"kompletten Auftragsliste.",
+	"",
+	"{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.",
+	"",
+	"Der {Auftragsname} ist der Namen, der einem Auftrag bei der Aufnahme in",
+	"  den Computer gegeben wurde.",
+	"",
+	"{Summe}: - Die vorgegebene Gesamtzahl der zu falzenden Bogen.",
+	"",
+	"{Datum}, an dem die Maschine aufgenommen wurde.",
+	"",
+	"{Auftragsstatus} - Zeigt den aktuellen Status des Auftrags an.",
+	"  Hier steht 'Aktiv', wenn der Auftrag auf irgendeinem Z„hlger„t",
+	"  momentan bearbeitetd wird."
+	};
+
+resource help (JobHELP_Close) {
+	"Speichert und entfernt einen Auftrag.",
+	"",
+	"Der Befehl {Auftr„ge ablegen} erlaubt es, einen Auftrag abzuschlieáen.",
+	"Ein Auftrag kann auf einer separaten Datendiskette gesichert werden.",
+	"Wird dieser Befehl angew„hlt, so ist in folgenden Schritten vorzugehen:",
+	"",
+	"  - Der einzelner Auftrag, der abgeschlossen werden soll, ist",
+	"    auszuw„hlen.",
+	"  - Drucken der 'šbersicht Einzelauftrag', wenn gewnscht.",
+	"  - Ausw„hlen des Laufwerks und Verzeichnises, damit Daten geordnet",
+	"    abgegespeichert werden k”nnen.",
+	"",
+	"In der ganzen Zeit, w„hrend diese Befehle eingegeben werden , kann der",
+	"Vorgang 'einen Auftrag ablegen' abgebrochen werden. Dazu ist lediglich",
+	"die <Esc>-Taste zu drcken.",
+	"",
+	"Einen Auftrag abzulegen, bedeutet folgendes:",
+	"",
+	"  - Die umlaufenden Zeitdaten werden in der Archivdatei gesichert.",
+	"  - Alle Archivaufzeichnungen ber den Auftrag, der abgeschlossen",
+	"    werden soll, werden auf das Sicherungslaufwerk in das angew„hlte",
+	"    Unterverzeichnis kopiert. Die kopierten Aufzeichnungen werden aus",
+	"    der Archivdatei gel”scht.",
+	"  - Die Auftragsaufnahmedaten werden mit den Archivaufzeichnungen",
+	"    abgelegt. Die Auftragsaufnahmedaten werden danach gel”scht.",
+	"  - Aufzeichnungen ber den abgeschlossenen Auftrag werden so in einer",
+	"    separaten Datei abgelegt, daá der Auftrag nicht versehentlich in",
+	"    der Zukunft wieder eingelesen werden kann."
+	};
+
+resource help (JobHELP_ExportOpen) {
+	"Save the open jobs and shifts in a standardized ASCII format that second",
+	"source programs can understand.  Use the Preferences command in the Help",
+	"menu to specify the field and record separators.",
+	"",
+	"Field description of the Job records",
+	"------------------------------------",
+	"Counter Address",
+	"Job Number",
+	"Shift Number",
+	"Operator Number",
+	"Output Type",
+	"Counter Status",
+	"Counter Factor/Multiplier",
+	"Number of Times Idle",
+	"Total Count",
+	"Total Batches",
+	"Batch Countdown",
+	"Setup Total Count",
+	"Batch Preset",
+	"Feed Output Time",
+	"Kicker Output Time",
+	"Setup Time",
+	"Idle Time",
+	"Production Time",
+	"Total Time",
+	"Time Until Done",
+	"Percent Done",
+	"Count Until Done",
+	"Job Quantity",
+	"Current Rate",
+	"Job Start Time",
+	"Job Start Date",
+	"Job End Time",
+	"Job End Date",
+	"",
+	"Field description of the Shift records",
+	"--------------------------------------",
+	"Counter Address",
+	"Job Number",
+	"Shift Number",
+	"Operator Number",
+	"Shift Start Time",
+	"Shift Start Date",
+	"Shift Total Count",
+	"Shift Setup Count",
+	"Shift Total Batches",
+	"Shift Setup Time",
+	"Shift Idle Time",
+	"Shift Production Time",
+	"Shift Total Time",
+	"Shift Current Rate"
+	};
+
+resource help (JobHELP_ExportClosed) {
+	"Save the closed jobs and shifts in a standardized ASCII format that second",
+	"source programs can understand.  Use the Preferences command in the Help",
+	"menu to specify the field and record separators.",
+	"",
+	"Field description of the Job records",
+	"------------------------------------",
+	"Counter Address",
+	"Job Number",
+	"Shift Number",
+	"Operator Number",
+	"Output Type",
+	"Counter Status",
+	"Counter Factor/Multiplier",
+	"Number of Times Idle",
+	"Total Count",
+	"Total Batches",
+	"Batch Countdown",
+	"Setup Total Count",
+	"Batch Preset",
+	"Feed Output Time",
+	"Kicker Output Time",
+	"Setup Time",
+	"Idle Time",
+	"Production Time",
+	"Total Time",
+	"Time Until Done",
+	"Percent Done",
+	"Count Until Done",
+	"Job Quantity",
+	"Current Rate",
+	"Job Start Time",
+	"Job Start Date",
+	"Job End Time",
+	"Job End Date",
+	"",
+	"Field description of the Shift records",
+	"--------------------------------------",
+	"Counter Address",
+	"Job Number",
+	"Shift Number",
+	"Operator Number",
+	"Shift Start Time",
+	"Shift Start Date",
+	"Shift Total Count",
+	"Shift Setup Count",
+	"Shift Total Batches",
+	"Shift Setup Time",
+	"Shift Idle Time",
+	"Shift Production Time",
+	"Shift Total Time",
+	"Shift Current Rate"
+	};
+
+resource help (ShiftHELP) {
+	"Das {Schicht} -Men beinhaltet Befehle zur Darstellung einer šbersicht",
+	"der aktiven Maschinen in einer Schicht. Die Befehle sind nur verfgbar,",
+	"wenn mindestens eine Maschine aufgenommen ist.",
+	"",
+	"šbersicht aller Maschinen einer Schicht: Zeigt eine kurze statistische",
+	"  Zusammenfassung aller Maschinen in einer Schicht. Drcken Sie",
+	"  <Eingabe> zur Anzeige einer einzelnen",
+	"",
+	"šbersicht Einzelmaschine einer Schicht: Zeigt eine detaillierte",
+	"  statistische Zusammenfassung einer einzelnen Maschine in einer",
+	"  Schicht. Drcken Sie <Esc> zur šbersicht aller",
+	"",
+	"šbersicht aller Auftr„ge einer Schicht: Zeigt eine kurze statistische",
+	"  šbersicht aller Auftr„ge einer Schicht. Drcken Sie <Eingabe> zur",
+	"  šbersicht aller Auftr„ge einer Schicht."
+	};
+
+resource help (ShiftHELP_AllMachines) {
+	"šbersicht aller Maschinene einer Schicht",
+	"",
+	"Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart",
+	"  Falzen und Einrichten angezeigt. Diese Information wird alle 3,6",
+	"  Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn",
+	"  innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.",
+	"",
+	"{Stillstand}: - die Zeitspanne, w„hrend der das Z„hlger„t keine Bogen",
+	"  z„hlt.",
+	"",
+	"{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.",
+	"",
+	"{Maschinennummer} - Die Nummer, die einem bestimmten Z„hlger„t im Men",
+	"  der aufgenommenen Maschinen, zugeteilt wurde.",
+	"",
+	"{Maschinenstatus} - Zeigt den aktuellen Status des Z„hlger„tes an.",
+	"  Dieser Stand kann sein: 'Aktiv', 'Stillstand', 'Einrichten',",
+	"  'Drucken', 'Falsche_Daten' oder 'AUS'.",
+	"",
+	"{Falz-Zeit} - Die gesamte Bearbeitungszeit des Auftrags, in der das",
+	"  Z„hlger„t den Status 'aktiv' hatte.",
+	"",
+	"{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten",
+	"  L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden",
+	"  sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen."
+	};
+
+resource help (ShiftHELP_SingleMachine) {
+	"šbersicht Einzelmaschine einer Schicht",
+	"",
+	"Die {šbersicht Einzel-Maschine einer Schicht}: - zeigt eine",
+	"detaillierte statistische Zusammenfassung einer einzelnen Maschine",
+	"einer Schicht.",
+	"",
+	"{Aufnahmedatum}: - Datum, an dem die Maschine aufgenommen wurde.",
+	"",
+	"{Maschinenname}: - Name, der einem bestimmten Z„hlger„t im Men",
+	"  'Maschinen_aufnahmen' gegeben wurde.",
+	"",
+	"{Bedienername}: -  Name des Bedieners, der im Men 'Bediener_aufnehmen'",
+	"  aufgenommen wurde.",
+	"",
+	"{Maschinennummer} - Die Nummer, die einem bestimmten Z„hlger„t im Men",
+	"  der aufgenommenen Maschinen, zugeteilt wurde.",
+	"",
+	"{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.",
+	"",
+	"{Maschinenstatus} - Zeigt den aktuellen Status des Z„hlger„tes an.",
+	"  Dieser Stand kann sein: 'Aktiv', 'Stillstand', 'Einrichten',",
+	"  'Drucken', 'Falsche_Daten' oder 'AUS'.",
+	"",
+	"{Bedienernummer}: -  Nummer des Bedieners, der gerade falzt.",
+	"",
+	"{Schichtnummer}: - Nummer der gerade laufenden Schicht.",
+	"",
+	"{Schichtbeginn}: - Datum und Zeitpunkt bei Schichtbeginn.",
+	"",
+	"{effektive Leistung}: - Die Durchschnittsleistung seit Auftragsbeginn",
+	"  (inklusive der Pausenzeiten, ohne Einrichtezeit).",
+	"",
+	"{Stillstand}: - die Zeitspanne, w„hrend der das Z„hlger„t keine Bogen",
+	"  z„hlt.",
+	"",
+	"{Falz-Zeit} - Die gesamte Bearbeitungszeit des Auftrags, in der das",
+	"  Z„hlger„t den Status 'aktiv' hatte.",
+	"",
+	"{Einricht-Bogen}: - Die Anzahl der Bogen, die w„hrend des Einrichtens",
+	"  der Maschine gefalzt wurden.",
+	"",
+	"{Einricht-Zeit}: - Die Zeitspanne, die das Einrichten der Maschine in",
+	"  Anspruch nahm.",
+	"",
+	"{Total-Partien}: - Die Gesamtzahl der gez„hlten Partien. Diese Zahl",
+	"  erh”ht sich jeweils, wenn eine weitere Partie abgearbeitet wurde.",
+	"",
+	"{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten",
+	"  L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden",
+	"  sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen.",
+	"",
+	"{Total-Zeit}: - Die gesamte Bearbeitungszeit dieses Auftrags."
+	};
+
+resource help (ShiftHELP_AllJobs) {
+	"šbersicht aller Auftr„ge einer Schicht",
+	"",
+	"Zeigt eine kurze, statistische Zusammenfassung aller Auftr„ge an.",
+	"",
+	"Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart",
+	"  Falzen und Einrichten angezeigt. Diese Information wird alle 3,6",
+	"  Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn",
+	"  innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.",
+	"",
+	"{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.",
+	"",
+	"{Auflage-Vorwahl}: - die vorgegebene Gesamtzahl der zu falzenden Bogen.",
+	"",
+	"{anteilig fertig}: - Dieser Wert erreicht 100%, wenn die Gesamtzahl der",
+	"  gefalzten  Bogen der vorgegebenen Bogenanzahl entspricht.",
+	"",
+	"{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten",
+	"  L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden",
+	"  sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen.",
+	"",
+	"{Restzeit bei aktueller Leistung}: - Die Zeit, die unter",
+	"  Bercksichtigung der aktuellen Leistung, d.h. ohne Stopzeiten, noch",
+	"  gebraucht wird, um den Auftrag fertigzustellen.",
+	"",
+	"{Restzeit bei effektiver Leistung}: - Die Zeit, die unter",
+	"  Bercksichtigung der effektiven Leistung, d.h. mit den zu erwartenden",
+	"  Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen."
+	};
+
+resource help (ShiftHELP_SingleJob) {
+	"šbersicht Einzelauftrag einer Schicht",
+	"",
+	"Die {šbersicht Einzelauftrag einer Schicht}: zeigt eine detaillierte",
+	"Zusammenfassung eines einzelnen Auftrags einer Schicht.",
+	"",
+	"{effektive Leistung}: - Die Durchschnittsleistung seit Auftragsbeginn",
+	"  (inklusive der Pausenzeiten, ohne Einrichtezeit).",
+	"",
+	"Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart",
+	"  Falzen und Einrichten angezeigt. Diese Information wird alle 3,6",
+	"  Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn",
+	"  innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.",
+	"",
+	"{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.",
+	"",
+	"{Auflage-Vorwahl}: - die vorgegebene Gesamtzahl der zu falzenden Bogen.",
+	"",
+	"{Maschinennummer} - Die Nummer, die einem bestimmten Z„hlger„t im Men",
+	"  der aufgenommenen Maschinen, zugeteilt wurde.",
+	"",
+	"{Maschinenstatus} - Zeigt den aktuellen Status des Z„hlger„tes an.",
+	"  Dieser Stand kann sein: 'Aktiv', 'Stillstand', 'Einrichten',",
+	"  'Drucken', 'Falsche_Daten' oder 'AUS'.",
+	"",
+	"{anteilig fertig}: - Dieser Wert erreicht 100%, wenn die Gesamtzahl der",
+	"  gefalzten  Bogen der vorgegebenen Bogenanzahl entspricht.",
+	"",
+	"{Bogen noch zu falzen}: - Die Anzahl der noch zu falzenden Bogen dieses",
+	"  Auftrags.",
+	"",
+	"{Restzeit bei aktueller Leistung}: - Die Zeit, die unter",
+	"  Bercksichtigung der aktuellen Leistung, d.h. ohne Stopzeiten, noch",
+	"  gebraucht wird, um den Auftrag fertigzustellen.",
+	"",
+	"{Restzeit bei effektiver Leistung}: - Die Zeit, die unter",
+	"  Bercksichtigung der effektiven Leistung, d.h. mit den zu erwartenden",
+	"  Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen.",
+	"",
+	"{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten",
+	"  L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden",
+	"  sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen."
+	};
+
+resource help (GenerateHELP) {
+	"Das Men {Protokoll erzeugen} erm”glicht Anzeige und Ausdruck",
+	"der archivierten Daten."
+	};
+
+resource help (ReportHELP) {
+	"Das Men {Protokoll} beinhaltet Befehle, um Protokolle von",
+	"abgespeicherten oder aktuellen Daten zu erzeugen.",
+	"",
+	"Erzeuge Protokoll: Erzeugt Protokolle, die auf abgespeicherten Daten",
+	"  basieren.",
+	"",
+	"Druck:  Schickt die momentan angezeigte Daten an den Drucker?",
+	"",
+	"L”sche Archvive...: ™ffnet ein weiteres Fenster, das die einzelnen",
+	"  abgespeicherten Auftragsarchive anzeigt. Auf entsprechenden Befehl",
+	"  k”nnen alle Archive mit derselben Auftragsnummer aus dem Speicher",
+	"  gel”schet werden."
+	};
+
+resource help (ReportHELP_Print) {
+	"Die Funktion {Protokoll drucken}, druckt den momentan angezeigten",
+	"Bildschirm aus."
+	};
+
+resource help (ReportHELP_Delete) {
+	"Dieser Befehl gibt eine kurze Zusammenfassung ber die",
+	"Archivfunktionen.",
+	"",
+	"Der Benutzer w„hlt mit den Cursor-Tasten die verschiedene",
+	"Aufzeichnungen aus. Drckt man ^D, werden alle Archivaufzeichnungen mit",
+	"derselben Auftragsnummer gel”scht."
+	};
+
+resource help (PortHELP) {
+	"Die Programmauswahl {Serial Port} erlaubt es, daá entweder der serielle",
+	"Kanal_1 (COM1)  oder der serielle Kanal_2 (COM2) bentzt wird, um mit",
+	"den PCS100-Z„hlger„ten in Verbindung zu treten. Besitzt der Computer",
+	"nur eine serielle Schnittstelle, so wird die Auswahl 'Kanal_2'",
+	"unterdrckt.",
+	"",
+	"COM1: Serielle Schnittstelle COM1",
+	"COM2: Serielle Schnittstelle COM2"
+	};
+
+resource help (SetupHELP) {
+	"Die Programmauswahl {Setup Drucker} stellt Befehle zur Verfgung, mit",
+	"denen man den Drucker fr die Datenausgabe an das Programm anpasst.",
+	"",
+	"Parallel: W„hlt den parallelen Kanal aus.",
+	"",
+	"Seriell: W„hlt den seriellen Kanal aus.",
+	"",
+	"Datenformat: Dieser Befehl erm”glicht ein Ver„ndern des Datenformates",
+	"  der Daten, die am seriellen Drucker ausgegeben werden."
+	};
+
+resource help (SetupHELP_Parallel) {
+	"Der Befehl 'Parallel' w„hlt das Standard-Centronics-Parallel-Interface",
+	"an.",
+	"",
+	"Das Parallel-Interface hat eine maximale Datenbermittlungsrate von ca.",
+	"1000 Schriftzeichen pro Sekunde. Im allgemeinen ist das parallele",
+	"Drucken viel schneller als das serielle Drucken.",
+	"",
+	"Parallel: Das Karozeichen best„tigt nochmals, daá der parallele Kanal",
+	"  angew„hlt wurde."
+	};
+
+resource help (SetupHELP_Serial) {
+	"Seriell: w„hlt die serielle Datenbertragung aus. Das Serielle",
+	"Intererface hat eine maximale Datenbermittlunsrate von 9600 Baud oder",
+	"9600 Bits pro Sekunde",
+	"",
+	"serielles Format:  Das Karozeichen best„tigt nochmals, daá der",
+	"  serielle Kanal angew„hlt wurde."
+	};
+
+resource help (FormatHELP) {
+	"Die Programmauswahl 'Format' stellt Befehle zur Verfgung, mit denen",
+	"man die šbermittlung der Listendaten auf den seriellen Drucker",
+	"individuell anpassen muá.",
+	"",
+	"COM2: Zeigt den benutzten seriellen Kanal an.",
+	"",
+	"Baud Race: Hier w„hlt man die Datenbermittlungsgeschwindigkeit aus.",
+	"",
+	"Parity: Hier w„hlt man die Parit„t aus.",
+	"",
+	"Data bits: Hier w„hlt man die Anzahl der Daten-Bitsd aus.",
+	"",
+	"Stop bits: Hier w„hlt man die Anzahl der Stop-Bits aus."
+	};
+
+resource help (BaudHELP) {
+	"Die {Baud-Rate} gibt die Datenbertragungsgeschwindigkeit an. Die zur",
+	"Verfgung stehenden Baud-Raten sind: 300, 600, 1200, 2400, 4800, 9600",
+	"und 19200 Bit pro Sekunde."
+	};
+
+resource help (ParityHELP) {
+	"Mit der šberprfung der {Parit„t} wird getestet, ob die šbertragung der",
+	"Daten korrekt war. Der Datensender fgt dem Datensatz ein Parit„ts-Bit",
+	"an, das je nach dem Inhalt des Datensatzes berechnet wird. Der",
+	"Empf„nger berechnet auch dieses Parit„ts-Bit und berprft dann, ob das",
+	"Parit„ts-Bit tats„chlich im richtigen Verh„ltnis zu den anderen Bits",
+	"steht. Wenn nicht, so muá es einen Fehler bei der šbermittlung gegeben",
+	"haben.",
+	"",
+	"Die Parit„t kann sein: 'keine','Space','Odd','Mark' oder 'Even'"
+	};
+
+resource help (DataHELP) {
+	"Die seriellen Kommunikationsnormen, genannt Protokolle, erlauben die",
+	"šbermittlung von verschieden langen Schriftzeichen oder W”rtern. Fr„gt",
+	"die Kommunikations-Software nach der Auswahl der Wortl„nge, so ist die",
+	"spezifische L„nge der Daten gemeint. Zur Verfgung stehende Datenl„ngen",
+	"sind 5, 6, 7, 8 Bit"
+	};
+
+resource help (StopHELP) {
+	"Am Ende eines jeden Datenrahmens werden {Stop-Bits} gesetzt. ",
+	"",
+	"Es kann 1, 1,5 oder 2 Stop-Bits geben. Die Stop-Bits sorgen fr eine",
+	"gewisse Mindestlcke zwischen den einzelnen Datenrahmen."
+	};
+
+// Item attributes can be composed of the following:
+//   - ""   : no special attributes
+//   - "!"  : check item
+//   - "("  : disable item
+//   - "/x" : keyboard shortcut, substitute x with uppercase letter
+//   - "=x" : hot key, substitute x with the active character
+
+resource menu (LanguageMENU, preload, purgeable) {
+	noflash,	LanguageHELP,		"Landessprache",
+	NULL,		LanguageHELP,		"United States",	"=U",
+	NULL,		LanguageHELP,		"Germany",		"=G",
+	NULL,		LanguageHELP,		"France",		"=F",
+	NULL,		LanguageHELP,		"Spain",		"=S"
+	};
+
+resource menu (QueryMENU, preload, purgeable) {
+	noflash,	QueryHELP,		"Query",
+	NULL,		QueryHELP,		"Communications",	"=C",
+	NULL,		NULL,			"-",			"(",
+	NULL,		QueryHELP_Timing,	"Query Timing...",	"=T",
+	NULL,		NULL,			"-",			"(",
+	NULL,		QueryHELP,		"Track Errors",		"=E",
+	NULL,		QueryHELP,		"Archival Data",	"=A",
+	NULL,		QueryHELP,		"Offline Trace",	"=O",
+	NULL,		QueryHELP,		"Log to Printer",	"=L",
+	NULL,		NULL,			"-",			"(",
+	NULL,		QueryHELP,		"Display Queries...",	"=D",
+	NULL,		QueryHELP,		"Manual Queries",	"=M",
+	NULL,		QueryHELP,		"Alarmton",		"=S"
+	};
+
+resource menu (PortMENU, preload, purgeable) {
+	noflash,	PortHELP,	"Port",
+	NULL,		PortHELP,	"COM1",	"=1(",
+	NULL,		PortHELP,	"COM2",	"=2("
+	};
+
+resource menu (BaudMENU, preload, purgeable) {
+	noflash,	BaudHELP,	"Baud",
+	NULL,		BaudHELP,	"  300",	"",
+	NULL,		BaudHELP,	"  600",	"",
+	NULL,		BaudHELP,	" 1200",	"",
+	NULL,		BaudHELP,	" 2400",	"",
+	NULL,		BaudHELP,	" 4800",	"",
+	NULL,		BaudHELP,	" 9600",	"",
+	NULL,		BaudHELP,	"19200",	""
+	};
+
+resource menu (ParityMENU, preload, purgeable) {
+	noflash,	ParityHELP,	"Parity",
+	NULL,		ParityHELP,	"keine",	"=k",
+	NULL,		ParityHELP,	"Space",	"=S",
+	NULL,		ParityHELP,	"ungerade",	"=u",
+	NULL,		ParityHELP,	"Eins",		"=E",
+	NULL,		ParityHELP,	"gerade",	"=g"
+	};
+
+resource menu (DataMENU, preload, purgeable) {
+	noflash,	DataHELP,	"Data",
+	NULL,		DataHELP,	"5",	"=5",
+	NULL,		DataHELP,	"6",	"=6",
+	NULL,		DataHELP,	"7",	"=7",
+	NULL,		DataHELP,	"8",	"=8"
+	};
+
+resource menu (StopMENU, preload, purgeable) {
+	noflash,	StopHELP,	"Stop",
+	NULL,		StopHELP,	"1",	"=1",
+	NULL,		StopHELP,	"2",	"=2"
+	};
+
+resource menu (FormatMENU, preload, purgeable) {
+	noflash,	FormatHELP,	"Format",
+	NULL,		NULL,		"COM0",			"(",
+	BaudMENU,	BaudHELP,	"Baud rate (9600)",	"=B",
+	ParityMENU,	ParityHELP,	"Parity (keine)",	"=P",
+	DataMENU,	DataHELP,	"Data bits (8)",	"=D",
+	StopMENU,	StopHELP,	"Stop bits (1)",	"=S"
+	};
+
+resource menu (SetupMENU, preload, purgeable) {
+	noflash,	SetupHELP,		"Setup",
+	NULL,		SetupHELP_Parallel,	"Parallel",	"=P(",
+	NULL,		NULL,			"-",		"(",
+	NULL,		SetupHELP_Serial,	"Seriell",	"=S(",
+	FormatMENU,	FormatHELP,		"No Format",	"=C"
+	};
+
+resource menu (PrefsMENU, preload, purgeable) {
+	noflash,	PrefsHELP,		"Einstellungen",
+	LanguageMENU,	LanguageHELP,		"Landessprache",	"=L",
+	QueryMENU,	QueryHELP,		"Query",		"=Q",
+	PortMENU,	PortHELP,		"No COM Port",		"(=C",
+	SetupMENU,	SetupHELP,		"Drucker einrichten...","(=D",
+	NULL,		NULL,			"-",			"(",
+	NULL,		PrefsHELP_Timing,	"Timing...",		"=T",
+	NULL,		PrefsHELP_ImportExport,	"Import/Export...",	"=I",
+	NULL,		PrefsHELP_Network,	"Network...",		"=N",
+	NULL,		NULL,			"-",			"(",
+	NULL,		PrefsHELP,		"Exit to DOS",		"=x"
+	};
+
+resource menu (HelpMENU, preload, purgeable) {
+	noflash,	HelpHELP,		"Hilfe",
+	NULL,		HelpHELP_About,		"Info allg...",		"=I",
+	NULL,		NULL,			"-",			"(",
+	NULL,		HelpHELP_Help,		"Hilfe",		"=H/H",
+	NULL,		NULL,			"-",			"(",
+	PrefsMENU,	PrefsHELP,		"Einstellungen",	"(=n",
+	NULL,		HelpHELP_ScreenSaver,	"Bildschirm Sicherung",	"=B",
+	NULL,		NULL,			"-",			"(",
+	NULL,		HelpHELP_Quit,		"Ende",			"=E/E"
+	};
+
+resource menu (OperatorMENU, preload, purgeable) {
+	noflash,	OperatorHELP,		"Bediener",
+	NULL,		OperatorHELP_Install,	"Bediener aufnehmen",	"=B",
+	NULL,		OperatorHELP_List,	"Liste aller Bediener",	"(=L"
+	};
+
+resource menu (MachineMENU, preload, purgeable) {
+	noflash,	MachineHELP,		"Maschine",
+	NULL,		MachineHELP_All,	"šbersicht aller Maschinen",	"=M(/M",
+	NULL,		MachineHELP_Single,	"šbersicht Einzelmaschine",	"=E(",
+	NULL,		NULL,			"-",				"(",
+	NULL,		MachineHELP_Install,	"Maschinen aufnehmen",		"",
+	NULL,		MachineHELP_List,	"Liste aller Maschinen",	"(",
+	NULL,		NULL,			"-",				"(",
+	OperatorMENU,	OperatorHELP,		"Bediener",			"=B"
+	};
+
+resource menu (JobMENU, preload, purgeable) {
+	noflash,	JobHELP,		"Auftrag",
+	NULL,		JobHELP_All,		"šbersicht aller Auftr„ge",	"=A(/A",
+	NULL,		JobHELP_Single,		"šbersicht Einzelauftrag",	"=E(",
+	NULL,		NULL,			"-",				"(",
+	NULL,		JobHELP_Install,	"Auftr„ge aufnehmen",		"",
+	NULL,		JobHELP_List,		"Liste aller Auftr„ge",		"=L(",
+	NULL,		NULL,			"-",				"(",
+	NULL,		JobHELP_Close,		"Auftr„ge ablegen...",		"(",
+	NULL,		NULL,			"-",				"(",
+	NULL,		JobHELP_ExportOpen,	"Export Open Jobs...",		"(=O",
+	NULL,		JobHELP_ExportClosed,	"Export Closed Jobs...",	"(=C"
+	};
+
+resource menu (ShiftMENU, preload, purgeable) {
+	noflash,	ShiftHELP,			"Schicht",
+	NULL,		ShiftHELP_AllMachines,		"šbersicht aller Maschinen einer Schicht",	"(=M/S",
+	NULL,		ShiftHELP_SingleMachine,	"šbersicht Einzelmaschine einer Schicht",	"(=E",
+	NULL,		NULL,				"-",						"(",
+	NULL,		ShiftHELP_AllJobs,		"šbersicht aller Auftr„ge einer Schicht",	"(=A",
+	NULL,		ShiftHELP_SingleJob,		"šbersicht Einzelauftrag einer Schicht",	"("
+	};
+
+resource menu (GraphMENU, preload, purgeable) {
+	noflash,	NULL,	"Tabelle",
+	NULL,		NULL,	"Leistung aller Maschinen",		"=L(/L",
+	NULL,		NULL,	"Anteilig fertig aller Maschinen",	"=A("
+	};
+
+resource menu (GenerateMENU, preload, purgeable) {
+	noflash,	GenerateHELP,	"Generate",
+	NULL,		GenerateHELP,	"Auftrag n. Maschinennummer",	"=M",
+	NULL,		GenerateHELP,	"Auftrag n. Auftragsnummer",	"=A",
+	NULL,		GenerateHELP,	"Auftrag n. Bedienernummer",	"=B",
+	NULL,		NULL,		"-",				"(",
+	NULL,		GenerateHELP,	"Schicht n. Maschinennummer",	"",
+	NULL,		GenerateHELP,	"Schicht n. Auftragsnummer",	"",
+	NULL,		GenerateHELP,	"Schicht n. Bedienernummer",	""
+	};
+
+resource menu (ReportMENU, preload, purgeable) {
+	noflash,	ReportHELP,		"Protokoll",
+	GenerateMENU,	GenerateHELP,		"Protokolle erzeugen...",		"=P",
+	NULL,		ReportHELP_Print,	"drucke",				"(=d/D",
+	NULL,		NULL,			"-",					"(",
+	NULL,		ReportHELP_Delete,	"Archivierte Auftr„ge l”schen...",	"(=A"
+	};
+
+resource menu (CloseJobMENU, preload, purgeable) {
+	noflash,	JobHELP_Close,	"Close",
+	NULL,		JobHELP_Close,	"Auftragsprotokoll drucken",	"=d",
+	NULL,		JobHELP_Close,	"Auftr„ge ablegen",		"=A"
+	};
+
+
+resource status (GlobalSTATUS, purgeable) {
+	"Bet„tigen Sie eine Taste...",
+	"{<Esc>}-Abbrechen  {<Enter>}-Sichern  {<Tab>}-W„hlen  {^H}-Hilfe",
+	"{<Esc>}-Abbrechen  {^P}-Print  {^H}-Help",
+	"{<Esc>}-Abbrechen  {<>}-W„hlen  {^P}-Print  {^H}-Help"
+	};
+
+resource status (PCS100_STATUS, purgeable) {
+	"Sichere Konfigurationsdaten...",
+	"{^H}-Hilfe  {^D}-Druck  {^E}-Ende  {<Alt><1. Buchstabe>}-Men"
+	};
+
+resource status (OperatorSTATUS, purgeable) {
+	"Lade Bedienerdaten...",
+	"Sichere Bedienerdaten..."
+	};
+
+resource status (DialogSTATUS, purgeable) {
+	"{<Esc>}-Abbrechen  {<Enter>}-Auswahl  {^H}-Hilfe"
+	};
+
+resource status (MachineSTATUS, purgeable) {
+	"Lade Maschinendaten...",
+	"Sichere Maschinendaten..."
+	};
+
+resource status (QuerySTATUS, purgeable) {
+	"Loading query data...",
+	"Saving query data..."
+	};
+
+resource status (JobSTATUS, purgeable) {
+	"Lade Auftr„ge...",
+	"Speichere Auftr„ge...",
+	"{<Esc>}-Abbrechen  {<Enter>}-šbernehmen  {^H}-Hilfe",
+	"{<Esc>}-Abbrechen  {Pfeil-Tasten}-W„hlen  {^H}-Hilfe  {^D}-Druck",
+	"{<Esc>}-Abbrechen  {^H}-Hilfe  {^D}-Druck",
+	"{<Esc>}-Abbrechen  {<Sp>}-Auswahl  {<Enter>}-Ablegen",
+	"Schliesse Auftrag %lu..."
+	};
+
+resource status (ArchiveSTATUS, purgeable) {
+	"Lade Archivdaten...",
+	"Sichere Archivdaten...",
+	"Erzeuge maschinenbezogenens Protokoll...",
+	"Erzeuge auftragsnummerbezogenens Protokoll...",
+	"Erzeuge bedienerbezogenes Protokoll...",
+	"Erzeuge schichtbezogenens Maschinenprotokoll...",
+	"Erzeuge auftragbezogenes Schichtprotokoll...",
+	"Erzeuge bedienerbezogenens Schichtprotokoll...",
+	"L”sche archiverte Auftr„ge...",
+	"Exporting open jobs...",
+	"Exporting open shifts...",
+	"Exporting closed jobs...",
+	"Exporting closed shifts..."
+	};
+
+resource string (HelpSTRING, purgeable) {
+	"%ld bytes free"
+	};
+
+resource string (LanguageSTRING, purgeable) {
+	".001",				// United States
+	".049",				// Germany
+	".033",				// France
+	".034"				// Spain
+	};
+
+resource string (PrefsSTRING, purgeable) {
+	"Type EXIT to return to %s."
+	};
+
+resource string (GlobalSTRING, purgeable) {
+	"<Esc> Abbrechen",
+	"<Pfeil-Tasten> W„hlen"
+	};
+
+resource string (OperatorSTRING, purgeable) {
+	"Maximale Anzahl von Bedienern eingerichet.",
+	"Unbekannt"
+	};
+
+resource string (MachineSTRING, purgeable) {
+	"Drucke alle Maschinen",
+	"Drucke Einzelmaschine",
+	"Drucke alle Maschinen dieser Schicht",
+	"Drucke Einzelmaschine dieser Schicht"
+	};
+
+resource string (QuerySTRING, purgeable) {
+	"Data Link Display.\nPress <Esc> key to EXIT.\n\n"
+	};
+
+resource string (QueryStatusSTRING, purgeable) {
+	"Aktiv     ",
+	"Stillstand",
+	"Einrichten",
+	"Unbekannt ",
+	"Bad Data  ",
+	"Lese Daten",
+	"Abgesch.  ",
+	"Unknown   "
+	};
+
+resource string (QueryOutputSTRING, purgeable) {
+	"Kicker  ",
+	"Saugtakt",
+	"keine   "
+	};
+
+resource string (JobSTRING, purgeable) {
+	"Ablage",
+	"export",
+
+	"aktiv",
+	"n/a",
+	"Drucke alle Auftr„ge",
+	"Drucke Einzelauftrag",
+	"Drucke alle Auftr„ge dieser Schicht",
+	"Drucke Einzelauftrag dieser Schicht",
+	"Unbekannt",
+	"Export Open Archival Jobs As:",
+	"Export Open Archival Shifts As:",
+	"Export Closed Archival Jobs As:",
+	"Export Closed Archival Shifts As:"
+	};
+
+resource string (CommSTRING) {
+	"keine",
+	"ungerade",
+	"gerade",
+	"Space",
+	"Eins",
+	"COM%d:%d,%s,%d,%d",
+	"COM%d",
+	"Baud Rate (%d)",
+	"Parity (%s)",
+	"Data bits (%d)",
+	"Stop bits (%d)"
+	};
+
+resource string (ScreenSTRING) {
+	"Druck"
+	};
+
+resource string (SaveFilterSTRING_Open) {
+	"*.ASC"
+	};
+
+resource string (OpenFilterSTRING_Closed) {
+	"HISTORY.JOB"
+	};
+
+resource string (SaveFilterSTRING_Closed) {
+	"*.ASC"
+	};
+
+// Version Resource defenition.
+// A new program has Version 1.0.  If there is a minor revision to the
+// program, it is then labeled Version 1.1.  If there's a bug fix to
+// Version 1.1, it's designated 1.1.1.  So, if you have a program that had a
+// second bug fix to a third minor revision, it would be Version 1.3.2.
+// If there's a major revision to the program, the first Nummer is
+// incremented.  If the program has gone through a major revision, four minor
+// revisions, and six bug fixes, the current version is 2.4.6.
+// There's also a development suffix, which is added to indicate how far along
+// the product is.  There are four different stages: The earliest is 'ë' for
+// "delta".  The next level is 'à' for "alpha".  Then 'á' for "beta".
+// Finally, a '.' indicates the released version.  If you have a product
+// labeled 1.3ë1, it is the first development version of the third revision
+// of the first release of the product.
+
+resource version (PCS100_VERSION) {
+	4,			// program version
+	0,			// major revision
+	'á',			// revision stage (delta, alpha, beta, release)
+	4,			// build number / bug fix in release version
+	"v4.0á4",		// version string
+	"Germany",		// resource file language format
+	"November 11, 1991"	// date of software release
+	};
+
+resource video (AboutVIDEO, purgeable) {
+	WindowCOLOR*_COLOR_High,
+	"                            Software zur                            ",
+	"                      Produktionsdatenerfassung                     ",
+	"                  an vernetzten Stahl-Falzmaschinen                 ",
+	"                                                                    ",
+	"                                               von Jack Niewiadomski"
+	};
+
+resource video (TimingVIDEO, purgeable) {
+	DialogCOLOR*_COLOR_High,
+	" Bildsch.-Sich.-Zeit:     Minuten ",
+	"    Daten-Sich.-Zeit:     Minuten "
+	};
+
+resource video (ImportExportVIDEO, purgeable) {
+	DialogCOLOR*_COLOR_High,
+	"  Export Field Separator:     (0-127) ",
+	" Export Record Separator:     (0-127) "
+	};
+
+resource video (PrefsVIDEO_Network, purgeable) {
+	DialogCOLOR*_COLOR_High,
+	"Publish/Subscribe Frequency:     seconds",
+	"  Subscribe Retry Frequency:     seconds"
+	};
+
+resource video (CopyrightVIDEO, purgeable) {
+	WindowCOLOR*_COLOR_High,
+	"Copyright (c) 1987-1991 by Vorne Industries Incorporated        ",
+	"All rights reserved.                                            ",
+	"                                                                ",
+	"Portions of this program are the Confidential and Proprietary   ",
+	"property of FairCom.  Any unauthorized use, reproduction or     ",
+	"transfer of this program is strictly prohibited.  Portions of   ",
+	"software copyright (c) 1984-1988 by FairCom Corporation.        ",
+	"(Subject to limited distribution and restricted disclosure      ",
+	"only.)  All rights reserved.                                    "
+	};
+
+resource video (StartUpVIDEO, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°  Software zur  °°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°  Produktionsdatenerfassung  °°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°  an vernetzten Stahl-Falzmaschinen  °°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"Û°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°Û",
+	"ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ"
+	};
+
+resource video (OperatorVIDEO_Install, purgeable) {
+	DialogCOLOR*_COLOR_Low,
+	"  Bedienernummer:                              ",
+	"  Bedienername:                                ",
+	"  Aufnahmedatum:                               ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                               "
+	};
+
+resource video (OperatorVIDEO_List, purgeable) {
+	WindowCOLOR*_COLOR_Low,
+	" Person Nr.  Bedienername                  Aufnahmedatum ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"                                                         ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                                         "
+	};
+
+resource video (MachineVIDEO_Install, purgeable) {
+	DialogCOLOR*_COLOR_Low,
+	" Maschinennummer:                             ",
+	"  Masch. Name:                                ",
+	" Aufnahmedatum:                               ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                              "
+	};
+
+resource video (MachineVIDEO_List, purgeable) {
+	WindowCOLOR*_COLOR_Low,
+	" Nummer  Maschinenname                Aufnahmedatum ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    ",
+	"                                                    "
+	};
+
+resource video (MachineVIDEO_All, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"   Maschine  Auftrag  Maschinen      Total    Akt.                            ",
+	"   Nummer     Nummer  Status         Bogen   Lstg.    Falz-Zeit   Stop-Zeit   ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (MachineVIDEO_Single, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"Maschine:                            Bediener:                                ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Auftragskenndaten ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"  Maschinennummer:                               Maschinenstatus:             ",
+	"   Auftragsnummer:                                Bedienernummer:             ",
+	"   Auftragsbeginn:                                Schicht-Nummer:             ",
+	"                                                                              ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Auftrags-Einrichtedaten ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"  Auflage-Vorwahl:                              Impulsverz”gerung:       Sec  ",
+	"   Partie-Vorwahl:                         Saugtakt-Unterbrechung:       Sec  ",
+	" Nutzen pro Bogen:                              Partienmarkierung:            ",
+	"                                                                              ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Aktuelle Auftragsdaten ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"   Falz-Zeit:               Total-Partien:              Total-Bogen:          ",
+	"   Stop-Zeit:            Partie-Restbogen:           Einricht-Bogen:          ",
+	"  Einr.-Zeit:              Partie-Vorwahl:           Aktuelle Lstg.:          ",
+	"  Total-Zeit:                                       Effektive Lstg.:          ",
+	"                                                                              ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Auftragsstatistik ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"         Rest-Bogen:                                          Restzeit bei    ",
+	"    Anzahl-Unterbr.:                           Aktuelle Leistung:             ",
+	"    Anteilig fertig:              %           Effektive Leistung:             "
+	};
+
+resource video (JobVIDEO_All, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"   Auftrag       %    Auflage      Total   Aktuelle        Restzeit bei:      ",
+	"    Nummer  fertig    Vorwahl      Bogen   Leistung    Akt. Lstg.  Eff. Lstg. ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (JobVIDEO_Single, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"Auftr.          --       % fertig.              Aktuelle Leistung:            ",
+	"  Aufl. Vorw.:                                 Effektive Leistung:            ",
+	"  Total-Bogen:                             Restzeit bei akt. Lstg:            ",
+	"   Rest-Bogen:                             Restzeit bei eff. Lstg:            ",
+	"                                                                              ",
+	"   Maschinen      Aktuelle     Eff.    Total      Rest       Restzeit bei:    ",
+	"Nummer  Status    Leistung    Lstg.    Bogen     Bogen   Akt. Lstg.  Eff.Lstg.",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (JobVIDEO_Install, purgeable) {
+	DialogCOLOR*_COLOR_Low,
+	" Auftr. Nr.:                              ",
+	"   Auftr.:                                ",
+	"   Auflage:                               ",
+	" Aufnahmedatum:                           ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                          "
+	};
+
+resource video (JobVIDEO_List, purgeable) {
+	WindowCOLOR*_COLOR_Low,
+	"   Auftr.  Auftragsname                       Summe  Datum       Status   ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          ",
+	"                                                                          "
+	};
+
+resource video (ShiftVIDEO_AllMachine, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"   Maschine  Auftrag  Maschinen      Total    Eff.                            ",
+	"   Nummer     Nummer  Status         Bogen   Lstg.    Falz-Zeit   Stop-Zeit   ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (ShiftVIDEO_SingleMachine, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"    Maschinenname:                                 Aufnahmedatum:             ",
+	"     Bedienername:                                                            ",
+	"                                                                              ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Auftrags-Schichtdaten ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"                                                                              ",
+	"  Maschinennummer:                               Maschinenstatus:             ",
+	"   Auftragsnummer:                                Bedienernummer:             ",
+	"    Schichtbeginn:                                Schicht-Nummer:             ",
+	"                                                                              ",
+	"                                                                              ",
+	"                                                                              ",
+	"ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ Aktuelle Schichtdaten ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ",
+	"                                                                              ",
+	"        Falz-Zeit:                                   Total-Bogen:             ",
+	"        Stop-Zeit:                                 Total-Partien:             ",
+	"    Einricht-Zeit:                                Einricht-Bogen:             ",
+	"       Total-Zeit:                            Effektive Leistung:             "
+	};
+
+resource video (ShiftVIDEO_AllJob, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"   Auftrag       %    Auflage      Total   Aktuelle        Restzeit bei:      ",
+	"    Nummer  fertig    Vorwahl      Bogen   Leistung    Akt. Lstg.  Eff. Lstg. ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (ShiftVIDEO_SingleJob, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"Auftr.          --       % fertig.              Aktuelle Leistung:            ",
+	"  Aufl. Vorw.:                                 Effektive Leistung:            ",
+	"  Total-Bogen:                             Restzeit bei akt. Lstg:            ",
+	"   Rest-Bogen:                             Restzeit bei eff. Lstg:            ",
+	"                                                                              ",
+	"   Maschinen      Aktuelle     Eff.    Total      Rest       Restzeit bei:    ",
+	"Nummer  Status    Leistung    Lstg.    Bogen     Bogen   Akt. Lstg.  Eff.Lstg.",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ"
+	};
+
+resource video (ArchiveVIDEO_Delete, purgeable) {
+	DialogCOLOR*_COLOR_Low,
+	" Maschinennummer:                                ",
+	"  Auftragsnummer:                                ",
+	"  Bedienernummer:                                ",
+	"  Schicht-Nummer:                                ",
+	"     Total-Bogen:                                ",
+	"      Eff. Lstg.:                                ",
+	"       Falz-Zeit:                                ",
+	"       Stop-Zeit:                                ",
+	"   Einricht-Zeit:                                ",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	" <Esc>-Abbr   <Pfeil-Tasten>-W„hlen  <^D>-L”schen"
+	};
+
+resource video (OfflineTraceVIDEO, purgeable) {
+	WindowCOLOR*_COLOR_Low,
+	" Num  abgesch.",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	"              ",
+	"              ",
+	"              ",
+	"              ",
+	"              "
+	};
+
+resource video (QueryVIDEO_Timing, purgeable) {
+	DialogCOLOR*_COLOR_High,
+	"       Minimum Query Delay:      mS      ( 80)",
+	"       Maximum Query Delay:      mS      (260)",
+	" High Priority Query Delay:      mS      (750)",
+	"  Low Priority Query Delay:      mS     (1500)",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ",
+	" Maximum Offline Tolerance:      seconds ( 60)",
+	"   Maximum Error Tolerance:      counts  (  5)"
+	};
+
+resource video (GraphVIDEO_Rates, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"    Maschine       Akt.               Leistung x 10.000                       ",
+	" Status  Nummer    Eff.    1         2         3         4         5         6",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÚÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄ¿"
+	};
+
+resource video (GraphVIDEO_PercComplete, purgeable) {
+	ScreenCOLOR*_COLOR_Low,
+	"    Maschine     Anteilig                                                     ",
+	" Status  Nummer  fertig    0   10   20   30   40   50   60   70   80   90  100",
+	"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÚÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄÂÄÄÄÄ¿"
+	};
+
+resource window (AboutWINDOW, purgeable) {
+	9:4:15:75,
+	WindowCOLOR*_COLOR_Low,
+	w1111,
+	AboutVIDEO, 0:1,
+	""
+	};
+
+resource window (TimingWINDOW, purgeable) {
+	9:4:12:39,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	TimingVIDEO, 0:0,
+	" Einstellungen "
+	};
+
+resource window (ImportExportWINDOW, purgeable) {
+	9:4:12:43,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	ImportExportVIDEO, 0:0,
+	" Import/Export "
+	};
+
+resource window (PrefsWINDOW_Network, purgeable) {
+	9:4:12:47,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	PrefsVIDEO_Network, 0:1,
+	" Network "
+	};
+
+resource window (CopyrightWINDOW, purgeable) {
+	7:6:17:73,
+	WindowCOLOR*_COLOR_Low,
+	w1111,
+	CopyrightVIDEO,0:1,
+	""
+	};
+
+resource window (OperatorWINDOW_Install, purgeable) {
+	9:18:15:66,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	OperatorVIDEO_Install, 0:0,
+	""
+	};
+
+resource window (OperatorWINDOW_List, purgeable) {
+	4:3:19:61,
+	WindowCOLOR*_COLOR_Low,
+	w2222,
+	OperatorVIDEO_List, 0:0,
+	""
+	};
+
+resource window (MachineWINDOW_Install, purgeable) {
+	5:4:11:51,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	MachineVIDEO_Install, 0:0,
+	""
+	};
+
+resource window (MachineWINDOW_List, purgeable) {
+	3:4:21:57,
+	WindowCOLOR*_COLOR_Low,
+	w2222,
+	MachineVIDEO_List, 0:0,
+	""
+	};
+
+resource window (JobWINDOW_Install, purgeable) {
+	4:33:11:76,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	JobVIDEO_Install, 0:0,
+	""
+	};
+
+resource window (JobWINDOW_List, purgeable) {
+	4:2:17:77,
+	WindowCOLOR*_COLOR_Low,
+	w2222,
+	JobVIDEO_List, 0:0,
+	""
+	};
+
+resource window (ArchiveWINDOW_Delete, purgeable) {
+	4:23:16:73,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	ArchiveVIDEO_Delete, 0:0,
+	""
+	};
+
+resource window (OfflineTraceWINDOW, purgeable) {
+	15:0:23:15,
+	WindowCOLOR*_COLOR_Low,
+	w2222,
+	OfflineTraceVIDEO, 0:0,
+	""
+	};
+
+resource window (QueryWINDOW_Timing, purgeable) {
+	3:29:11:76,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	QueryVIDEO_Timing, 0:0,
+	" Query Timing "
+	};
+
+resource window (JobWINDOW_Close, purgeable) {
+	6:17:17:61,
+	DialogCOLOR*_COLOR_Low,
+	w2111,
+	NULL,
+	" Close Job "
+	};

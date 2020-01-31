@@ -1,0 +1,67 @@
+# makefile for the PCS100 program
+.autodepend
+.silent
+
+.PATH.001	= obj
+.PATH.049	= obj
+.PATH.cpp	= src
+.PATH.gr	= src
+.PATH.inc	= $(D)\include
+.PATH.lib	= $(D)\lib
+.PATH.obj	= obj
+.PATH.us	= src
+
+PATH_RES	= $(D)\lib\seashell
+
+NAME		= pcs100
+EXE		= $(.PATH.obj)\$(NAME).exe
+US		= $(.PATH.001)\$(NAME).001
+GR		= $(.PATH.049)\$(NAME).049
+
+# --- objects ---
+01 = $(NAME).obj
+02 = phelp.obj
+03 = screen.obj
+04 = mach.obj
+05 = job.obj
+06 = shift.obj
+07 = graph.obj
+08 = query.obj
+09 = archiv.obj
+10 = scomm.obj
+11 = schedule.obj
+12 = report.obj
+
+# --- explicit rules ---
+ALL: $(US) $(GR) $(EXE)
+
+$(EXE): $(01) $(02) $(03) $(04) $(05) $(06) $(07) $(08) $(09) $(10) $(11) $(12) \
+		$(.PATH.lib)\comm\gfcl.lib \
+		$(.PATH.lib)\ctree\ctree.lib \
+		$(.PATH.lib)\common\common.lib \
+		$(.PATH.lib)\seashell\seashell.lib
+	$(DLINK) @&&!
+		\d\lib\c0l pcs100 phelp screen mach job shift graph query archiv scomm schedule report
+		$(NAME)
+		
+		$(.PATH.lib)\comm\gfcl.lib+
+		$(.PATH.lib)\ctree\ctree.lib+
+		$(.PATH.lib)\common\common.lib+
+		$(.PATH.lib)\seashell\seashell.lib+
+		$(.PATH.lib)\emu+
+		$(.PATH.lib)\mathl+
+		$(.PATH.lib)\cl
+!
+
+$(US): src\$(NAME).r inc\$(NAME).rh $(PATH_RES)\seashell.001
+$(GR): src\$(NAME).r inc\$(NAME).rh $(PATH_RES)\seashell.049
+
+# --- inference rules ---
+.cpp.obj:
+	$(DCC) -o$(.PATH.obj)\$& {$(.PATH.cpp)\$&.cpp }
+
+.us.001:
+	rez -i$(PATH_RES) -o$(.PATH.001) $(.PATH.us)\$&.us
+
+.gr.049:
+	rez -i$(PATH_RES) -o$(.PATH.049) $(.PATH.gr)\$&.gr

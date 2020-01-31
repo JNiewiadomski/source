@@ -1,0 +1,14 @@
+March 16, 1990
+
+Problem:  Certain characters and/or highlight bar does not display
+Solution: The PC is set for color while the monitor is monochrome/gray scale.
+          Use the DOS command to change the mode to monochrome.
+          Syntax: MODE MONO
+
+Problem:  Unable to save changes to job/machine/operator installation.
+Solution: The CONFIG.SYS file on the booting disk must specify a larger
+          number of files that can be open concurrently.  Either use the
+          command provided on the original PCS100 program diskette, or
+          include the following command in the CONFIG.SYS file on your
+          booting disk: FILES = 15
+

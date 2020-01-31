@@ -1,0 +1,821 @@
+HELP Resource -install machines-Maschinen aufnehmen
+
+
+Mit dem Befehl {Maschinen aufnehmen} k”nnen Maschinen aufgenommen, abge„ndert oder von der aktuellen Maschinenliste gestrichen werden. Diese Liste bestimmt, welche Z„hler von der PCS 100 Software nach aktuellen oder archivierten Daten abgefragt werden.
+
+________________________________
+_                              _  Geben Sie die Z„hlernummer der Maschine
+_ Maschinennummer:             _  ein, die Sie aufnehmen m”chten. 
+_                              _
+_  Maschinen Name:             _  Geben Sie den Maschinennamen ein.
+_                              _
+_   Aufnahmedatum:             _  Geben Sie das Aufnahmedatum ein.
+_                              _  Der Vorschlag ist das aktuelle Datum,
+_                              _  das jedoch abge„ndert werden kann.
+_                              _
+_  <ESC> abbrechen             _  Mit der Taste <ESC> den Dialog abbrechen
+________________________________
+
+
+HELP Resource -list machines- Liste aller Maschinen
+
+
+Der Befehl {Liste aller Maschinen} zeigt alle im Moment aufgenommenen Maschinen an. Die Cursor-Tasten k”nnen benutzt werden, um durch die Maschinenliste zu bl„ttern. Dies wird notwendig, wenn die Liste l„nger als eine Bildschirmseite ist und deshalb nicht alle Maschinen gleichzeitig angezeigt werden k”nnen.
+Dieser Befehl kann nur aktiviert werden, wenn zumindest eine Maschine aufgenommen ist. Drcken Sie ' ^P ', um die komplette Maschinenliste auszudrucken.
+
+
+_______________________________________________
+_ Nummer:  Maschinenname:  Aufnahmedatum:     _
+_                                             _
+_______________________________________________
+HELP Resource -job menu- Auftrag
+
+
+Das Men {Auftrag} stellt einen kompletten Satz von auftragsbezogenen Befehlen zur Verfgung. Damit werden Auftr„ge, die durch das PCS100 Z„hlger„t berwacht und verwaltet werden, aufgenommen, gepflegt und angezeigt.
+Der Befehl {Auftr„ge_aufnehmen} steht immer zur Verfgung. Die anderen sind verfgbar, wenn zumindest eine Maschine aufgenommen ist. Wird ein Z„hlger„t mit einer neuen Auftragsnummer angetroffen, so wird die Auftragsnummer automatisch in die Auftragsliste aufgenommen.
+
+_________________________________
+_ šbersicht aller Auftr„ge      _  Gibt eine kurze statistische šbersicht
+_                               _  ber alle Auftr„ge an
+_                               _
+_ šbersicht Einzelauftrag       _  Zeigt einen detailierte statistische
+_                               _  šbersicht eines einzelnen Auftrags
+_                               _
+_ Auftr„ge aufnehmen            _  Aufnehmen oder „ndern von bestehenden
+_                               _  Auftr„gen
+_                               _
+_ Maschinen auflisten           _  Zeigt alle momentan im System
+_                               _  installierten Maschinen an 
+_                               _
+_ Auftr„ge ablegen              _  Speichern und ablegen von Auftr„gen
+_                               _
+_                               _
+_________________________________
+
+
+HELP Resource -monitor all jobs- šbersicht aller Auftr„ge
+
+
+{šbersicht aller Auftr„ge}: - gibt eine kurze statistische šbersicht ber alle Auftr„ge.
+
+
+___________________________________________________________________
+_ Auftrag       %  Auflage  Total aktuelle      Restzeit bei:     _
+_  Nummer  fertig  Vorwahl  Bogen Leistung    akt.Lstg.  eff.Lstg._
+_                                                                 _
+___________________________________________________________________
+
+
+Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart Falzen und Einrichten angezeigt. Diese Information wird alle 3,6 Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.
+
+
+{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.
+
+
+{Auflage-Vorwahl}: - die vorgegebene Gesamtzahl der zu falzenden Bogen.
+
+{anteilig fertig}: - Dieser Wert erreicht 100%, wenn die Gesamtzahl der gefalzten  Bogen der vorgegebenen Bogenanzahl entspricht.
+
+
+{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen.
+
+
+{Restzeit bei aktueller Leistung}: - Die Zeit, die unter Bercksichtigung der aktuellen Leistung, d.h. ohne Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen.
+
+
+{Restzeit bei effektiver Leistung}: - Die Zeit, die unter Bercksichtigung der effektiven Leistung, d.h. mit den zu erwartenden Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen.
+
+
+
+HELP Resource -monitor single job- šbersicht Einzelauftrag
+
+
+{šbersicht Einzelauftrag}: - Zeigt eine detaillierte statistische šbersicht ber einen einzelnen Auftrag.
+
+__________________________________________________________________________
+_ Auftr.Nr.     ist zu   % fertig     aktuelle Leistung:                 _
+_  Aufl. Vorw.:                      effektive Lesitung:                 _
+_  Total-Bogen:                 Restzeit bei akt. Lstg.:                 _
+_    Restbogen:                 Restzeit bei eff. Lstg.:                 _
+_                                                                        _
+_   Maschinen    aktuelle   effektive  Total  Rest-   Restzeit bei:      _
+_ Nummer Status  Leistung   Leistung   Bogen  Bogen   akt.Lstg. eff.Lstg _
+__________________________________________________________________________
+
+
+{effektive Leistung}: - Die Durchschnittsleistung seit Auftragsbeginn (inklusive der Pausenzeiten, ohne Einrichtezeit).
+
+
+
+Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart Falzen und Einrichten angezeigt. Diese Information wird alle 3,6 Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.
+
+
+{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.
+
+
+{Auflage-Vorwahl}: - die vorgegebene Gesamtzahl der zu falzenden Bogen.
+
+
+{Maschinennummer} - Die Nummer, die einem bestimmten Z„hlger„t im Men der aufgenommenen Maschinen, zugeteilt wurde.
+
+
+{Maschinenstatus} - Zeigt den aktuellen Status des Z„hlger„tes an.
+Dieser Stand kann sein: 'Aktiv', 'Stillstand', 'Einrichten', 'Drucken', 'Falsche_Daten' oder 'AUS'.
+
+
+{anteilig fertig}: - Dieser Wert erreicht 100%, wenn die Gesamtzahl der gefalzten  Bogen der vorgegebenen Bogenanzahl entspricht.
+
+
+{Bogen noch zu falzen}: - Die Anzahl der noch zu falzenden Bogen dieses Auftrags.
+
+
+{Restzeit bei aktueller Leistung}: - Die Zeit, die unter Bercksichtigung der aktuellen Leistung, d.h. ohne Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen.
+
+
+{Restzeit bei effektiver Leistung}: - Die Zeit, die unter Bercksichtigung der effektiven Leistung, d.h. mit den zu erwartenden Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen.
+
+
+{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen.
+
+
+
+HELP Resource -install job- Auftr„ge aufnehmen
+
+
+Mit dem Befehl {Auftr„ge aufnehmen} k”nnen Auftr„ge aufgenommen, abge„ndert und von der aktuellen Auftragsliste gestrichen werden. Dieses hat keinerlei Einfluá auf die archivierten Auftr„ge. Wird ein neuer Auftrag im Z„hler aufgenommen, so wird automatisch eine neue Auftragsstatistik angelegt.
+
+
+_____________________
+_    Auftr. Nr.:    _   Geben Sie die Auftragsnummer, die Sie aufnehmen
+_                   _   m”chten, ein.
+_                   _
+_                   _
+_        Auftr.:    _   Geben Sie den Auftragsnamen ein.
+_                   _
+_                   _
+_       Auflage:    _   Geben Sie die fertigzustellende
+_                   _   Gesamtbogenzahl ein.
+_                   _
+_                   _
+_ Aufnahemdatum:    _  Als Aufnahmedatum wird automatisch das
+_                   _  Tagesdatum vorgeschlagen. Es kann allerdings auch
+_                   _  ge„ndert werden.
+_                   _
+_____________________
+
+
+
+
+HELP Resource -list all jobs- Liste aller Auftr„ge
+
+
+Auflistung aller momentan aufgenommenen Auftr„ge.
+
+
+Beim Befehl {Liste Auftr„ge} werden alle zu dem Zeitpunkt aufgenommenen Auftr„ge angezeigt. Mit den Pfeiltastern kann man, wenn nicht alle Maschinen auf einmal angezeigt werden k”nnen, durch die Maschinenliste bl„ttern. Dieser Befehl ist nur dann aktiviert, wenn mindestens ein Auftrag aufgenommen ist. Drcken Sie ' ^P ' zum Ausdrucken der kompletten Auftragsliste.
+
+
+________________________________________________________________
+_ Auftr.Nr.    Auftragsname          Summe    Datum   Status   _
+_                                                              _
+________________________________________________________________
+
+
+{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.
+
+
+Der {Auftragsname} ist der Namen, der einem Auftrag bei der Aufnahme in den Computer gegeben wurde.
+
+
+{Summe}: - Die vorgegebene Gesamtzahl der zu falzenden Bogen.
+
+
+{Datum}, an dem die Maschine aufgenommen wurde.
+
+
+{Auftragsstatus} - Zeigt den aktuellen Status des Auftrags an.
+Hier steht 'Aktiv', wenn der Auftrag auf irgendeinem Z„hlger„t momentan bearbeitetd wird.
+
+
+
+HELP Resource -close job- Auftrag ablegen
+
+Speichert und entfernt einen Auftrag.
+
+
+
+Der Befehl {Auftr„ge ablegen} erlaubt es, einen Auftrag abzuschlieáen. Ein Auftrag kann auf einer separaten Datendiskette gesichert werden. Wird dieser Befehl angew„hlt, so ist in folgenden Schritten vorzugehen:
+
+- Der einzelner Auftrag, der abgeschlossen werden soll, ist auszuw„hlen.
+
+- Drucken der 'šbersicht Einzelauftrag', wenn gewnscht.
+
+- Ausw„hlen des Laufwerks und Verzeichnises, damit Daten geordnet abgegespeichert werden k”nnen.
+
+
+
+In der ganzen Zeit, w„hrend diese Befehle eingegeben werden , kann der Vorgang 'einen Auftrag ablegen' abgebrochen werden. Dazu ist lediglich die <Esc>-Taste zu drcken.
+
+
+Einen Auftrag abzulegen, bedeutet folgendes:
+
+- Die umlaufenden Zeitdaten werden in der Archivdatei gesichert.
+- Alle Archivaufzeichnungen ber den Auftrag, der abgeschlossen werden soll, werden auf das Sicherungslaufwerk in das angew„hlte Unterverzeichnis kopiert. Die kopierten Aufzeichnungen werden aus der Archivdatei gel”scht.
+- Die Auftragsaufnahmedaten werden mit den Archivaufzeichnungen abgelegt. Die Auftragsaufnahmedaten werden danach gel”scht.
+- Aufzeichnungen ber den abgeschlossenen Auftrag werden so in einer separaten Datei abgelegt, daá der Auftrag nicht versehentlich in der Zukunft wieder eingelesen werden kann.
+
+
+
+
+HELP Resource -shift menue- Schicht
+
+
+Das {Schicht} -Men beinhaltet Befehle zur Darstellung einer šbersicht der aktiven Maschinen in einer Schicht. Die Befehle sind nur verfgbar, wenn mindestens eine Maschine aufgenommen ist.
+
+
+________________________________________________
+_                                              _ Zeigt eine kurze
+_                                              _ statistische
+_                                              _ Zusammenfassung
+_ šbersicht aller Maschinen einer Schicht  ^S  _ aller Maschinen in einer
+_                                              _ Schicht. Drcken Sie
+_                                              _ <Eingabe> zur Anzeige
+_                                              _ einer einzelnen
+_                                     
+_                                              _
+_                                              _
+_ šbersicht Einzelmaschine einer Schicht       _ Zeigt eine detaillierte
+_                                              _ statistische
+_                                              _ Zusammenfassung einer
+_                                              _ einzelnen Maschine in
+_                                              _ einer Schicht. Drcken
+_                                              _ Sie <Esc>
+_                                              _ zur šbersicht aller
+_                                 
+_                                              _
+_ šbersicht aller Auftr„ge einer Schicht       _ Zeigt eine kurze
+_                                              _ statistische šbersicht
+_                                              _ aller Auftr„ge einer
+_                                              _ Schicht. Drcken Sie
+_                                              _ <Eingabe> zur šbersicht
+_                                              _ aller Auftr„ge einer
+_                                              _ Schicht.
+_                                              _
+________________________________________________
+
+HLEP Resource -all machines by shift-
+ šbersicht aller Maschinene einer Schicht
+
+
+_______________________________________________________________________
+_ Maschine  Auftrag  Maschinen   Total    eff.                        _
+_ Nummer    Nummer   Status      Bogen    Lstg.  Falz-Zeit  Stop-Zeit _
+_                                                                     _
+_______________________________________________________________________
+
+Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart Falzen und Einrichten angezeigt. Diese Information wird alle 3,6 Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.
+
+
+{Stillstand}: - die Zeitspanne, w„hrend der das Z„hlger„t keine Bogen z„hlt.
+
+
+{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.
+
+
+{Maschinennummer} - Die Nummer, die einem bestimmten Z„hlger„t im Men der aufgenommenen Maschinen, zugeteilt wurde.
+
+
+{Maschinenstatus} - Zeigt den aktuellen Status des Z„hlger„tes an.
+Dieser Stand kann sein: 'Aktiv', 'Stillstand', 'Einrichten', 'Drucken', 'Falsche_Daten' oder 'AUS'.
+
+
+{Falz-Zeit} - Die gesamte Bearbeitungszeit des Auftrags, in der das Z„hlger„t den Status 'aktiv' hatte.
+
+
+{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen.
+
+
+
+HELP Resource -single machine by shift-
+šbersicht Einzelmaschine einer Schicht
+
+
+
+Die {šbersicht Einzel-Maschine einer Schicht}: - zeigt eine detaillierte statistische Zusammenfassung einer einzelnen Maschine einer Schicht.
+
+
+_____________________________________________________
+_ Maschinenname :                Aufnahmedatum :    _
+_  Bedienername :                                   _
+_____________________________________________________
+
+
+{Aufnahmedatum}: - Datum, an dem die Maschine aufgenommen wurde.
+
+
+{Maschinenname}: - Name, der einem bestimmten Z„hlger„t im Men 'Maschinen_aufnahmen' gegeben wurde.
+
+
+{Bedienername}: -  Name des Bedieners, der im Men 'Bediener_aufnehmen' aufgenommen wurde.
+
+
+
+                   Auftragsschichtdaten
+
+__________________________________________________________
+_ Maschinennummer:              Maschinenstatus:         _
+_  Auftragsnummer:               Bedienernummer:         _
+_   Schichtbeginn:                Schichtnummer:         _
+__________________________________________________________
+
+
+{Maschinennummer} - Die Nummer, die einem bestimmten Z„hlger„t im Men der aufgenommenen Maschinen, zugeteilt wurde.
+
+
+{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.
+
+
+{Maschinenstatus} - Zeigt den aktuellen Status des Z„hlger„tes an.
+Dieser Stand kann sein: 'Aktiv', 'Stillstand', 'Einrichten', 'Drucken', 'Falsche_Daten' oder 'AUS'.
+
+
+{Bedienernummer}: -  Nummer des Bedieners, der gerade falzt.
+
+
+{Schichtnummer}: - Nummer der gerade laufenden Schicht.
+
+
+{Schichtbeginn}: - Datum und Zeitpunkt bei Schichtbeginn.
+
+
+
+                   aktuelle Schichtdaten
+_______________________________________________________
+_    Falz-Zeit:                  Total-Bogen:         _
+_    Stop-Zeit:                Total-Partien:         _
+_Einricht-Zeit:               Einricht-Bogen:         _
+_   Total-Zeit:           effektive Leistung:         _
+_______________________________________________________
+
+
+{effektive Leistung}: - Die Durchschnittsleistung seit Auftragsbeginn (inklusive der Pausenzeiten, ohne Einrichtezeit).
+
+
+{Stillstand}: - die Zeitspanne, w„hrend der das Z„hlger„t keine Bogen z„hlt.
+
+
+{Falz-Zeit} - Die gesamte Bearbeitungszeit des Auftrags, in der das Z„hlger„t den Status 'aktiv' hatte.
+
+
+{Einricht-Bogen}: - Die Anzahl der Bogen, die w„hrend des Einrichtens
+der Maschine gefalzt wurden.
+
+
+{Einricht-Zeit}: - Die Zeitspanne, die das Einrichten der Maschine in Anspruch nahm.
+
+
+{Total-Partien}: - Die Gesamtzahl der gez„hlten Partien. Diese Zahl erh”ht sich jeweils, wenn eine weitere Partie abgearbeitet wurde.
+
+
+{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen.
+
+
+{Total-Zeit}: - Die gesamte Bearbeitungszeit dieses Auftrags.
+
+
+HELP Resource -all jobs by shift-
+šbersicht aller Auftr„ge einer Schicht
+
+
+Zeigt eine kurze, statistische Zusammenfassung aller Auftr„ge an.
+
+__________________________________________________________________
+_ Auftrag      %  Auflage   Total  aktuelle      Restzeit bei:   _
+_ Nummer  fertig  Vorwahl   Bogen  Leistung   akt.Lstg. eff.Lstg._
+__________________________________________________________________
+
+
+Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart Falzen und Einrichten angezeigt. Diese Information wird alle 3,6 Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.
+
+
+{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.
+
+
+{Auflage-Vorwahl}: - die vorgegebene Gesamtzahl der zu falzenden Bogen.
+
+
+{anteilig fertig}: - Dieser Wert erreicht 100%, wenn die Gesamtzahl der gefalzten  Bogen der vorgegebenen Bogenanzahl entspricht.
+
+
+{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen.
+
+
+{Restzeit bei aktueller Leistung}: - Die Zeit, die unter Bercksichtigung der aktuellen Leistung, d.h. ohne Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen.
+
+
+{Restzeit bei effektiver Leistung}: - Die Zeit, die unter Bercksichtigung der effektiven Leistung, d.h. mit den zu erwartenden Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen.
+
+
+HELP-Resource -single job by shift-
+šbersicht Einzelauftrag einer Schicht
+
+Die {šbersicht Einzelauftrag einer Schicht}: zeigt eine detaillierte Zusammenfassung eines einzelnen Auftrags einer Schicht.
+
+
+__________________________________________________________________________
+_ Auftr.Nr.    ist zu   % fertig            aktuelle Lesitung:           _
+_  Aufl.Vorw.:                             effektive Leistung:           _
+_ Total-Bogen:                         Restzeit bei eff.Lstg.:           _
+_   Restbogen:                         Restzeit bei akt.Lstg.:           _
+_                                                                        _
+_   Maschinen     aktuelle   eff.  Total   Rest-   Restzeit bei:         _
+_ Nummer Status   Leistung   Lstg. Bogen   Bogen  akt.Lstg. eff.Lstg.    _
+_                                                                        _
+__________________________________________________________________________
+
+
+{effektive Leistung}: - Die Durchschnittsleistung seit Auftragsbeginn (inklusive der Pausenzeiten, ohne Einrichtezeit).
+
+
+Die {aktuelle Leistung} in Bogen pro Stunden wird in der Betriebsart Falzen und Einrichten angezeigt. Diese Information wird alle 3,6 Sekunden (1/1000 Stunde) aktualisiert und geht auf Null, wenn innerhalb von 7,2 Sekunden keine Bogen gefalzt werden.
+
+
+{Auftragsnummer} - Die momentan bearbeitete Auftragsnummer.
+
+
+{Auflage-Vorwahl}: - die vorgegebene Gesamtzahl der zu falzenden Bogen.
+
+
+{Maschinennummer} - Die Nummer, die einem bestimmten Z„hlger„t im Men der aufgenommenen Maschinen, zugeteilt wurde.
+
+
+{Maschinenstatus} - Zeigt den aktuellen Status des Z„hlger„tes an.
+Dieser Stand kann sein: 'Aktiv', 'Stillstand', 'Einrichten', 'Drucken', 'Falsche_Daten' oder 'AUS'.
+
+
+{anteilig fertig}: - Dieser Wert erreicht 100%, wenn die Gesamtzahl der gefalzten  Bogen der vorgegebenen Bogenanzahl entspricht.
+
+
+{Bogen noch zu falzen}: - Die Anzahl der noch zu falzenden Bogen dieses Auftrags.
+
+
+{Restzeit bei aktueller Leistung}: - Die Zeit, die unter Bercksichtigung der aktuellen Leistung, d.h. ohne Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen.
+
+
+
+{Restzeit bei effektiver Leistung}: - Die Zeit, die unter Bercksichtigung der effektiven Leistung, d.h. mit den zu erwartenden Stopzeiten, noch gebraucht wird, um den Auftrag fertigzustellen.
+
+
+{Total-Bogen} - Gesamtanzahl der Bogen, die seit dem letzten L”schvorgang oder seit dem letzten Auftragswechsel gefalzt worden sind. Dieser Wert steigert sich mit jedem weiteren gefalzten Bogen.
+
+
+HELP Resource -install operators- Bediener aufnehmen
+
+Erm”glicht die Aufnahme, nderung und L”schung aller Bediener.
+
+
+Mit dem Befehl {Bediener aufnehmen} k”nnen Bediener aufgenommen, abge„ndert und von der aktuellen Bedienerliste gestrichen werden.
+
+
+
+HELP Resource -list operators- 
+
+
+Beim Befehl {Liste Bediener} werden alle zu diesem Zeitpunkt aufgenommenen Bediener angezeigt. Mit dem Cursor kann man ,wenn nicht die komplette Bedienerliste auf einmal gezeigt werden kann, durch die Bedienerliste bl„ttern.
+Dieser Befehl ist nur dann aktiv, wenn mindestens ein Bediener aufgenommen ist. Drcken Sie '^P' zum Ausdrucken der Bedienerliste.
+
+
+
+HELP Resource -report menue-Protokoll
+
+
+Das Men {Protokoll} beinhaltet Befehle, um Protokolle von abgespeicherten oder aktuellen Daten zu erzeugen.
+
+__________________________
+_ Erzeuge Protokoll  ^P  _   Erzeugt Protokolle, die auf
+_                        _   abgespeicherten Daten basieren.
+_                        _
+_                        _
+_ Druck              ^P  _   Schickt die momentan angezeigte Daten
+_                        _   an den Drucker?
+_                        _
+_                        _
+_ L”sche Archvive...     _   Öffnet ein weiteres Fenster, das die
+_                        _   einzelnen abgespeicherten Auftragsarchive
+_                        _   anzeigt. Auf entsprechenden Befehl k”nnen
+_                        _   alle Archive mit derselben Auftragsnummer
+_                        _   aus dem Speicher gel”schet werden.
+_                        _
+__________________________
+
+HELP Resource -generate report- Protokoll erzeugen
+
+Der Menpunkt {Protokoll erzeugen ..} erm”glicht Anzeige und Ausdruck der archivierten Daten. 
+
+_______________________________________
+_ Auftrag n. Maschinennummer          _
+_ Auftrag n. Auftragsnummer           _
+_ Auftrag n. Bedienernummer           _
+_                                     _
+_ Schicht n. Maschinennummer          _
+_ Schicht n. Auftragsnummer           _
+_ Schicht n. Bedienernummer           _
+_______________________________________
+
+
+HELP Resource -print report- Protokoll drucken
+
+Die Funktion {Protokoll drucken}, druckt den momentan angezeigten Bildschirm aus.
+
+
+
+HELP Resource -delete archives- Archivierte Auftr„ge l”schen
+
+
+Dieser Befehl gibt eine kurze Zusammenfassung ber die Archivfunktionen.
+
+Der Benutzer w„hlt mit den Cursor-Tasten die verschiedene Aufzeichnungen aus. Drckt man ^D, werden alle Archivaufzeichnungen mit derselben Auftragsnummer gel”scht.
+
+
+___________________________________________________________
+_ Maschinennummer:                                        _
+_  Auftragsnummer:                                        _
+_  Bedienernummer:                                        _
+_   Schichtnummer:                                        _
+_     Total-Bogen:                                        _
+_    eff.Leistung:                                        _
+_       Falz-Zeit:                                        _
+_       Stop-Zeit:                                        _
+_   Einricht-Zeit:                                        _
+_                                                         _
+_ <ESC>-abbr   <Cursor Tasten>-w„hlen  <^D>-l”schen       _
+___________________________________________________________
+
+
+
+HELP Resource -communication- Kommunikation
+
+
+Das {Kommunikations Men} stellt Befehle zur Verfgung, mit denen man den Drucker und die Datenschnittstelle einrichtet.
+
+
+
+____________________ Es wird eine Liste der zur Verfgung
+_ Serial Port  ( ) _ stehenden seriellen RS485Schnittstellen,
+_                  _ durch die das Programm mit den
+_                  _ PCS100-Z„hlger„ten kommuniziert, angezeigt.
+_                  _ 
+_                  _ 
+_ Setup Drucker... _ Drucker einrichten:
+_                  _ Hier kann man ausw„hlen, ob der Drucker
+_                  _ ber die parallele oder ber eine
+_                  _ weitere serielle Schnittstelle
+_                  _ angeschlossen wird. 
+_                  _ 
+____________________ 
+
+
+HELP Resource -port-menu- Serial Port
+
+Die Programmauswahl {Serial Port} erlaubt es, daá entweder der serielle Kanal_1 (COM1)  oder der serielle Kanal_2 (COM2) bentzt wird, um mit den PCS100-Z„hlger„ten in Verbindung zu treten. Besitzt der Computer nur eine serielle Schnittstelle, so wird die Auswahl 'Kanal_2' unterdrckt.
+
+____________________
+_                  _
+_  COM1            _     Serielle Schnittstelle COM1
+_                  _
+_  COM2            _     Serielle Schnittstelle COM2
+_                  _
+____________________
+
+
+HELP Resource -setup- Setup Drucker
+
+Die Programmauswahl {Setup Drucker} stellt Befehle zur Verfgung, mit denen man den Drucker fr die Datenausgabe an das Programm anpasst.
+
+______________________
+_                    _
+_ Parallel           _        W„hlt den parallelen Kanal aus.
+_                    _
+_ Seriell            _        W„hlt den seriellen Kanal
+_                    _        aus.
+_                    _
+_ Datenformat        _        Dieser Befehl erm”glicht ein
+_                    _        Ver„ndern des Datenformates der Daten,
+_                    _        die am seriellen Drucker ausgegeben
+_                    _        werden.
+______________________
+
+
+HELP Resource -parallel- Setup Drucker /parallel
+
+
+Der Befehl 'Parallel' w„hlt das Standard-Centronics-Parallel-Interface an.
+Das Parallel-Interface hat eine maximale Datenbermittlungsrate von ca. 1000 Schriftzeichen pro Sekunde. Im allgemeinen ist das parallele Drucken viel schneller als das serielle Drucken.
+
+
+____________
+_ Parallel _              Das Karozeichen best„tigt nochmals, daá
+_          _              der parallele Kanal angew„hlt wurde.
+____________
+
+HELP Resource -serial- Setup Drucker / seriell
+
+
+Seriell' w„hlt die serielle Datenbertragung aus. Das Serielle Intererface hat eine maximale Datenbermittlunsrate von 9600 Baud oder 9600 Bits pro Sekunde
+
+
+______________________
+_                    _
+_  serielles Format  _ Das Karozeichen best„tigt nochmals, daá der
+_                    _ serielle Kanal angew„hlt wurde.
+______________________
+
+
+
+HELP Resource -format- Setup Drucker / Datenformat
+
+
+Die Programmauswahl 'Format' stellt Befehle zur Verfgung, mit denen man die šbermittlung der Listendaten auf den seriellen Drucker individuell anpassen muá.
+
+____________________
+_                  _
+_                  _
+_ COM2             _ Zeigt den benutzten seriellen Kanal an.
+_                  _ 
+_                  _
+_                  _
+_ Baud Race (9600) _ Hier w„hlt man die Datenbermittlungsgeschwindigkeit _                  _ aus.
+_                  _ 
+_                  _ 
+_                  _ 
+_ Parity (None)    _ Hier w„hlt man die Parit„t aus.
+_                  _ 
+_                  _ 
+_ Data bits (8)    _ Hier w„hlt man die Anzahl der Daten-Bitsd aus.
+_                  _ 
+_                  _ 
+_ Stop bits (1)    _ Hier w„hlt man die Anzahl der Stop-Bits aus.
+_                  _ 
+_                  _ 
+____________________ 
+
+
+
+HELP Resource -baudrate- Setup Drucker / Datenformat / Baudrate
+
+
+Die {Baud-Rate} gibt die Datenbertragungsgeschwindigkeit an.
+Die zur Verfgung stehenden Baud-Raten sind:
+300, 600, 1200, 2400, 4800, 9600 und 19200 Bit pro Sekunde.
+
+
+____________
+_  300     _
+_  600     _
+_  1200    _
+_  2400    _
+_  4800    _
+_  9600    _
+_  19200   _
+____________
+
+
+HELP Resource -parity- Setup Drucker / Datenformat / Parit„t
+
+
+Mit der šberprfung der {Parit„t} wird getestet, ob die šbertragung der Daten korrekt war. Der Datensender fgt dem Datensatz ein Parit„ts-Bit an, das je nach dem Inhalt des Datensatzes berechnet wird. Der Empf„nger berechnet auch dieses Parit„ts-Bit und berprft dann, ob das Parit„tsBit tats„chlich im richtigen Verh„ltnis zu den anderen Bits steht. Wenn nicht, so muá es einen Fehler bei der šbermittlung gegeben haben.
+Die Parit„t kann sein:
+'keine','Space','Odd','Mark' oder 'Even'
+
+____________
+_ keine    _
+_ Space    _
+_ Odd      _
+_ Mark     _
+_ Even     _
+____________
+
+
+HELP Resource -serial communication standards-
+
+
+
+Die seriellen Kommunikationsnormen, genannt Protokolle, erlauben die šbermittlung von verschieden langen Schriftzeichen oder W”rtern. Fr„gt die Kommunikations-Software nach der Auswahl der Wortl„nge, so ist die spezifische L„nge der Daten gemeint. Zur Verfgung stehende Datenl„ngen sind 5, 6, 7, 8 Bit
+
+____________
+_ 5        _
+_ 6        _
+_ 7        _
+_ 8        _
+____________
+
+
+
+HELP Resource -stop-bit- Stop-Bit
+
+
+Am Ende eines jeden Datenrahmens werden {Stop-Bits} gesetzt. 
+Es kann 1, 1,5 oder 2 Stop-Bits geben. Die Stop-Bits sorgen fr eine gewisse Mindestlcke zwischen den einzelnen Datenrahmen.
+
+ ______
+ _ 1  _
+ _ 2  _
+ ______
+
+
+HELP Resource -system- System
+
+
+Die Programmauswahl {System} stellt Befehle zur Verfgung, um die Funktionsf„higkeit des PCS100-Anwendungsprogramms abzu„ndern. Die Programmauswahl {System} wird bewuát mit einer etwas unkonventionellen Methode er”ffnet, um den Endbenutzer durch dieses System nicht zu verwirren. Die Programmauswahl {System} ist so beschaffen, daá die PCS_100_Z„hlerger„te und die Software von Fehlern beseitigt werden k”nnen, sobald ein Problem auftaucht.
+
+
+_____________________ 
+_                   _
+_ Insert Query Menu _ Durch die Auswahl Query-Men wird 
+_                   _ das Query-Men in die
+_                   _ Programmanzeigezeile eingebunden.
+_                   _
+_ Uhr entfernen     _ Die Uhr wird aus der Anzeigezeile
+_                   _ herausgenommen.
+_                   _
+_                   _
+_ Ausgang nach DOS  _ Das Programm wird im Speicher
+_                   _ festgehalten, w„hrend auf das DOS-System
+_                   _ umgestellt wird.
+_                   _ Geben Sie 'EXIT' ein,
+_                   _ wenn Sie zum Programm zurckkehren wollen.
+_____________________
+
+
+HELP Resource -querry-menu-
+
+
+Das Query-Men stellt Befehle zur Verfgung, um die Funktionsf„higkeit der Abfrage von Z„hleger„ten abzu„ndern.
+
+__________________________
+_                        _
+_ Disable Communications _  Die Kommunikationen werden gesperrt.
+_                        _  
+_                        _  
+_                        _  
+_ Query Timing           _  Abfragezeite „ndern
+_                        _  
+_                        _  
+_ Track Errors           _  Fehleraufsprung: Fehler werden in die
+_                        _  Fehlerprogrammauswahl eingegeben.
+_                        _
+_ Archival data          _  Daten archivieren
+_                        _  
+_                        _  
+_ Offline Trace          _  Offline_Spur: Die Daten werden so lange
+_                        _  gehalten, bis eine Antwort erfolgt
+_                        _  ist.
+_                        _
+_ Log to Printer         _  Weitergabe an den Drucker:
+_                        _  Die fehlerhaften Daten werden an den
+_                        _  Drucker ausgegeben.
+_                        _
+_ Display Queries        _  Queries anzeigen:
+_                        _  Die genauen Daten, die empfangen wurden,
+_                        _  werden angezeigt.
+_                        _
+_                        _
+_ Manual Queries         _  Manuelle Queries:
+_                        _  Die Best„tigungstaste muá gedrckt werden,
+_                        _  bevor das Z„hlger„t in den Status 'offline'
+_                        _  gehen kann.
+_                        _  
+_                        _
+_                        _
+_ Sound Bell             _  Alarmton:
+_                        _  Bei Fehlern ert”nt ein Signal.
+_                        _
+__________________________
+
+HELP Resource -querrry-timing-
+
+
+______________________________
+_ Minimum-Query-Delay:       _  Die Antwort braucht erst nach
+_                            _  dieser Zeit zu erscheinen.
+_                            _
+_ Maximum-Querys-Delay:      _  Maximale Zeit, bis die gesamte
+_                            _  Antwort vorliegen muá.
+_                            _
+_ Repeat-Query-Delay:        _  Zeit, bevor derselbe Z„hler erneut
+_                            _  abgefragt werden kann.
+_                            _
+_ Maximal Offline-Tolerance: _  Eine Status„nderung in 'off line' kann
+_                            _  erst nach dieser Zeit erfolgen.
+_                            _
+_ Maximal Error-Tolerance:   _ Der Status „ndert sich nach 
+_                            _ x aufeinanderfolgenden Fehlern.
+_                            _
+_ Priority Preset Count:     _ Anzahl von m”glichen Abfragungen,
+_                            _ bevor eine h”here Priorit„t
+_                            _ in den Programmablauf eingreift.
+_                            _
+______________________________
+
+
+

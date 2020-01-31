@@ -1,0 +1,14 @@
+1993 Mar 22 09:55:18 <C> once.cpp 1.0 JACKN 2939 127 Original program; 9302.12
+1993 Mar 22 09:55:19 <C> once.exe 1.0 JACKN 31982 0
+1993 Mar 22 09:55:20 <RC> 1_0_0 JACKN
+1993 Mar 22 09:55:21 <RA> once.exe 1.0 1_0_0 JACKN
+1993 Mar 22 09:55:21 <RA> once.cpp 1.0 1_0_0 JACKN
+1993 Mar 22 09:55:24 <OL> once.exe 1.0 JACKN 31982 0
+1993 Mar 22 09:55:24 <OL> once.cpp 1.0 JACKN 2939 127
+1993 Mar 22 09:56:39 <I> once.cpp 1.1 JACKN 3021 129 5 3 Fix 'per week' algorithm; 9302.15
+1993 Mar 22 09:56:39 <I> once.exe 1.1 JACKN 32048 129 -2 3
+1993 Mar 22 09:56:42 <RC> 1_0_1 JACKN
+1993 Mar 22 09:56:41 <RA> once.exe 1.1 1_0_1 JACKN
+1993 Mar 22 09:56:41 <RA> once.cpp 1.1 1_0_1 JACKN
+1993 Mar 22 09:56:44 <OL> once.exe 1.1 JACKN 32048 0
+1993 Mar 22 09:56:44 <OL> once.cpp 1.1 JACKN 3021 129

@@ -1,0 +1,7 @@
+\lib\tc\comm\gfcl.lib+
+\lib\tc\common\common.lib+
+\lib\tc\seashell\seashell.lib+
+\lib\tc\emu+
+\lib\tc\mathl+
+\lib\tc\cl
+
