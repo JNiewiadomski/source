@@ -85,7 +85,7 @@ customize_prompt() {
     local -r MAGENTA="\001$(tput setaf 5)\002"
     local -r CYAN="\001$(tput setaf 6)\002"
     local -r WHITE="\001$(tput setaf 7)\002"
-    local -r DEFAULT_COLOR="\001$(tput setaf 9)\001"
+    local -r DEFAULT_COLOR="\001$(tput sgr0)\001"
 
     PS1="${BLUE}{${DEFAULT_COLOR} \W ${BLUE}} ${GREEN}\$(git rev-parse --abbrev-ref HEAD 2> /dev/null || echo '\u@\h') ${RED}\$${DEFAULT_COLOR} "
 
