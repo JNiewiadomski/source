@@ -87,7 +87,7 @@ customize_prompt() {
     local -r WHITE="\001$(tput setaf 7)\002"
     local -r DEFAULT_COLOR="\001$(tput sgr0)\001"
 
-    PS1="${BLUE}{${DEFAULT_COLOR} \W ${BLUE}} ${GREEN}\$(git rev-parse --abbrev-ref HEAD 2> /dev/null || echo '\u@\h') ${RED}\$${DEFAULT_COLOR} "
+    PS1="${GREEN}\$(git rev-parse --abbrev-ref HEAD 2> /dev/null || echo '\u@\h')${DEFAULT_COLOR} ${YELLOW}\w${DEFAULT_COLOR}\n\$ "
 
     PROMPT_COMMAND="RETURN_CODE=\${?} ; if [ \${RETURN_CODE} -ne 0 ] ; then echo -en \"${RED}[\${RETURN_CODE}]${DEFAULT_COLOR}\" ; else echo -n \"\" ; fi"
 
