@@ -1,7 +1,8 @@
 #!/bin/bash
 
 create_soft_links() {
-    local -r HOME_FILES="$(dirname "${0}")/home";
+    local -r SCRIPT=$(readlink -f ${0})
+    local -r HOME_FILES="$(dirname "${SCRIPT}")/home";
 
     echo "Creating soft links to files in ${HOME_FILES}"
 
