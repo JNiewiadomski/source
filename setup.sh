@@ -32,7 +32,12 @@ create_soft_links() {
 
 install_tools() {
     local -r TOOLS="most tig tmux"
-    sudo apt-get install -y "${TOOLS}"
+
+    if where apt-get 2> /dev/null ; then
+        sudo apt-get install -y "${TOOLS}"
+    else
+        echo "apt-get not available: Skipping install of tools: ${TOOLS}"
+    fi
 }
 
 create_vim_directories() {
