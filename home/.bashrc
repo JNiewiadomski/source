@@ -111,7 +111,11 @@ define_environment_variables() {
     #
     export EDITOR=vim
     export VISUAL=${EDITOR}
-    export PAGER=most
+
+    # Only set PAGER if we have access to `most`.
+    if which most 2> /dev/null ; then
+        export PAGER=most
+    fi
 }
 
 customize_prompt
