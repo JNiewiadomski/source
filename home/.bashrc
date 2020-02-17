@@ -113,7 +113,7 @@ define_environment_variables() {
     export VISUAL=${EDITOR}
 
     # Only set PAGER if we have access to `most`.
-    if which most 2> /dev/null ; then
+    if which most > /dev/null 2> /dev/null ; then
         export PAGER=most
     fi
 }

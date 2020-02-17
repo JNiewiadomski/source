@@ -34,7 +34,7 @@ create_soft_links() {
 install_tools() {
     local -r TOOLS="most tig tmux"
 
-    if which apt-get 2> /dev/null ; then
+    if which apt-get > /dev/null 2> /dev/null ; then
         sudo apt-get install -y ${TOOLS}
     else
         echo "apt-get not available: Skipping install of tools: ${TOOLS}"
