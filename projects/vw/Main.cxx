@@ -5,11 +5,40 @@
 #include <chrono>
 #include <cstring>
 #include <iostream>
+#include <map>
 #include <string>
 #include <thread>
 
 #include "Posix.h"
 #include "Signal_Handler.h"
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// C++ Compiler Version Check
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-function"
+static void check_compiler_version()
+{
+    std::map<int, std::string> versions
+    {
+        { 201703L, "C++17" },
+        { 201402L, "C++14" },
+        { 201103L, "C++11" },
+        { 199711L, "C++98" }
+    };
+
+    auto const version { versions.find(__cplusplus) };
+
+    if (version == versions.end())
+    {
+        std::cout << "Pre-standard C++" << std::endl;
+    }
+    else
+    {
+        std::cout << version->second << std::endl;
+    }
+}
+#pragma GCC diagnostic pop
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // My_Signal_Handler
