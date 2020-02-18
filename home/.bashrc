@@ -89,7 +89,7 @@ customize_prompt() {
 
     PS1="${GREEN}\$(git rev-parse --abbrev-ref HEAD 2> /dev/null || echo '\u@\h')${DEFAULT_COLOR} ${YELLOW}\w${DEFAULT_COLOR}\n\$ "
 
-    PROMPT_COMMAND="RETURN_CODE=\${?} ; if [ \${RETURN_CODE} -ne 0 ] ; then echo -en \"${RED}[\${RETURN_CODE}]${DEFAULT_COLOR}\" ; else echo -n \"\" ; fi"
+    PROMPT_COMMAND="RETURN_CODE=\${?} ; if [ \${RETURN_CODE} -ne 0 ] ; then echo -en \"${RED}{ \${RETURN_CODE} }${DEFAULT_COLOR} \" ; else echo -n \"\" ; fi"
 
     unset -f esc bash_esc
 }
