@@ -31,7 +31,7 @@ function create_soft_links() {
 
         # Create symbolic link to file.
         echo "${DST} -> ${SRC}"
-        
+
         if ! ln -s "${SRC}" "${DST}" ; then
             exit "${EXIT_FAILURE}"
         fi
@@ -63,11 +63,11 @@ function set_custom_login() {
     local -r VORNERC="${HOME}/.vornerc"
 
     if grep --no-messages --quiet "${VORNE_USERNAME}" "${BASHRC}" ; then
-        if ! echo ". ${BASHRC_CUSTOM}" > "${VORNERC}" ; then
+        if ! echo "source ${BASHRC_CUSTOM}" > "${VORNERC}" ; then
             exit "${EXIT_FAILURE}"
         fi
     elif grep --no-messages --quiet "${BASHRC_CUSTOM}" "${BASHRC}" ; then
-        if ! echo ". ${BASHRC_CUSTOM}" >> "${BASHRC}" ; then
+        if ! echo "source ${BASHRC_CUSTOM}" >> "${BASHRC}" ; then
             exit "${EXIT_FAILURE}"
         fi
     fi
