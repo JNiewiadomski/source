@@ -1,91 +1,27 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+function use_gcc_colors() {
+    # colored GCC warnings and errors
+    export GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
+}
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
-
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
-
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    source /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    source /etc/bash_completion
-  fi
-fi
-
-ssh_agent() {
+function ssh_agent() {
     # Working with SSH key passphrases
     # https://help.github.com/en/github/authenticating-to-github/working-with-ssh-key-passphrases
 
-    local -r ENV=~/.ssh/agent.env
+    local -r ENV="${HOME}/.ssh/agent.env"
 
     agent_load_env() {
         test -f "${ENV}" && source "${ENV}" >| /dev/null
     }
 
     agent_start () {
-        (umask 077 ; ssh-agent >| "${ENV}")
+        ( umask 077 ; ssh-agent >| "${ENV}" )
         source "${ENV}" >| /dev/null
     }
 
     agent_load_env
 
     # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
-    AGENT_RUN_STATE=$(ssh-add -l >| /dev/null 2>&1 ; echo $?)
+    AGENT_RUN_STATE="$(ssh-add -l >| /dev/null 2>&1 ; echo $?)"
 
     if [ ! "$SSH_AUTH_SOCK" ] || [ "${AGENT_RUN_STATE}" = 2 ] ; then
         agent_start
@@ -95,7 +31,7 @@ ssh_agent() {
     fi
 }
 
-customize_prompt() {
+function customize_prompt() {
     # Bash/Prompt customization
     # https://wiki.archlinux.org/index.php/Bash/Prompt_customization
     #
@@ -122,7 +58,7 @@ customize_prompt() {
     unset -f esc bash_esc
 }
 
-define_environment_variables() {
+function define_environment_variables() {
     # Environment variables
     # https://wiki.archlinux.org/index.php/Environment_variables
     #
@@ -137,15 +73,26 @@ define_environment_variables() {
     #   PAGER   Contains command to run the program used to list the contents of files,
     #           e.g., /bin/less.
     #
-    export EDITOR=vim
-    export VISUAL=${EDITOR}
+    export EDITOR="vim"
+    export VISUAL="${EDITOR}"
+
+    local -r MOST="most"
 
     # Only set PAGER if we have access to `most`.
-    if which most > /dev/null 2> /dev/null ; then
-        export PAGER=most
+    if hash "${MOST}" 2> /dev/null ; then
+        export PAGER="${MOST}"
     fi
 }
 
-ssh_agent
-customize_prompt
-define_environment_variables
+function main() {
+    use_gcc_colors
+
+    if [[ "${USER}" != "vagrant" ]] ; then
+        ssh_agent
+    fi
+
+    customize_prompt
+    define_environment_variables
+}
+
+main

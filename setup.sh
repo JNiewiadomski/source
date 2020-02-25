@@ -73,6 +73,10 @@ function set_custom_login() {
     fi
 }
 
-create_soft_links
-create_vim_directories
-set_custom_login
+function main() {
+    create_soft_links
+    create_vim_directories
+    set_custom_login
+}
+
+main
