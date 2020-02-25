@@ -1,8 +1,10 @@
 #!/bin/bash
 
-create_soft_links() {
-    local -r SCRIPT=$(readlink -f ${0})
-    local -r HOME_FILES="$(dirname "${SCRIPT}")/home";
+readonly EXIT_FAILURE=1
+
+function create_soft_links() {
+    local -r SCRIPT="$(readlink -f "${0}")"
+    local -r HOME_FILES="$(dirname "${SCRIPT}")/home"
 
     echo "Creating soft links to files in ${HOME_FILES}"
 
@@ -11,58 +13,66 @@ create_soft_links() {
 
     for SRC in "${HOME_FILES}"/{.[!.],}*
     do
-        DST=~/$(basename "${SRC}");
+        DST="${HOME}/$(basename "${SRC}")"
 
         # Remove existing symbolic links.
-        if [ -h "${DST}" ];
-        then
-            unlink "${DST}";
+        if [ -h "${DST}" ] ; then
+            if ! unlink "${DST}" ; then
+                exit "${EXIT_FAILURE}"
+            fi
         fi
 
         # Remove existing destination files.
-        if [ -f "${DST}" ];
-        then
-            rm -f "${DST}";
+        if [ -f "${DST}" ] ; then
+            if ! rm -f "${DST}" ; then
+                exit "${EXIT_FAILURE}"
+            fi
         fi
 
         # Create symbolic link to file.
         echo "${DST} -> ${SRC}"
-        ln -s "${SRC}" "${DST}";
+        
+        if ! ln -s "${SRC}" "${DST}" ; then
+            exit "${EXIT_FAILURE}"
+        fi
     done
 }
 
-install_tools() {
-    local -r TOOLS="most tig tmux"
+function create_vim_directories() {
+    echo "Creating vim directories"
 
-    if which apt-get > /dev/null 2> /dev/null ; then
-        sudo apt-get install -y ${TOOLS}
-    else
-        echo "apt-get not available: Skipping install of tools: ${TOOLS}"
-    fi
-}
+    local -r VIM_ROOT="${HOME}/.vim"
 
-create_vim_directories() {
     # Create directories used by VIM as specified in .vimrc file.
-    mkdir -p ~/.vim/backup
-    mkdir -p ~/.vim/swap
-    mkdir -p ~/.vim/undo
+    local -r VIM_DIRS=(
+        "${VIM_ROOT}/backup"
+        "${VIM_ROOT}/swap"
+        "${VIM_ROOT}/undo"
+        )
+
+    for VIM_DIR in "${VIM_DIRS[@]}" ; do
+        if ! mkdir -p "${VIM_DIR}" ; then
+            exit "${EXIT_FAILURE}"
+        fi
+    done
 }
 
-set_login_shell() {
-    if [ "${SHELL}" != "/bin/bash" ] ; then
-        if sudo where chsh 2> /dev/null ; then
-            echo "Setting bash as login shell."
-            sudo chsh -s /bin/bash "${USER}"
-        else
-            echo
-            echo "Unable to set bash as login shell for ${USER}: chsh not found."
-            echo "Manually edit /etc/passwd."
-            return 1
+function set_custom_login() {
+    local -r BASHRC="${HOME}/.bashrc"
+    local -r BASHRC_CUSTOM="${BASHRC}-custom"
+    local -r VORNERC="${HOME}/.vornerc"
+
+    if grep --no-messages --quiet "${VORNE_USERNAME}" "${BASHRC}" ; then
+        if ! echo ". ${BASHRC_CUSTOM}" > "${VORNERC}" ; then
+            exit "${EXIT_FAILURE}"
+        fi
+    elif grep --no-messages --quiet "${BASHRC_CUSTOM}" "${BASHRC}" ; then
+        if ! echo ". ${BASHRC_CUSTOM}" >> "${BASHRC}" ; then
+            exit "${EXIT_FAILURE}"
         fi
     fi
 }
 
 create_soft_links
-install_tools
 create_vim_directories
-set_login_shell
+set_custom_login
