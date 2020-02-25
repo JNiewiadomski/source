@@ -62,7 +62,7 @@ function set_custom_login() {
     local -r BASHRC_CUSTOM="${BASHRC}-custom"
     local -r VORNERC="${HOME}/.vornerc"
 
-    if grep --no-messages --quiet "${VORNE_USERNAME}" "${BASHRC}" ; then
+    if grep --no-messages --quiet "VORNE_USERNAME" "${BASHRC}" ; then
         if ! echo "source ${BASHRC_CUSTOM}" > "${VORNERC}" ; then
             exit "${EXIT_FAILURE}"
         fi
