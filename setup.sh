@@ -6,8 +6,6 @@ function create_soft_links() {
     local -r SCRIPT="$(readlink -f "${0}")"
     local -r HOME_FILES="$(dirname "${SCRIPT}")/home"
 
-    echo "Creating soft links to files in ${HOME_FILES}"
-
     local SRC
     local DST
 
@@ -39,8 +37,6 @@ function create_soft_links() {
 }
 
 function create_vim_directories() {
-    echo "Creating vim directories"
-
     local -r VIM_ROOT="${HOME}/.vim"
 
     # Create directories used by VIM as specified in .vimrc file.
@@ -51,8 +47,12 @@ function create_vim_directories() {
         )
 
     for VIM_DIR in "${VIM_DIRS[@]}" ; do
-        if ! mkdir -p "${VIM_DIR}" ; then
-            exit "${EXIT_FAILURE}"
+        if [[ ! -d "${VIM_DIR}" ]] ; then
+            echo "Creating ${VIM_DIR}"
+
+            if ! mkdir -p "${VIM_DIR}" ; then
+                exit "${EXIT_FAILURE}"
+            fi
         fi
     done
 }
@@ -66,7 +66,7 @@ function set_custom_login() {
         if ! echo "source ${BASHRC_CUSTOM}" > "${VORNERC}" ; then
             exit "${EXIT_FAILURE}"
         fi
-    elif grep --no-messages --quiet "${BASHRC_CUSTOM}" "${BASHRC}" ; then
+    elif ! grep --no-messages --quiet "${BASHRC_CUSTOM}" "${BASHRC}" ; then
         if ! echo "source ${BASHRC_CUSTOM}" >> "${BASHRC}" ; then
             exit "${EXIT_FAILURE}"
         fi

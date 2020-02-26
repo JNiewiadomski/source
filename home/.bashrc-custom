@@ -84,6 +84,34 @@ function define_environment_variables() {
     fi
 }
 
+function gitx()
+{
+    local SCRIPT_ROOT="${PWD}"
+
+    if [[ -z "${REPO_ROOT+x}" ]] ; then
+        echo "REPO_ROOT undefined; defaulting to ${SCRIPT_ROOT}"
+    else
+        SCRIPT_ROOT="${REPO_ROOT}"
+    fi
+
+    for DIR in ${SCRIPT_ROOT} ; do
+        if [[ -d "${DIR}/.git" ]] ; then
+            if cd "${DIR}" ; then
+                echo
+                pwd
+
+                if [[ "${1}" = "extern" ]] ; then
+                    ${*:2}
+                else
+                    git ${*}
+                fi
+            else
+                echo "Unable to access ${DIR}"
+            fi
+        fi
+    done
+}
+
 function main() {
     use_gcc_colors
 
@@ -93,6 +121,8 @@ function main() {
 
     customize_prompt
     define_environment_variables
+
+    export -f gitx
 }
 
 main
