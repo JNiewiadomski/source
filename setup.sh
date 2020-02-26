@@ -11,27 +11,29 @@ function create_soft_links() {
 
     for SRC in "${HOME_FILES}"/{.[!.],}*
     do
-        DST="${HOME}/$(basename "${SRC}")"
+        if [[ "${SRC: -1}" != "*" ]] ; then
+            DST="${HOME}/$(basename "${SRC}")"
 
-        # Remove existing symbolic links.
-        if [ -h "${DST}" ] ; then
-            if ! unlink "${DST}" ; then
+            # Remove existing symbolic links.
+            if [ -h "${DST}" ] ; then
+                if ! unlink "${DST}" ; then
+                    exit "${EXIT_FAILURE}"
+                fi
+            fi
+
+            # Remove existing destination files.
+            if [ -f "${DST}" ] ; then
+                if ! rm -f "${DST}" ; then
+                    exit "${EXIT_FAILURE}"
+                fi
+            fi
+
+            # Create symbolic link to file.
+            echo "${DST} -> ${SRC}"
+
+            if ! ln -s "${SRC}" "${DST}" ; then
                 exit "${EXIT_FAILURE}"
             fi
-        fi
-
-        # Remove existing destination files.
-        if [ -f "${DST}" ] ; then
-            if ! rm -f "${DST}" ; then
-                exit "${EXIT_FAILURE}"
-            fi
-        fi
-
-        # Create symbolic link to file.
-        echo "${DST} -> ${SRC}"
-
-        if ! ln -s "${SRC}" "${DST}" ; then
-            exit "${EXIT_FAILURE}"
         fi
     done
 }
