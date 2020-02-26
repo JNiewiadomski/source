@@ -94,7 +94,7 @@ function gitx()
         SCRIPT_ROOT="${REPO_ROOT}"
     fi
 
-    for DIR in ${SCRIPT_ROOT} ; do
+    for DIR in ${SCRIPT_ROOT} ${SCRIPT_ROOT}/* ; do
         if [[ -d "${DIR}/.git" ]] ; then
             if cd "${DIR}" ; then
                 echo
