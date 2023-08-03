@@ -126,3 +126,6 @@ function main() {
 }
 
 main
+source /opt/poky/2.4.2/environment-setup-cortexa8hf-neon-poky-linux-gnueabi
+ssh -T git@github.com
+cd ~/src/mono
