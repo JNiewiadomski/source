@@ -3,34 +3,6 @@ function use_gcc_colors() {
     export GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01"
 }
 
-function ssh_agent() {
-    # Working with SSH key passphrases
-    # https://help.github.com/en/github/authenticating-to-github/working-with-ssh-key-passphrases
-
-    local -r ENV="${HOME}/.ssh/agent.env"
-
-    agent_load_env() {
-        test -f "${ENV}" && source "${ENV}" >| /dev/null
-    }
-
-    agent_start () {
-        ( umask 077 ; ssh-agent >| "${ENV}" )
-        source "${ENV}" >| /dev/null
-    }
-
-    agent_load_env
-
-    # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
-    AGENT_RUN_STATE="$(ssh-add -l >| /dev/null 2>&1 ; echo $?)"
-
-    if [ ! "$SSH_AUTH_SOCK" ] || [ "${AGENT_RUN_STATE}" = 2 ] ; then
-        agent_start
-        ssh-add
-    elif [ "$SSH_AUTH_SOCK" ] && [ "${AGENT_RUN_STATE}" = 1 ] ; then
-        ssh-add
-    fi
-}
-
 function customize_prompt() {
     # Bash/Prompt customization
     # https://wiki.archlinux.org/index.php/Bash/Prompt_customization
@@ -82,50 +54,30 @@ function define_environment_variables() {
     if hash "${MOST}" 2> /dev/null ; then
         export PAGER="${MOST}"
     fi
+
+    export MONO_SRC=/home/dev/src/mono
 }
 
-function gitx()
-{
-    local SCRIPT_ROOT="${PWD}"
+function source_the_sdk() {
+    local -r SCRIPT=${1}
 
-    if [[ -z "${REPO_ROOT+x}" ]] ; then
-        echo "REPO_ROOT undefined; defaulting to ${SCRIPT_ROOT}"
-    else
-        SCRIPT_ROOT="${REPO_ROOT}"
+    if [ -f "${SCRIPT}" ] ; then
+        source "${SCRIPT}"
     fi
-
-    for DIR in ${SCRIPT_ROOT} ${SCRIPT_ROOT}/* ; do
-        if [[ -d "${DIR}/.git" ]] ; then
-            if cd "${DIR}" ; then
-                echo
-                pwd
-
-                if [[ "${1}" = "extern" ]] ; then
-                    ${*:2}
-                else
-                    git ${*}
-                fi
-            else
-                echo "Unable to access ${DIR}"
-            fi
-        fi
-    done
 }
 
 function main() {
     use_gcc_colors
-
-    if [[ "${USER}" != "vagrant" ]] ; then
-        ssh_agent
-    fi
-
     customize_prompt
     define_environment_variables
 
-    export -f gitx
+    # release-2.19 and later
+    source_the_sdk /opt/poky/4.0.10/environment-setup-armv7at2hf-neon-poky-linux-gnueabi
+
+    # release-2.18 and earlier
+    source_the_sdk /opt/poky/2.4.2/environment-setup-cortexa8hf-neon-poky-linux-gnueabi
 }
 
 main
-source /opt/poky/2.4.2/environment-setup-cortexa8hf-neon-poky-linux-gnueabi
 ssh -T git@github.com
 cd ~/src/mono
