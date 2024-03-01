@@ -3,6 +3,17 @@ set print object on
 set print vtbl on
 set print demangle on
 
+# Keep running process until a signal is received.
+define run_until_failure
+    while 1
+      run
+      if $_siginfo
+        printf "Received signal %d, stopping\n", $_siginfo.si_signo
+        loop_break
+      end
+    end
+end
+
 # sets the focus to command window
 define fc
     focus cmd
@@ -27,14 +38,15 @@ define snl
 end
 
 printf "\n"
-printf "--------------------------------------------------------------\n"
-printf "    fc - focus on command window (focus cmd)\n"
-printf "    fs - focus on src window (focus src)\n"
-printf "layout - split window\n"
-printf "    lb - load breakpoints (source ./breakpoints.txt)\n"
-printf "    sb - save breakpoints (save breakpoints ./breakpoints.txt)\n"
-printf "   snl - skip next line of execution\n"
-printf "--------------------------------------------------------------\n"
+printf "-------------------------------------------------------------------------\n"
+printf "               fc - focus on command window (focus cmd)\n"
+printf "               fs - focus on src window (focus src)\n"
+printf "           layout - split window\n"
+printf "               lb - load breakpoints (source ./breakpoints.txt)\n"
+printf "run_until_failure - keep running process until a signal is received\n"
+printf "               sb - save breakpoints (save breakpoints ./breakpoints.txt)\n"
+printf "              snl - skip next line of execution\n"
+printf "-------------------------------------------------------------------------\n"
 printf "\n"
 
 # this will make debugging the XL process more pleasant
